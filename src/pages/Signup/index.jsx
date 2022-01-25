@@ -7,6 +7,10 @@ import Input from "../../common/Input";
 import { FormGroup } from "../../components/ContactForm/styles";
 
 const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, "Name too short.")
+    .max(100, "Names too long")
+    .required("Name is required"),
   email: Yup.string()
     .email("Must be a valid email address")
     .max(100, "Email too long")

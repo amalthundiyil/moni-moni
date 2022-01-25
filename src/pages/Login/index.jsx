@@ -77,8 +77,8 @@ const Login = () => {
                 {touched.password && errors.password && (
                   <div className="error-message">{errors.password}</div>
                 )}
-                <Button type="Login" disabled={isSubmitting}>
-                  Submit
+                <Button type="submit" disabled={isSubmitting}>
+                  Login
                 </Button>
               </LoginSection>
             </FormGroup>
