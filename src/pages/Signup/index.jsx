@@ -1,116 +1,105 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Form, Alert } from "react-bootstrap";
 import { Button } from "../../common/Button/index";
 import { SignupSection } from "./styles";
-import { isEmail, isEmpty, isLength, isContainWhiteSpace } from "./validator";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { Link } from "react-router-dom";
+import Input from "../../common/Input";
+import { FormGroup } from "../../components/ContactForm/styles";
 
-class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formData: {}, // Contains login form data
-      errors: {}, // Contains login field errors
-      formSubmitted: false, // Indicates submit status of login form
-      loading: false, // Indicates in progress state of login form
-    };
-  }
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be a valid email address")
+    .max(100, "Email too long")
+    .required("Email is required"),
+  password: Yup.string()
+    .required("Password is required.")
+    .min(8, "Password is too short")
+    .matches(/[a-zA-Z]/, "Password can contain English letters only."),
+});
 
-  handleChange = (e) => {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
+const Login = () => {
+  return (
+    <SignupSection>
+      <Formik
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          setSubmitting(true);
 
-    let { formData } = this.state;
-    formData[name] = value;
-
-    this.setState({
-      formData: formData,
-    });
-  };
-
-  validateLoginForm = (e) => {
-    let errors = {};
-    const { formData } = this.state;
-
-    if (isEmpty(formData.email)) {
-      errors.email = "Email can't be blank";
-    } else if (!isEmail(formData.email)) {
-      errors.email = "Please enter a valid email";
-    }
-
-    if (isEmpty(formData.password)) {
-      errors.password = "Password can't be blank";
-    } else if (isContainWhiteSpace(formData.password)) {
-      errors.password = "Password should not contain white spaces";
-    } else if (!isLength(formData.password, { gte: 6, lte: 16, trim: true })) {
-      errors.password = "Password's length must between 6 to 16";
-    }
-
-    if (isEmpty(errors)) {
-      return true;
-    } else {
-      return errors;
-    }
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    let errors = this.validateLoginForm(e);
-
-    if (errors === true) {
-      alert("You are successfully signed in...");
-      window.location.reload();
-    } else {
-      this.setState({
-        errors: errors,
-        formSubmitted: true,
-      });
-    }
-  };
-
-  render() {
-    const { errors, formSubmitted } = this.state;
-    return (
-      <>
-        <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <SignupSection>
-            <Form.Group
-              controlId="email"
-              validationState={
-                formSubmitted ? (errors.email ? "error" : "success") : null
-              }
-            >
-              <Form.Control
+          setTimeout(() => {
+            JSON.stringify(values, null, 2);
+            resetForm();
+            setSubmitting(false);
+          }, 500);
+        }}
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <FormGroup onSubmit={handleSubmit}>
+            <SignupSection>
+              <Input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                className={touched.name && errors.name ? "error" : null}
+              />
+              {touched.name && errors.name && (
+                <div className="error-message">{errors.name}</div>
+              )}
+              <Input
                 type="text"
                 name="email"
                 placeholder="Enter your email"
-                onChange={this.handleChange}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                className={touched.email && errors.email ? "error" : null}
               />
-              {errors.email && <Alert>{errors.email}</Alert>}
-            </Form.Group>
-            <Form.Group
-              controlId="password"
-              validationState={
-                formSubmitted ? (errors.password ? "error" : "success") : null
-              }
-            >
-              <Form.Control
+              {touched.email && errors.email && (
+                <div className="error-message">{errors.email}</div>
+              )}
+              <Input
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                onChange={this.handleChange}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                className={touched.password && errors.password ? "error" : null}
               />
-              {errors.password && <Alert>{errors.password}</Alert>}
-            </Form.Group>
-            <Button type="submit">Submit</Button>
-            <Link to="/login">Already have an account? Login here.</Link>
-          </SignupSection>
-        </Form>
-      </>
-    );
-  }
-}
+              {touched.password && errors.password && (
+                <div className="error-message">{errors.password}</div>
+              )}
+              <Button
+                type="Submit"
+                disabled={isSubmitting}
+                style={{ margin: "1em" }}
+              >
+                Submit
+              </Button>
+            </SignupSection>
+          </FormGroup>
+        )}
+      </Formik>
+      <Link to="/login" style={{ fontSize: "0.8rem" }}>
+        Already have an account? Login here.
+      </Link>
+    </SignupSection>
+  );
+};
 
-export default Signup;
+export default Login;
