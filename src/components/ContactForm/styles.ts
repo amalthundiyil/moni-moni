@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const ContactSection = styled("section")`
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+`;
 export const ContactContainer = styled("div")`
   padding: 5rem 0;
 

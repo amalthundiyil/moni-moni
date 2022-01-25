@@ -31,9 +31,10 @@ const Header = ({ t }: any) => {
   };
 
   const MenuItem = () => {
-    const scrollTo = (id: string) => {
-      history.push("/home");
-      const element = document.getElementById(id) as HTMLDivElement;
+    const scrollTo = async (id: string) => {
+      await history.push("/home");
+      const element = document.getElementById(id)!.parentElement!
+        .parentElement as HTMLElement;
       element.scrollIntoView({
         behavior: "smooth",
       });

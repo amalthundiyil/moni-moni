@@ -2,11 +2,9 @@ import styled from "styled-components";
 
 export const LeftContentSection = styled("section")`
   position: relative;
-  padding: 10rem 0 8rem;
-
-  @media only screen and (max-width: 1024px) {
-    padding: 4rem 0 4rem;
-  }
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
 `;
 
 export const Content = styled("p")`
