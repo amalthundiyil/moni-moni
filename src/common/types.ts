@@ -4,6 +4,7 @@ export interface ContainerProps {
 }
 
 export interface ButtonProps {
+  type?: string;
   color?: string;
   fixedWidth?: boolean;
   name?: string;

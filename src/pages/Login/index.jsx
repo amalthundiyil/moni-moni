@@ -3,11 +3,10 @@ import { LoginSection } from "./styles";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Input from "../../common/Input";
-import {
-  FormGroup,
-  Span,
-  ButtonContainer,
-} from "../../components/ContactForm/styles";
+import { FormGroup } from "../../components/ContactForm/styles";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Must be a valid email address")
@@ -20,20 +19,32 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const history = useHistory();
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    setSubmitting(true);
+    try {
+      const response = await axios.post(
+        "/auth/login/",
+        JSON.stringify(values, null, 2)
+      );
+      if (response.message === "success") {
+        resetForm();
+        history.push("/dashboard");
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setSubmitting(false);
+  };
   return (
     <>
       <LoginSection>
         <Formik
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setSubmitting(true);
-
-            setTimeout(() => {
-              JSON.stringify(values, null, 2);
-              resetForm();
-              setSubmitting(false);
-            }, 500);
-          }}
+          onSubmit={handleSubmit}
           initialValues={{
             name: "",
             email: "",
@@ -84,6 +95,9 @@ const Login = () => {
             </FormGroup>
           )}
         </Formik>
+        <Link to="/signup" style={{ fontSize: "0.8rem" }}>
+          Don't have an account? Create one here.
+        </Link>
       </LoginSection>
     </>
   );

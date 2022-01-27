@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const LoginSection = styled("div")`
   margin: 0 auto;
-  margin-top: 70px;
   max-width: 400px;
   padding: 40px 40px;
   background: #fff;

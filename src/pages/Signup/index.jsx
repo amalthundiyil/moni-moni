@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import Input from "../../common/Input";
 import { FormGroup } from "../../components/ContactForm/styles";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -21,20 +22,30 @@ const validationSchema = Yup.object().shape({
     .matches(/[a-zA-Z]/, "Password can contain English letters only."),
 });
 
-const Login = () => {
+const Signup = () => {
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    setSubmitting(true);
+    try {
+      const response = await axios.post(
+        "/auth/register/",
+        JSON.stringify(values, null, 2)
+      );
+      if (response.message === "success") {
+        resetForm();
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setSubmitting(false);
+  };
+
   return (
     <SignupSection>
       <Formik
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setSubmitting(true);
-
-          setTimeout(() => {
-            JSON.stringify(values, null, 2);
-            resetForm();
-            setSubmitting(false);
-          }, 500);
-        }}
+        onSubmit={handleSubmit}
         initialValues={{
           name: "",
           email: "",
@@ -106,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
