@@ -53,7 +53,7 @@ def login(request):
                 "data": {"msg": "Incorrect password"},
             }
         )
-    return HttpResponseRedirect("/dashboard")
+    return HttpResponseRedirect("/api/v1/dashboard")
 
 
 @api_view(["GET"])

@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: './'
+    volumes:
+      - react_build:/frontend/build
+    networks:
+      main:
+
+  backend:
+    restart: always
+    build:
+      context: './server'
+    command: "gunicorn server.wsgi --bind 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      main:
+
+  db:
+    image: postgres:latest
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=payment_app_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    container_name: postgres_db
+    networks:
+      main:
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - react_build:/var/www/frontend
+    ports:
+      - "80:8080"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      main:
+
+volumes:
+  react_build:
+
+networks:
+  main:
+    driver: bridge

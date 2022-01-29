@@ -27,7 +27,7 @@ const Signup = () => {
     setSubmitting(true);
     try {
       const response = await axios.post(
-        "/auth/register/",
+        "api/v1/auth/register/",
         JSON.stringify(values, null, 2)
       );
       if (response.message === "success") {

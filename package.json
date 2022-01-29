@@ -2,7 +2,7 @@
   "name": "payment-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
+  "proxy": "http://localhost",
   "dependencies": {
     "@types/node": "^15.14.9",
     "@types/react": "^17.0.38",
