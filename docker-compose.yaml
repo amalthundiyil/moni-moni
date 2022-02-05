@@ -3,7 +3,7 @@ version: '3'
 services:
   frontend:
     build:
-      context: './'
+      context: './frontend'
     volumes:
       - react_build:/frontend/build
     networks:
