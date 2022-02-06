@@ -157,6 +157,10 @@ typings/
 # Envirnoment variables
 .env
 
+# Postgres
+/data
+deploy/postgres/postgres-credentials.yaml
+
 # ----- TERRAFORM -----
 
 # Local .terraform directories

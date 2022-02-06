@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for server project.
 
@@ -82,11 +84,11 @@ WSGI_APPLICATION = "server.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "payment_app_db",
-        "USER": "user",
-        "PASSWORD": "password",
-        "HOST": "db",
-        "PORT": "",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": os.getenv("POSTGRES_PORT", 5432),
     }
 }
 
@@ -145,6 +147,7 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
     "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
+
 
 if DEBUG:
     PAYTM_MERCHANT_KEY = "xxxx"

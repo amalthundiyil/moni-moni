@@ -9,6 +9,14 @@ services:
     networks:
       main:
 
+  dashboard:
+    build:
+      context: './dashboard'
+    volumes:
+      - dashboard_build:/dashboard/build
+    networks:
+      main:
+
   backend:
     restart: always
     build:
@@ -22,32 +30,40 @@ services:
       main:
 
   db:
-    image: postgres:latest
+    image: postgres:14.1
+    env_file:
+      - .env
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=payment_app_db
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_DB: $DATABASE_NAME
+      POSTGRES_PASS: $DATABASE_PASSWORD
     container_name: postgres_db
+    ports:
+      - 5432:5432
     networks:
       main:
 
   nginx:
-    image: nginx:latest
+    image: nginx:1.21.6
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - react_build:/var/www/frontend
+      - dashboard_build:/var/www/dashboard
     ports:
       - "80:8080"
     depends_on:
       - frontend
+      - dashboard
       - backend
     networks:
       main:
 
 volumes:
   react_build:
+  dashboard_build:
+  pgdata:
 
 networks:
   main:
