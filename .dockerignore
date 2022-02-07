@@ -9,5 +9,5 @@ Makefile
 *.md
 **/node_modules
 deploy/postgres/postgres-credentials.yaml
-__pycache__/
+**/__pycache__
 venv/
