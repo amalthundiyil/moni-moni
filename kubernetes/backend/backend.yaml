@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: backend
+  template:
+    metadata:
+      labels:
+        name: backend
+    spec:
+      containers:
+        - name: backend
+          image: amalthundiyil/backend:1.0
+          imagePullPolicy: Always
+          command: ["gunicorn"]
+          args: ["server.wsgi", "--bind", "0.0.0.0:8000"]
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PYTHONUNBUFFERED
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: PYTHONUNBUFFERED
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DATABASE_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DATABASE_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DATABASE_NAME
+            - name: POSTGRES_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DATABASE_PORT
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-volume-mount
+      volumes:
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
