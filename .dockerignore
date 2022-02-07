@@ -7,5 +7,7 @@ Dockerfile*
 **/*_test.go
 Makefile
 *.md
-nodemodules
+**/node_modules
 deploy/postgres/postgres-credentials.yaml
+__pycache__/
+venv/

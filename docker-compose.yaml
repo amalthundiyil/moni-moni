@@ -1,17 +1,18 @@
 version: '3'
 
 services:
-  frontend:
+
+  landing:
     build:
-      context: './frontend'
+      context: './services/client/landing'
     volumes:
-      - react_build:/frontend/build
+      - landing_build:/landing/build
     networks:
       main:
 
   dashboard:
     build:
-      context: './dashboard'
+      context: './services/client/dashboard'
     volumes:
       - dashboard_build:/dashboard/build
     networks:
@@ -19,49 +20,60 @@ services:
 
   backend:
     restart: always
+    command: gunicorn server.wsgi --bind 0.0.0.0:8000
     build:
-      context: './server'
-    command: "gunicorn server.wsgi --bind 0.0.0.0:8000"
+      context: './services/server'
+    env_file:
+      - .env
+    environment:
+      PYTHONUNBUFFERED: ${PYTHONUNBUFFERED}
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_HOST: ${DATABASE_HOST}
+      POSTGRES_PORT: ${DATABASE_PORT}
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - postgres
     networks:
       main:
 
-  db:
+  postgres:
     image: postgres:14.1
     env_file:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: $DATABASE_USER
-      POSTGRES_DB: $DATABASE_NAME
-      POSTGRES_PASS: $DATABASE_PASSWORD
-    container_name: postgres_db
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - 5432:5432
     networks:
       main:
 
   nginx:
-    image: nginx:1.21.6
+    build:
+      context: "./services/nginx"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - react_build:/var/www/frontend
+      - ./services/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - landing_build:/var/www/landing
       - dashboard_build:/var/www/dashboard
     ports:
       - "80:8080"
     depends_on:
-      - frontend
+      - landing
       - dashboard
       - backend
     networks:
       main:
 
 volumes:
-  react_build:
+  landing_build:
   dashboard_build:
   pgdata:
 
