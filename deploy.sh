@@ -38,6 +38,5 @@ echo "Creating the frontend deployment and service..."
 
 kubectl apply -f ./kubernetes/frontend.yaml
 
-
 # echo "Adding the minikube ip..."
-# echo "$(minikube ip) ipay.com" | sudo tee -a /etc/hosts
+# echo "$(minikube ip) payement.app" | sudo tee -a /etc/hosts

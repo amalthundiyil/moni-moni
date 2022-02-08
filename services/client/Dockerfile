@@ -1,6 +1,10 @@
 FROM node:16-alpine AS landing-build
 WORKDIR /landing
 COPY landing/ .
+
+ENV REACT_APP_HOST localhost
+ENV REACT_APP_PORT 80
+
 RUN npm install && npm run build
 
 # FROM node:16-alpine AS dashboard-build

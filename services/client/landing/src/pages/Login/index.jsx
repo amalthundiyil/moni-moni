@@ -25,7 +25,7 @@ const Login = () => {
     setSubmitting(true);
     try {
       const response = await axios.post(
-        "api/v1/auth/login/",
+        `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/v1/auth/login/`,
         JSON.stringify(values, null, 2)
       );
       if (response.message === "success") {
