@@ -9,6 +9,12 @@ spec:
   rules:
     - http:
         paths:
+          - path: /admin
+            backend:
+              service:
+                name: backend
+              port:
+                number: 8000
           - path: /?(.*)
             pathType: Prefix
             backend:
