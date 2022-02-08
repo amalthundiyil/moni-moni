@@ -10,4 +10,4 @@ RUN npm install && npm run build
 
 FROM nginx:1.21.6-alpine
 COPY --from=landing-build /landing/build/ /var/www/frontend
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
