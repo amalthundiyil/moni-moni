@@ -12,7 +12,7 @@ kubectl create secret generic secrets --from-env-file=.env
 
 echo "Creating the postgres deployment and service..."
 
-kubectl create -f ./kubernetes/postgres.yaml
+kubectl apply -f ./kubernetes/postgres.yaml
 
 # POD_NAME=$(kubectl get pod -l service=postgres -o jsonpath="{.items[0].metadata.name}")
 # kubectl exec $POD_NAME --stdin --tty -- createdb -U sample books
@@ -20,23 +20,23 @@ kubectl create -f ./kubernetes/postgres.yaml
 
 echo "Creating the backend deployment and service..."
 
-kubectl create -f ./kubernetes/backend.yaml
+kubectl apply -f ./kubernetes/backend.yaml
 
-# FLASK_POD_NAME=$(kubectl get pod -l app=flask -o jsonpath="{.items[0].metadata.name}")
-# kubectl exec $FLASK_POD_NAME --stdin --tty -- python manage.py recreate_db
-# kubectl exec $FLASK_POD_NAME --stdin --tty -- python manage.py seed_db
+# DJANDO_POD_NAME=$(kubectl get pod -l app=backend -o jsonpath="{.items[0].metadata.name}")
+# kubectl exec $DJANGO_POD_NAME --stdin --tty -- python manage.py create_db
+# kubectl exec $DJANGO_POD_NAME --stdin --tty -- python manage.py seed_db
 
 
 # echo "Adding the ingress..."
 
-# minikube addons enable ingress
-# kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
-# kubectl apply -f ./kubernetes/ingress.yaml
+minikube addons enable ingress
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+kubectl apply -f ./kubernetes/ingress.yaml
 
 
 echo "Creating the frontend deployment and service..."
 
-kubectl create -f ./kubernetes/frontend.yaml
+kubectl apply -f ./kubernetes/frontend.yaml
 
 
 # echo "Adding the minikube ip..."
