@@ -2,24 +2,20 @@ version: '3'
 
 services:
 
-  landing:
+  frontend:
+    image: amalthundiyil/frontend:latest
     build:
-      context: './services/client/landing'
-    volumes:
-      - landing_build:/landing/build
-    networks:
-      main:
-
-  dashboard:
-    build:
-      context: './services/client/dashboard'
-    volumes:
-      - dashboard_build:/dashboard/build
+      context: './services/client'
+    ports:
+      - "80:8080"
+    depends_on:
+      - backend
     networks:
       main:
 
   backend:
     restart: always
+    image: amalthundiyil/backend:latest
     command: gunicorn server.wsgi --bind 0.0.0.0:8000
     build:
       context: './services/server'
@@ -56,25 +52,7 @@ services:
     networks:
       main:
 
-  nginx:
-    build:
-      context: "./services/nginx"
-    volumes:
-      - ./services/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - landing_build:/var/www/landing
-      - dashboard_build:/var/www/dashboard
-    ports:
-      - "80:8080"
-    depends_on:
-      - landing
-      - dashboard
-      - backend
-    networks:
-      main:
-
 volumes:
-  landing_build:
-  dashboard_build:
   pgdata:
 
 networks:

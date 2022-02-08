@@ -8,6 +8,6 @@ Dockerfile*
 Makefile
 *.md
 **/node_modules
-deploy/postgres/postgres-credentials.yaml
+**/build
 **/__pycache__
 venv/

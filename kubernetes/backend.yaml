@@ -6,10 +6,9 @@ spec:
   selector:
     app: backend
   ports:
-    - protocol: TCP
-      port: 8000
+    - port: 8000
       targetPort: 8000
-  type: NodePort
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -30,7 +29,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: backend
-          image: amalthundiyil/backend:1.0
+          image: amalthundiyil/backend:latest
           imagePullPolicy: Always
           command: ["gunicorn"]
           args: ["server.wsgi", "--bind", "0.0.0.0:8000"]
