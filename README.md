@@ -15,13 +15,6 @@ Build the images and spin up the containers:
 $ docker-compose up -d --build
 ```
 
-Run the migrations and seed the database:
-
-```sh
-$ docker-compose exec server python manage.py recreate_db
-$ docker-compose exec server python manage.py seed_db
-```
-
 Test it out at:
 
 1. [http://localhost:8000/](http://localhost:8000/)
@@ -44,18 +37,21 @@ $ minikube start --vm-driver=virtualbox
 $ minikube dashboard
 ```
 
-#### Volume
+From here you can execute the `./deploy.sh` file or follow the instructions below it. Both will give you the same result.
 
-Create the volume:
+For executing `./deploy.sh`:
 
 ```sh
-$ kubectl apply -f ./kubernetes/persistent-volume.yml
+chmod +x ./deploy.sh
+./deploy.sh
 ```
 
-Create the volume claim:
+#### Volume
+
+Create the volume and the claim:
 
 ```sh
-$ kubectl apply -f ./kubernetes/persistent-volume-claim.yml
+$ kubectl apply -f ./kubernetes/postgres-storage.yml
 ```
 
 #### Secrets
@@ -80,13 +76,6 @@ Create deployment:
 
 ```sh
 $ kubectl create -f ./kubernetes/postgres.yml
-```
-
-Create the database:
-
-```sh
-$ kubectl get pods
-$ kubectl exec postgres-<POD_IDENTIFIER> --stdin --tty -- createdb -U postgres books
 ```
 
 #### Django

@@ -2,8 +2,11 @@ FROM node:16-alpine AS landing-build
 WORKDIR /landing
 COPY landing/ .
 
-ENV REACT_APP_HOST localhost
-ENV REACT_APP_PORT 80
+ARG REACT_APP_HOST
+ARG REACT_APP_PORT
+
+ENV REACT_APP_HOST=${REACT_APP_HOST}
+ENV REACT_APP_PORT=${REACT_APP_PORT}
 
 RUN npm install && npm run build
 

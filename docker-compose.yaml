@@ -6,6 +6,9 @@ services:
     image: amalthundiyil/frontend:latest
     build:
       context: './services/client'
+      args:
+        - REACT_APP_HOST=${REACT_APP_HOST}
+        - REACT_APP_PORT=${REACT_APP_PORT}
     ports:
       - "80:8080"
     depends_on:
