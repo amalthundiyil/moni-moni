@@ -1,4 +1,6 @@
+from distutils.cygwinccompiler import CygwinCCompiler
 import os
+import json
 
 """
 Django settings for server project.
@@ -25,9 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = str(os.getenv("DEBUG")) == "1"  # 1 is True
 ALLOWED_HOSTS = []
-
+if DEBUG:
+    ALLOWED_HOSTS += json.loads(os.getenv("ALLOWED_HOSTS"))
 
 # Application definition
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
+    "knox",
     "main.apps.MainConfig",
     "users.apps.UsersConfig",
     "paytm.apps.PaytmConfig",
@@ -110,6 +114,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ]
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -136,8 +147,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.CustomUser"
 
 # CORS Config
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost:3000"]
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOWED_ORIGINS = []
+if DEBUG:
+    CORS_ALLOWED_ORIGINS += json.loads(os.getenv("CORS_ALLOWED_ORIGINS"))
+CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS")) == "1"  # 1 is True
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",

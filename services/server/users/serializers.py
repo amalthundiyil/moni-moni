@@ -1,13 +1,35 @@
 from .models import CustomUser
 from rest_framework import serializers
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = "__all__"
+        fields = ("id", "name", "email")
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ("id", "name", "email", "password")
+        extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
-        validated_data["password"] = make_password(validated_data["password"])
-        return super(CustomUserSerializer, self).create(validated_data)
+        user = CustomUser.objects.create_user(
+            validated_data["name"],
+            validated_data["email"],
+            validated_data["password"],
+        )
+        return user
+
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Incorrect Credentials")
