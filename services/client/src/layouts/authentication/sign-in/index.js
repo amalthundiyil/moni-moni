@@ -33,10 +33,23 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 
+import useFormInput from "hooks/useFormInput";
+import usePost from "hooks/usePost";
+
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const email = useFormInput("");
+  const password = useFormInput("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const url = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/signup`;
+    const body = { email, password, rememberMe };
+    const { loading, data, error } = usePost(url, body);
+    console.log(loading, data, error);
+  };
 
   return (
     <CoverLayout
@@ -51,7 +64,7 @@ function SignIn() {
               Email
             </SuiTypography>
           </SuiBox>
-          <SuiInput type="email" placeholder="Email" />
+          <SuiInput type="email" placeholder="Email" {...email} />
         </SuiBox>
         <SuiBox mb={2}>
           <SuiBox mb={1} ml={0.5}>
@@ -59,7 +72,7 @@ function SignIn() {
               Password
             </SuiTypography>
           </SuiBox>
-          <SuiInput type="password" placeholder="Password" />
+          <SuiInput type="password" placeholder="Password" {...password} />
         </SuiBox>
         <SuiBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -73,7 +86,7 @@ function SignIn() {
           </SuiTypography>
         </SuiBox>
         <SuiBox mt={4} mb={1}>
-          <SuiButton variant="gradient" color="info" fullWidth>
+          <SuiButton variant="gradient" color="info" fullWidth onClick={(e) => handleSubmit(e)}>
             sign in
           </SuiButton>
         </SuiBox>
