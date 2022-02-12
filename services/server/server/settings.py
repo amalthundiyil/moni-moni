@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
-    "knox",
     "rest_framework_simplejwt.token_blacklist",
     "main.apps.MainConfig",
     "users.apps.UsersConfig",
@@ -174,9 +173,18 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 # CORS Config
 CORS_ALLOWED_ORIGINS = []
+
 if DEBUG:
     CORS_ALLOWED_ORIGINS += json.loads(os.getenv("CORS_ALLOWED_ORIGINS"))
+
 CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS")) == "1"  # 1 is True
+
+# Email Credentials
+EMAIL_USE_TLS = str(os.getenv("EMAIL_USE_TLS")) == "1"
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",

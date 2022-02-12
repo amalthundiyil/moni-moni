@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from django.core.mail import EmailMessage
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -18,6 +19,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
+        validated_data["is_active"] = False
         user = CustomUser.objects.create_user(
             validated_data["name"],
             validated_data["email"],
@@ -40,8 +42,8 @@ class LoginSerializer(serializers.Serializer):
             raise AuthenticationFailed(
                 "Your account is disabled. Please contact the admin."
             )
-        # if not user.is_verified:
-        #     raise AuthenticationFailed("Please verify your account.")
+        if not user.is_verified:
+            raise AuthenticationFailed("Please verify your account.")
 
         return user
 
