@@ -1,7 +1,14 @@
+from .serializers import (
+    CustomUserSerializer,
+    RegisterSerializer,
+    LoginSerializer,
+    LogoutSerializer,
+)
+from ..models import CustomUser
+from rest_framework import status
 from rest_framework import generics, permissions
 from rest_framework.response import Response
-from knox.models import AuthToken
-from .serializers import CustomUserSerializer, RegisterSerializer, LoginSerializer
+from rest_framework.views import APIView
 
 
 class RegisterAPI(generics.GenericAPIView):
@@ -11,14 +18,8 @@ class RegisterAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        return Response(
-            {
-                "user": CustomUserSerializer(
-                    user, context=self.get_serializer_context()
-                ).data,
-                "token": AuthToken.objects.create(user)[1],
-            }
-        )
+        token = user.tokens()
+        return Response(token)
 
 
 class LoginAPI(generics.GenericAPIView):
@@ -28,15 +29,21 @@ class LoginAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
-        _, token = AuthToken.objects.create(user)
-        return Response(
-            {
-                "user": CustomUserSerializer(
-                    user, context=self.get_serializer_context()
-                ).data,
-                "token": token,
-            }
-        )
+        token = user.tokens()
+        return Response(token)
+
+
+class LogoutAPI(generics.GenericAPIView):
+    serializer_class = LogoutSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UserAPI(generics.RetrieveAPIView):
