@@ -1,26 +1,25 @@
-from users.models import CustomUser
+from django.conf.global_settings import AUTH_USER_MODEL as User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from django.core.mail import EmailMessage
 
 
-class CustomUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ("id", "name", "email")
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ("id", "name", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
         validated_data["is_active"] = False
-        user = CustomUser.objects.create_user(
+        user = User.objects.create_user(
             validated_data["name"],
             validated_data["email"],
             validated_data["password"],

@@ -1,19 +1,15 @@
-from lib2to3.pgen2.tokenize import TokenError
 from .serializers import (
-    CustomUserSerializer,
+    UserSerializer,
     RegisterSerializer,
     LoginSerializer,
     LogoutSerializer,
 )
-from ..models import CustomUser
+from django.conf.global_settings import AUTH_USER_MODEL as User
 from rest_framework import status
 from rest_framework import generics, permissions
 from rest_framework.response import Response
-from django.core.mail import EmailMessage
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 from .utils import TokenGenerator, Email
 
 
@@ -58,7 +54,7 @@ class UserAPI(generics.RetrieveAPIView):
     permission_classes = [
         permissions.IsAuthenticated,
     ]
-    serializer_class = CustomUserSerializer
+    serializer_class = UserSerializer
 
     def get_object(self):
         return self.request.user
@@ -68,7 +64,7 @@ class ActivateAccountView(generics.GenericAPIView):
     def get(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
-            user = CustomUser.objects.get(pk=uid)
+            user = User.objects.get(pk=uid)
         except Exception as identifier:
             user = None
         generate_token = TokenGenerator()
