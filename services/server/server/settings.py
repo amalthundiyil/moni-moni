@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
-    "main.apps.MainConfig",
-    "users.apps.UsersConfig",
-    "paytm.apps.PaytmConfig",
+    "users",
+    "paytm",
+    "store",
 ]
 
 MIDDLEWARE = [
@@ -169,7 +169,12 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Custom User Model
 AUTH_USER_MODEL = "users.CustomUser"
+
+# Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # CORS Config
 CORS_ALLOWED_ORIGINS = []
@@ -186,6 +191,7 @@ EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
+# Hashings for custom user model
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
@@ -195,6 +201,7 @@ PASSWORD_HASHERS = [
 ]
 
 
+# PayTM config
 if DEBUG:
     PAYTM_MERCHANT_KEY = "xxxx"
     PAYTM_MERCHANT_ID = "xxxx"
