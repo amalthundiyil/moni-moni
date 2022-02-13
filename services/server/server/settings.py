@@ -1,6 +1,7 @@
 import os
 import json
 from datetime import timedelta
+import sys
 
 """
 Django settings for server project.
@@ -94,6 +95,10 @@ DATABASES = {
         "PORT": os.getenv("POSTGRES_PORT", 5432),
     }
 }
+# Covers regular testing and django-coverage
+if "test" in sys.argv or "test_coverage" in sys.argv:
+    DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
+    DATABASES["default"]["NAME"] = ":memory:"
 
 
 # Password validation
@@ -199,6 +204,8 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
     "django.contrib.auth.hashers.ScryptPasswordHasher",
 ]
+
+TEST_RUNNER = "server.runner.PytestTestRunner"
 
 
 # PayTM config
