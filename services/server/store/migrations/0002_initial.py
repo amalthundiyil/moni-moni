@@ -10,14 +10,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('paytm', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('store', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='paytmhistory',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name='product',
+            name='created_by',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_creator', to=settings.AUTH_USER_MODEL),
         ),
     ]

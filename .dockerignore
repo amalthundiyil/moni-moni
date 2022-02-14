@@ -11,3 +11,4 @@ Makefile
 **/build
 **/__pycache__
 venv/
+pytest_cache/

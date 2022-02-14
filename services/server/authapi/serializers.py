@@ -1,4 +1,4 @@
-from django.conf.global_settings import AUTH_USER_MODEL as User
+from users.models import CustomUser as User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
@@ -8,19 +8,19 @@ from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "name", "email")
+        fields = ("id", "user_name", "email")
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "name", "email", "password")
+        fields = ("id", "user_name", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
         validated_data["is_active"] = False
         user = User.objects.create_user(
-            validated_data["name"],
+            validated_data["user_name"],
             validated_data["email"],
             validated_data["password"],
         )

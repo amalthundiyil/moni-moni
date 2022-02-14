@@ -42,7 +42,7 @@ class Email(threading.Thread):
             )
         )
         email_subject = "Please activate your account"
-        email_body = f"Hello {user.name}, We are very glad to have you here.\nClick here to complete the verification {link}"
+        email_body = f"Hello {user.user_name}, We are very glad to have you here.\nClick here to complete the verification {link}"
         return cls(
             email=EmailMessage(
                 email_subject,

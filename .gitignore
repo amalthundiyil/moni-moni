@@ -107,6 +107,9 @@ ENV/
 # mypy
 .mypy_cache/
 
+# mypy
+.pytest_cache/
+
 # SQLite Databases
 *.db
 
