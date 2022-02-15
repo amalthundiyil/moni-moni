@@ -51,3 +51,30 @@ class Email(threading.Thread):
                 [user.email],
             )
         )
+
+    @classmethod
+    def password_reset(cls, request, user):
+        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+        generate_token = TokenGenerator()
+        current_site = get_current_site(request=request).domain
+        relativeLink = reverse(
+            "password-reset-confirm", kwargs={"uidb64": uidb64, "token": generate_token.make_token(user)}
+        )
+
+        redirect_url = request.data.get("redirect_url", "")
+        absurl = "http://" + current_site + relativeLink
+        email_body = (
+            "Hello, \n Use link below to reset your password  \n"
+            + absurl
+            + "?redirect_url="
+            + redirect_url
+        )
+        email_subject = "Reset your passsword"
+        return cls(
+            email=EmailMessage(
+                email_subject,
+                email_body,
+                "noreply@semycolon.com",  # dummy email id
+                [user.email],
+            )
+        )
