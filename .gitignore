@@ -201,3 +201,14 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+
+# Brownie
+
+__pycache__
+.env
+.history
+.hypothesis/
+build/
+reports/
+

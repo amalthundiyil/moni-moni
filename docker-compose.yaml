@@ -2,19 +2,19 @@ version: '3'
 
 services:
 
-  frontend:
-    image: amalthundiyil/frontend:latest
-    build:
-      context: './services/client'
-      args:
-        - REACT_APP_HOST=${REACT_APP_HOST}
-        - REACT_APP_PORT=${REACT_APP_PORT}
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    networks:
-      main:
+  # frontend:
+  #   image: amalthundiyil/frontend:latest
+  #   build:
+  #     context: './services/client'
+  #     args:
+  #       - REACT_APP_HOST=${REACT_APP_HOST}
+  #       - REACT_APP_PORT=${REACT_APP_PORT}
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     main:
 
   backend:
     restart: always
@@ -41,7 +41,9 @@ services:
       main:
 
   postgres:
-    image: postgres:14.1
+    build:
+      context: ./services/db
+      dockerfile: Dockerfile
     env_file:
       - .env
     volumes:
