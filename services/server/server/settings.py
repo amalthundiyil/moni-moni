@@ -165,3 +165,9 @@ PASSWORD_HASHERS = [
 ]
 
 TEST_RUNNER = "server.runner.PytestTestRunner"
+
+# Stripe Payment
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_ENPOINT_SECRET")
+# stripe listen --forward-to localhost:8000/api/v1/payments/processing/

@@ -1,58 +1,45 @@
 import json
 import os
 import stripe
-from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponse
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.base import TemplateView
 from rest_framework.response import Response
-from basket.basket import Basket
+from rest_framework import status
+from rest_framework import generics
 from orders.views import payment_confirmation
 
 
-def order_placed(request):
-    basket = Basket(request)
-    basket.clear()
-    return render(request, "payment/orderplaced.html")
+class PaymentStart(generics.GenericAPIView):
+    def post(self, request, *args, **kwargs):
+        total = str(request.data["price"])
+        total = total.replace(".", "")
+        total = int(total)
+
+        stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+        intent = stripe.PaymentIntent.create(
+            amount=total, currency="usd", metadata={"userid": request.user.id}
+        )
+
+        return Response(
+            data={"client_secret": intent.client_secret}, status=status.HTTP_200_OK
+        )
 
 
-class Error(TemplateView):
-    template_name = "payment/error.html"
+class PaymentProcessing(generics.GenericAPIView):
+    def post(self, request):
+        event = None
+        payload = json.dumps(request.data)
+        try:
+            event = stripe.Event.construct_from(json.loads(payload), stripe.api_key)
+        except ValueError as e:
+            return Response(data=e, status=status.HTTP_400_BAD_REQUEST)
+
+        if event and event.type == "payment_intent.succeeded":
+            return payment_confirmation(event.data.object.client_secret)
+        else:
+            print(f"Unhandled event type {event.type}")
+
+        return Response(status=status.HTTP_200_OK)
 
 
-@login_required
-def BasketView(request):
-
-    basket = Basket(request)
-    total = str(basket.get_total_price())
-    total = total.replace(".", "")
-    total = int(total)
-
-    stripe.api_key = os.getenv("STRIPE_API_KEY")
-    intent = stripe.PaymentIntent.create(
-        amount=total, currency="usd", metadata={"userid": request.user.id}
-    )
-
-    return Response({"client_secret": intent.client_secret})
-
-
-@csrf_exempt
-def stripe_webhook(request):
-    payload = request.body
-    event = None
-
-    try:
-        event = stripe.Event.construct_from(json.loads(payload), stripe.api_key)
-    except ValueError as e:
-        print(e)
-        return HttpResponse(status=400)
-
-    # Handle the event
-    if event.type == "payment_intent.succeeded":
-        payment_confirmation(event.data.object.client_secret)
-
-    else:
-        print("Unhandled event type {}".format(event.type))
-
-    return HttpResponse(status=200)
+class PaymentCompleted(generics.GenericAPIView):
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)

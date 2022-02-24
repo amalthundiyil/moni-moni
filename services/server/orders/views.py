@@ -2,13 +2,20 @@ from .models import Order, OrderItem
 from rest_framework import generics, permissions
 from .serializers import OrderSerializer, OrderItemSerializer
 from rest_framework.response import Response
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, viewsets
 
 
 class OrdersAPI(generics.GenericAPIView):
     permission_classes = [
         permissions.IsAuthenticated,
     ]
+
+    def get(self, request):
+        user_id = request.user.id
+        serializer = self.get_serializer(
+            Order.objects.filter(user_id=user_id).filter(billing_status=True, many=True)
+        )
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         order_serializer = OrderSerializer(data=request.data)
@@ -23,9 +30,3 @@ class OrdersAPI(generics.GenericAPIView):
 
 def payment_confirmation(data):
     Order.objects.filter(order_key=data).update(billing_status=True)
-
-
-def user_orders(request):
-    user_id = request.user.id
-    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)
-    return orders

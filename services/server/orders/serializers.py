@@ -6,15 +6,6 @@ from .models import OrderItem
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        # fields = (
-        #     "id",
-        #     "user",
-        #     "full_name",
-        #     "address1",
-        #     "address2",
-        #     "total_paid",
-        #     "order_key",
-        # )
         fields = "__all__"
 
     def create(self, validated_data):
@@ -25,7 +16,6 @@ class OrderSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        # fields = ("order_id", "product", "price", "quantity")
         fields = "__all__"
 
     def create(self, validated_data):
