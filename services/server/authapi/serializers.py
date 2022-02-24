@@ -10,12 +10,6 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ("id", "user_name", "email")
-
-
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

@@ -1,11 +1,14 @@
 from django.urls import path
 
-from . import views
+from .views import CategoryAPI, ProductsAPI
 
 app_name = "store"
 
 urlpatterns = [
-    path("", views.product_all, name="product_all"),
-    path("<slug:slug>", views.product_detail, name="product_detail"),
-    path("shop/<slug:category_slug>/", views.category_list, name="category_list"),
+    path("products/", ProductsAPI.as_view(), name="product_all"),
+    path("products/<slug:slug>/", ProductsAPI.as_view(), name="product_detail"),
+    path("category/", CategoryAPI.as_view(), name="categories_all"),
+    path(
+        "category/<slug:category_slug>", CategoryAPI.as_view(), name="category_detail"
+    ),
 ]

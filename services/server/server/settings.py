@@ -24,10 +24,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "django_countries",
-    "authapi",
-    "users",
-    "paytm",
-    "store",
+    "authapi.apps.AuthapiConfig",
+    "users.apps.UsersConfig",
+    "payments.apps.PaymentsConfig",
+    "store.apps.StoreConfig",
+    "orders.apps.OrdersConfig",
 ]
 
 MIDDLEWARE = [
@@ -164,16 +165,3 @@ PASSWORD_HASHERS = [
 ]
 
 TEST_RUNNER = "server.runner.PytestTestRunner"
-
-
-if DEBUG:
-    PAYTM_MERCHANT_KEY = "xxxx"
-    PAYTM_MERCHANT_ID = "xxxx"
-    PAYTM_WEBSITE = "WEB_STAGING"
-    HOST_URL = "http://localhost:8000"
-    """
-    In sandbox enviornment you can use following wallet credentials to login and make payment.
-    Mobile Number : 7777777777
-    Password : Paytm12345
-    This test wallet is topped-up to a balance of 7000 Rs. every 5 minutes.
-    """

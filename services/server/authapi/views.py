@@ -1,6 +1,5 @@
 from .serializers import (
     ResetPasswordEmailRequestSerializer,
-    UserSerializer,
     RegisterSerializer,
     LoginSerializer,
     LogoutSerializer,
@@ -65,16 +64,6 @@ class LogoutAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class UserAPI(generics.RetrieveAPIView):
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-    serializer_class = UserSerializer
-
-    def get_object(self):
-        return self.request.user
 
 
 class ActivateAccountView(generics.GenericAPIView):

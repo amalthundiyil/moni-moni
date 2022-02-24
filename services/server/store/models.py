@@ -1,11 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-
-
-class ProductManager(models.Manager):
-    def get_queryset(self):
-        return super(ProductManager, self).get_queryset().filter(is_active=True)
+from .managers import ProductManager
 
 
 class Category(models.Model):
@@ -36,7 +32,8 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to="images/", default="images/default.png")
     slug = models.SlugField(max_length=255)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
+    tags = models.CharField(max_length=30, default="newest")
+    price = models.DecimalField(max_digits=1000, decimal_places=2)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
