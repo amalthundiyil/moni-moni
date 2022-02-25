@@ -23,7 +23,6 @@ from django.utils.encoding import (
 from .utils import TokenGenerator, Email
 from users.models import CustomUser as User
 import os
-from rest_framework_simplejwt.views import TokenRefreshView
 
 
 class CustomRedirect(HttpResponsePermanentRedirect):
@@ -65,12 +64,6 @@ class LogoutAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class RefreshToken(TokenRefreshView):
-    def post(self, request, *args, **kwargs):
-        if not User.objects.filter(id=request.user.id).exists():
-            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ActivateAccountView(generics.GenericAPIView):

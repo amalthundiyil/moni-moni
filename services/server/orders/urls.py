@@ -5,6 +5,6 @@ from .views import OrdersAPI
 app_name = "orders"
 
 urlpatterns = [
-    path("", OrdersAPI.as_view(), name="add"),
+    path("<str:order_status>/", OrdersAPI.as_view(), name="all"),
     path("<int:id>/", OrdersAPI.as_view(), name="add"),
 ]
