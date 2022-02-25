@@ -19,12 +19,6 @@ class Category(models.Model):
         return self.name
 
 
-class FundingChoices(models.TextChoices):
-    DONATE = "FD", _("Donate funds")
-    FUND_WITH_REWARDS = "FI", _("Fund with Rewards")
-    FUND_WITH_BLOCKCHAIN = "FB", _("Fund with Blockhain")
-
-
 class Fundraiser(models.Model):
     category = models.ForeignKey(
         Category, related_name="fundraiser", on_delete=models.CASCADE
@@ -42,15 +36,10 @@ class Fundraiser(models.Model):
     tags = models.CharField(max_length=30, default="newest")
     fund_total = models.DecimalField(max_digits=1000, decimal_places=2)
     fund_remaining = models.DecimalField(max_digits=1000, decimal_places=2)
-    funding_method = models.CharField(
-        choices=FundingChoices.choices,
+    funding_method = models.JSONField(
         verbose_name=_("funding_method"),
         help_text=_("Required"),
         max_length=255,
-    )
-    funding_description = models.TextField(
-        verbose_name=_("funding_description"),
-        help_text=_("Required"),
     )
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)

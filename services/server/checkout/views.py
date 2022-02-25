@@ -3,49 +3,43 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from orders.models import Order, OrderItem
-# from users.models import Address
+from users.models import Address
 from .models import FundingOptions
+from store.serializers import FundraiserSerializer
+from store.models import Fundraiser
 from paypalcheckoutsdk.orders import OrdersGetRequest
 from .paypal import PayPalClient
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
+from .serializers import PaymentSelectionSerializer, FundingOptionSerializer
 
 
 class FundingChoices(generics.GenericAPIView):
+    serializer_class = FundingOptionSerializer
     permission_classes = [
         permissions.IsAuthenticated,
     ]
 
-    def get(self, request, *args, **kwargs):
-        funding_options = FundingOptions.objects.filter(is_active=True)
-        return Response(data=funding_options, status=status.HTTP_200_OK)
-
     def put(self, request, *args, **kwargs):
-        # def basket_update_funding(request):
-        basket = Basket(request)
-        if request.POST.get("action") == "post":
-            funding_option = int(request.POST.get("funding_option"))
-            funding_type = FundingOptions.objects.get(id=funding_option)
-            updated_total_price = basket.basket_update_funding(
-                funding_type.funding_price
-            )
+        funding_option = int(request.data["funding_option"])
+        funding_type = FundingOptions.objects.get(id=funding_option)
 
-            session = request.session
-            if "purchase" not in request.session:
-                session["purchase"] = {
-                    "funding_id": funding_type.id,
-                }
-            else:
-                session["purchase"]["funding_id"] = funding_type.id
-                session.modified = True
+        session = request.session
+        if "purchase" not in request.session:
+            session["purchase"] = {
+                "funding_id": funding_type.id,
+            }
+        else:
+            session["purchase"]["funding_id"] = funding_type.id
+            session.modified = True
 
-            response = JsonResponse(
-                {
-                    "total": updated_total_price,
-                    "funding_price": funding_type.funding_price,
-                }
-            )
-            return response
+        response = JsonResponse(
+            {
+                "total": updated_total_price,
+                "funding_price": funding_type.funding_price,
+            }
+        )
+        return response
 
     def post(request):
 
@@ -113,8 +107,8 @@ class PaymentComplete(generics.GenericAPIView):
         order_id = order.pk
         OrderItem.objects.create(
             order_id=order_id,
-            product=item["product"],
-            price=item["price"],
+            product=item["fundraiser"],
+            price=item["fund_total"],
             quantity=item["qty"],
         )
 

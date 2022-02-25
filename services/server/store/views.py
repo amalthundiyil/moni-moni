@@ -22,10 +22,12 @@ class FundraiserAPI(generics.GenericAPIView):
         if not slug:
             return self.get_queryset()
         fundraiser = get_object_or_404(Fundraiser, slug=slug, is_active=True)
-        return Response(data=fundraiser, status=status.HTTP_200_OK)
+        serializer = self.get_serializer(fundraiser)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @permission_classes([permissions.IsAuthenticated])
     def post(self, request, slug=None, *args, **kwargs):
+        request.data["slug"] = unique_slug_generator(Category, request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()

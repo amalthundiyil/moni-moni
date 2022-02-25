@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-# from store.models import FundingChoices
 
 
 class FundingOptions(models.Model):
@@ -16,12 +15,6 @@ class FundingOptions(models.Model):
         max_digits=1000,
         decimal_places=2,
     )
-    # funding_method = models.CharField(
-    #     choices=FundingChoices.choices,
-    #     verbose_name=_("funding_method"),
-    #     help_text=_("Required"),
-    #     max_length=255,
-    # )
     funding_timeframe = models.CharField(
         verbose_name=_("funding timeframe"),
         help_text=_("Required"),
@@ -32,10 +25,6 @@ class FundingOptions(models.Model):
         help_text=_("Required"),
         max_length=255,
     )
-    order = models.IntegerField(
-        verbose_name=_("list order"), help_text=_("Required"), default=0
-    )
-    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _("Funding Option")

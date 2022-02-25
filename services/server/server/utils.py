@@ -103,7 +103,10 @@ def unique_slug_generator(model, instance, new_slug=None):
     if new_slug is not None:
         slug = new_slug
     else:
-        slug = slugify(instance["name"])
+        try:
+            slug = slugify(instance["name"])
+        except KeyError:
+            slug = slugify(instance["title"])
 
     qs_exists = model.objects.filter(slug=slug).exists()
     if qs_exists:
