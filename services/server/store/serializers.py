@@ -1,16 +1,15 @@
 from rest_framework import serializers
-from .models import Product, Category
-from server.utils import unique_slug_generator
+from .models import Fundraiser, Category
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class FundraiserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = Fundraiser
         fields = "__all__"
 
     def create(self, validated_data):
-        product = Product.objects.create(**validated_data)
-        return product
+        fundraiser = Fundraiser.objects.create(**validated_data)
+        return fundraiser
 
 
 class CategorySerializer(serializers.ModelSerializer):

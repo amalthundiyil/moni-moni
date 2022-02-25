@@ -1,6 +1,6 @@
 from django.db import models
 
 
-class ProductManager(models.Manager):
+class FundraiserManager(models.Manager):
     def get_queryset(self):
-        return super(ProductManager, self).get_queryset().filter(is_active=True)
+        return super(FundraiserManager, self).get_queryset().filter(is_active=True)

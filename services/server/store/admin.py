@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product
+from .models import Category, Fundraiser
 
 
 @admin.register(Category)
@@ -9,8 +9,8 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+@admin.register(Fundraiser)
+class FundraiserAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "author",
