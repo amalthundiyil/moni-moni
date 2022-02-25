@@ -15,15 +15,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     about = models.TextField(_("about"), max_length=500, blank=True)
+    phone_number = models.CharField(_("mobile"), null=True, max_length=20, blank=True)
     date_of_birth = models.DateTimeField(null=True, blank=True)
-    # Delivery details
-    country = CountryField(blank_label="(select country)")
-    phone_number = models.CharField(max_length=15, blank=True)
-    postcode = models.CharField(max_length=12, blank=True)
-    address_line_1 = models.CharField(max_length=150, blank=True)
-    address_line_2 = models.CharField(max_length=150, blank=True)
-    town_city = models.CharField(max_length=150, blank=True)
-    # User Status
     is_verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -46,3 +39,21 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name_plural = "Users"
         ordering = ("email", "updated")
+
+
+class Address(models.Model):
+
+    country = CountryField(blank_label="(select country)")
+    phone_number = models.CharField(max_length=15, blank=True)
+    postcode = models.CharField(max_length=12, blank=True)
+    address_line_1 = models.CharField(max_length=150, blank=True)
+    address_line_2 = models.CharField(max_length=150, blank=True)
+    town_city = models.CharField(max_length=150, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Addresses"
+
+    def __str__(self):
+        return "Address"
