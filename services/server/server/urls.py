@@ -9,7 +9,7 @@ urlpatterns = [
     path("api/v1/orders/", include("orders.urls")),
     path("api/v1/users/", include("users.urls")),
     path("api/v1/store/", include("store.urls", namespace="store")),
-    path("api/v1/payments/", include("payments.urls", namespace="payments")),
+    path("api/v1/checkout/", include("checkout.urls", namespace="checkout")),
 ]
 
 if settings.DEBUG:

@@ -26,9 +26,9 @@ INSTALLED_APPS = [
     "django_countries",
     "authapi.apps.AuthapiConfig",
     "users.apps.UsersConfig",
-    "payments.apps.PaymentsConfig",
     "store.apps.StoreConfig",
     "orders.apps.OrdersConfig",
+    "checkout.apps.CheckoutConfig",
 ]
 
 MIDDLEWARE = [
