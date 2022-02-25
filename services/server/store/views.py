@@ -21,8 +21,8 @@ class FundraiserAPI(generics.GenericAPIView):
     def get(self, request, slug=None, *args, **kwargs):
         if not slug:
             return self.get_queryset()
-        Fundraiser = get_object_or_404(Fundraiser, slug=slug, is_active=True)
-        return Response(data=Fundraiser, status=status.HTTP_200_OK)
+        fundraiser = get_object_or_404(Fundraiser, slug=slug, is_active=True)
+        return Response(data=fundraiser, status=status.HTTP_200_OK)
 
     @permission_classes([permissions.IsAuthenticated])
     def post(self, request, slug=None, *args, **kwargs):
