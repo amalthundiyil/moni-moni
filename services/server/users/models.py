@@ -43,6 +43,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Address(models.Model):
 
+    customer = models.ForeignKey(
+        CustomUser, verbose_name=_("User"), on_delete=models.CASCADE
+    )
+    full_name = models.CharField(_("Full Name"), max_length=150)
     country = CountryField(blank_label="(select country)")
     phone_number = models.CharField(max_length=15, blank=True)
     postcode = models.CharField(max_length=12, blank=True)
