@@ -1,6 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.hashers import make_password
 
 
 class CustomUserManager(BaseUserManager):

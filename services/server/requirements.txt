@@ -10,4 +10,3 @@ pytest-django==4.5.2
 gunicorn==20.1.0
 six==1.13.0
 paypal-checkout-serversdk==1.0.1
-eth-brownie==1.18.1   

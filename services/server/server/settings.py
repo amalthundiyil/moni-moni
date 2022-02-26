@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "django_countries",
-    "server.apps.authentication.apps.AuthenticationConfig",
     "server.apps.users.apps.UsersConfig",
     "server.apps.catalogue.apps.CatalogueConfig",
     "server.apps.orders.apps.OrdersConfig",
