@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import CategoryAPI, FundraiserAPI
 
-app_name = "store"
+app_name = "catalogue"
 
 urlpatterns = [
     path("fundraisers/", FundraiserAPI.as_view(), name="fundraiser_all"),

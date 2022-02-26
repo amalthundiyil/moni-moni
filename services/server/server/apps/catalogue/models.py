@@ -13,7 +13,7 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
     def get_absolute_url(self):
-        return reverse("store:category_detail", args=[self.slug])
+        return reverse("catalogue:category_detail", args=[self.slug])
 
     def __str__(self):
         return self.name
@@ -52,7 +52,7 @@ class Fundraiser(models.Model):
         ordering = ("-created",)
 
     def get_absolute_url(self):
-        return reverse("store:fundraiser_detail", args=[self.slug])
+        return reverse("catalogue:fundraiser_detail", args=[self.slug])
 
     def __str__(self):
         return self.title

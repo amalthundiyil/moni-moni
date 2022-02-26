@@ -2,11 +2,11 @@ import json
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-from orders.models import Order, OrderItem
-from users.models import Address
+from server.apps.orders.models import Order, OrderItem
+from server.apps.users.models import Address
 from .models import FundingOptions
-from store.serializers import FundraiserSerializer
-from store.models import Fundraiser
+from server.apps.catalogue.serializers import FundraiserSerializer
+from server.apps.catalogue.models import Fundraiser
 from paypalcheckoutsdk.orders import OrdersGetRequest
 from .paypal import PayPalClient
 from rest_framework import generics, status, permissions

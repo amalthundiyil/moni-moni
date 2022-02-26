@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = str(os.getenv("DEBUG")) == "1"  # 1 is True
+
 ALLOWED_HOSTS = []
 if DEBUG:
     ALLOWED_HOSTS += json.loads(os.getenv("ALLOWED_HOSTS"))
@@ -24,11 +25,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "django_countries",
-    "authapi.apps.AuthapiConfig",
-    "users.apps.UsersConfig",
-    "store.apps.StoreConfig",
-    "orders.apps.OrdersConfig",
-    "checkout.apps.CheckoutConfig",
+    "server.apps.authentication.apps.AuthenticationConfig",
+    "server.apps.users.apps.UsersConfig",
+    "server.apps.catalogue.apps.CatalogueConfig",
+    "server.apps.orders.apps.OrdersConfig",
+    "server.apps.checkout.apps.CheckoutConfig",
 ]
 
 MIDDLEWARE = [
@@ -47,7 +48,7 @@ ROOT_URLCONF = "server.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -73,6 +74,14 @@ DATABASES = {
         "PORT": os.getenv("POSTGRES_PORT", 5432),
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 
 if "test" in sys.argv or "test_coverage" in sys.argv:
     DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
@@ -165,9 +174,3 @@ PASSWORD_HASHERS = [
 ]
 
 TEST_RUNNER = "server.runner.PytestTestRunner"
-
-# Stripe Payment
-STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
-STIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_ENPOINT_SECRET")
-# stripe listen --forward-to localhost:8000/api/v1/payments/processing/

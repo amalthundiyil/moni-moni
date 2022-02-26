@@ -21,7 +21,7 @@ from django.utils.encoding import (
     DjangoUnicodeDecodeError,
 )
 from .utils import TokenGenerator, Email
-from users.models import CustomUser as User
+from server.apps.users.models import CustomUser as User
 import os
 
 

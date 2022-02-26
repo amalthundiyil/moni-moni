@@ -1,4 +1,4 @@
-from users.models import CustomUser as User
+from server.apps.users.models import CustomUser as User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed

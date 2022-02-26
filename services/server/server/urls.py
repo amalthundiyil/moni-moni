@@ -5,11 +5,16 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/auth/", include("authapi.urls")),
-    path("api/v1/orders/", include("orders.urls")),
-    path("api/v1/users/", include("users.urls")),
-    path("api/v1/store/", include("store.urls", namespace="store")),
-    path("api/v1/checkout/", include("checkout.urls", namespace="checkout")),
+    path("api/v1/auth/", include("server.apps.authentication.urls")),
+    path("api/v1/orders/", include("server.apps.orders.urls")),
+    path("api/v1/users/", include("server.apps.users.urls")),
+    path(
+        "api/v1/catalogue/",
+        include("server.apps.catalogue.urls", namespace="catalgoue"),
+    ),
+    path(
+        "api/v1/checkout/", include("server.apps.checkout.urls", namespace="checkout")
+    ),
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from store.models import Fundraiser
+from server.apps.catalogue.models import Fundraiser
 
 
 class Order(models.Model):
