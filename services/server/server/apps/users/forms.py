@@ -1,53 +1,228 @@
 from django import forms
-from .models import CustomUser
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordResetForm,
+    SetPasswordForm,
+)
+
+from .models import CustomUser, Address
 
 
-class UserCreationForm(forms.ModelForm):
-    """A form for creating new users. Includes all the required
-    fields, plus a repeated password."""
+class UserAddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = [
+            "full_name",
+            "phone_number",
+            "address_line_1",
+            "address_line_2",
+            "town_city",
+            "postcode",
+        ]
 
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
-    password2 = forms.CharField(
-        label="Password confirmation", widget=forms.PasswordInput
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["full_name"].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+        )
+        self.fields["phone_number"].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Phone number"}
+        )
+        self.fields["address_line_1"].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+        )
+        self.fields["address_line_2"].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+        )
+        self.fields["town_city"].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+        )
+        self.fields["postcode"].widget.attrs.update(
+            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+        )
+
+
+class UserLoginForm(AuthenticationForm):
+
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control mb-3",
+                "placeholder": "Username",
+                "id": "login-username",
+            }
+        )
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Password",
+                "id": "login-pwd",
+            }
+        )
+    )
+
+
+class RegistrationForm(forms.ModelForm):
+
+    user_name = forms.CharField(
+        label="Enter Username", min_length=4, max_length=50, help_text="Required"
+    )
+    email = forms.EmailField(
+        max_length=100,
+        help_text="Required",
+        error_messages={"required": "Sorry, you will need an email"},
+    )
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Repeat password", widget=forms.PasswordInput)
+
+    class Meta:
+        model = CustomUser
+        fields = (
+            "user_name",
+            "email",
+        )
+
+    def clean_username(self):
+        user_name = self.cleaned_data["user_name"].lower()
+        r = CustomUser.objects.filter(user_name=user_name)
+        if r.count():
+            raise forms.ValidationError("Username already exists")
+        return user_name
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd["password"] != cd["password2"]:
+            raise forms.ValidationError("Passwords do not match.")
+        return cd["password2"]
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError(
+                "Please use another Email, that is already taken"
+            )
+        return email
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["user_name"].widget.attrs.update(
+            {"class": "form-control mb-3", "placeholder": "Username"}
+        )
+        self.fields["email"].widget.attrs.update(
+            {
+                "class": "form-control mb-3",
+                "placeholder": "E-mail",
+                "name": "email",
+                "id": "id_email",
+            }
+        )
+        self.fields["password"].widget.attrs.update(
+            {"class": "form-control mb-3", "placeholder": "Password"}
+        )
+        self.fields["password2"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Repeat Password"}
+        )
+
+
+class PwdResetForm(PasswordResetForm):
+
+    email = forms.EmailField(
+        max_length=254,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control mb-3",
+                "placeholder": "Email",
+                "id": "form-email",
+            }
+        ),
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        u = CustomUser.objects.filter(email=email)
+        if not u:
+            raise forms.ValidationError(
+                "Unfortunatley we can not find that email address"
+            )
+        return email
+
+
+class PwdResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="New password",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control mb-3",
+                "placeholder": "New Password",
+                "id": "form-newpass",
+            }
+        ),
+    )
+    new_password2 = forms.CharField(
+        label="Repeat password",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control mb-3",
+                "placeholder": "New Password",
+                "id": "form-new-pass2",
+            }
+        ),
+    )
+
+
+class UserEditForm(forms.ModelForm):
+
+    email = forms.EmailField(
+        label="Account email (can not be changed)",
+        max_length=200,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control mb-3",
+                "placeholder": "email",
+                "id": "form-email",
+                "readonly": "readonly",
+            }
+        ),
+    )
+
+    user_name = forms.CharField(
+        label="Firstname",
+        min_length=4,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control mb-3",
+                "placeholder": "Username",
+                "id": "form-firstname",
+                "readonly": "readonly",
+            }
+        ),
+    )
+
+    first_name = forms.CharField(
+        label="Username",
+        min_length=4,
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control mb-3",
+                "placeholder": "Firstname",
+                "id": "form-lastname",
+            }
+        ),
     )
 
     class Meta:
         model = CustomUser
-        fields = ("email", "date_of_birth")
+        fields = (
+            "email",
+            "user_name",
+            "first_name",
+        )
 
-    def clean_password2(self):
-        # Check that the two password entries match
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
-        return password2
-
-    def save(self, commit=True):
-        # Save the provided password in hashed format
-        user = super(UserCreationForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
-
-
-class UserChangeForm(forms.ModelForm):
-    """
-    A form for updating users. Includes all the fields on
-    the user, but replaces the password field with admin's
-    password hash display field.
-    """
-
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = CustomUser
-        fields = ("email", "password", "date_of_birth", "is_active", "is_superuser")
-
-    def clean_password(self):
-        # Regardless of what the user provides, return the initial value.
-        # This is done here, rather than on the field, because the
-        # field does not have access to the initial value
-        return self.initial["password"]
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["user_name"].required = True
+        self.fields["email"].required = True
