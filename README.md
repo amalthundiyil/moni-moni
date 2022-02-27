@@ -1,9 +1,32 @@
-# IPay - A payment app
+# Moni Moni
 
-This is a payments app to issue microcredit loans or donations for the rural poor who turn to private
-moneylenders and also offer them a better alternative than keeping track of finances using passbooks.
+## Inspiration
 
-Technologies used: Flutter, Django, PostgreSQL, Docker, Terraform, Kubernetes, AWS.
+Managing finances were always an issue for me, every few weeks I had to go ask my parents or friends for a bit of money just to get through the week, but then after a certain point I decided...**enough is enough**...I won't ask my parents for money...rather I'll ask a whole community for money, and thus moni-moni was born.
+
+## What it does
+
+Moni-Moni is fundamentally a crowdfunded small-scale loaning service. Users can post their loan requests along with the interest they can payback and the reason they want money for, other users can view the request and decide whether they want to invest in the person depending upon the interest rate and the reason for request.
+
+## How we built it
+
+Tech Stack: Flutter, Django, PostgreSQL, Docker, AWS.
+
+## Challenges we ran into
+
+With the team being at different locations and different timezones, coordinating things were very difficult. And we faced a lot of technical difficulties some of which we were able to resolve.
+
+## Accomplishments that we're proud of
+
+This is our first hackathon and we are proud of how much we were able to complete, we surpassed our own expectations and makes us truly happy
+
+## What we learned
+
+First and foremost we learnt about teamwork, coordination with people we have never met before and communicating with them, it was an incredible experience for us all. Working on this project was not easy for us, we learnt new tech stacks watched youtube tutorials and spent hours further furnishing what we already knew.
+
+## What's next for
+
+There are a lot of loopholes legal and logical, our first and topmost priority is to work upon them. We are well aware of the potential for scam and a workaround is needed. We also wish to plan on integrating Blockchain transactions in the future.
 
 ## Want to use this project?
 
@@ -18,9 +41,8 @@ $ docker-compose up -d --build
 Test it out at:
 
 1. [http://localhost:8000/](http://localhost:8000/)
-1. [http://localhost](http://localhost)
 
-### Kubernetes
+<!-- ### Kubernetes
 
 #### Minikube
 
@@ -141,4 +163,4 @@ Create the deployment and service:
 $ kubectl create -f ./kubernetes/frontend.yml
 ```
 
-Try it out at [http://payment.app/](http://payment.app/).
+Try it out at [http://payment.app/](http://payment.app/). -->
