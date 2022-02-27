@@ -2,19 +2,16 @@ version: '3'
 
 services:
 
-  # frontend:
-  #   image: amalthundiyil/frontend:latest
-  #   build:
-  #     context: './services/client'
-  #     args:
-  #       - REACT_APP_HOST=${REACT_APP_HOST}
-  #       - REACT_APP_PORT=${REACT_APP_PORT}
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - backend
-  #   networks:
-  #     main:
+  nginx:
+    image: amalthundiyil/nginx:latest
+    build:
+      context: './services/nginx'
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      main:
 
   backend:
     restart: always
@@ -25,14 +22,25 @@ services:
     env_file:
       - .env
     environment:
-      PYTHONUNBUFFERED: ${PYTHONUNBUFFERED}
-      SECRET_KEY: ${SECRET_KEY}
       DEBUG: ${DEBUG}
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USER}
+      SECRET_KEY: ${SECRET_KEY}
+      PYTHONUNBUFFERED: ${PYTHONUNBUFFERED}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_HOST: ${DATABASE_HOST}
       POSTGRES_PORT: ${DATABASE_PORT}
+      POSTGRES_DB: ${DATABASE_NAME}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+      CORS_ALLOW_CREDENTIALS: ${CORS_ALLOW_CREDENTIALS}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+      EMAIL_USE_TLS: ${EMAIL_USE_TLS}
+      PAYPAL_CLIENT_ID: ${PAYPAL_CLIENT_ID}
+      PAYPAL_CLIENT_SECRET: ${PAYPAL_CLIENT_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL}
     ports:
       - "8000:8000"
     depends_on:
