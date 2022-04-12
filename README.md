@@ -10,7 +10,7 @@ Moni-Moni is fundamentally a crowdfunded small-scale loaning service. Users can 
 
 ## How we built it
 
-Tech Stack: Flutter, Django, PostgreSQL, Docker, AWS.
+Tech Stack: React.js, Django, PostgreSQL, Docker, AWS.
 
 ## Challenges we ran into
 
