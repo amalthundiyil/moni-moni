@@ -1,11 +1,25 @@
 version: '3'
 
 services:
+  frontend:
+    image: amalthundiyil/frontend:latest
+    build:
+      context: './moni-moni/client'
+      args:
+        - REACT_APP_HOST=${REACT_APP_HOST}
+        - REACT_APP_PORT=${REACT_APP_PORT}
+    ports:
+      - "80:8080"
+    depends_on:
+      - backend
+    networks:
+      main:
+
 
   nginx:
     image: amalthundiyil/nginx:latest
     build:
-      context: './services/nginx'
+      context: './moni-moni/nginx'
     ports:
       - "80:80"
     depends_on:
@@ -13,12 +27,13 @@ services:
     networks:
       main:
 
+
   backend:
     restart: always
     image: amalthundiyil/backend:latest
     command: gunicorn server.wsgi --bind 0.0.0.0:8000
     build:
-      context: './services/server'
+      context: './moni-moni/server'
     env_file:
       - .env
     environment:
@@ -48,9 +63,10 @@ services:
     networks:
       main:
 
+
   postgres:
     build:
-      context: ./services/db
+      context: ./moni-moni/db
       dockerfile: Dockerfile
     env_file:
       - .env
@@ -65,8 +81,10 @@ services:
     networks:
       main:
 
+
 volumes:
   pgdata:
+
 
 networks:
   main:

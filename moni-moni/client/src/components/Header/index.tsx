@@ -1,0 +1,98 @@
+import { useState } from "react";
+import { Row, Col, Drawer } from "antd";
+import { Link } from "react-router-dom";
+import { withTranslation } from "react-i18next";
+import Container from "../../common/Container";
+import { SvgIcon } from "../../common/SvgIcon";
+import { Button } from "../../common/Button";
+import {
+  HeaderSection,
+  LogoContainer,
+  Burger,
+  NotHidden,
+  Menu,
+  CustomNavLinkSmall,
+  Label,
+  Outline,
+  Span,
+} from "./styles";
+import { useHistory } from "react-router-dom";
+
+const Header = ({ t }: any) => {
+  const [visible, setVisibility] = useState(false);
+  const history = useHistory();
+
+  const showDrawer = () => {
+    setVisibility(!visible);
+  };
+
+  const onClose = () => {
+    setVisibility(!visible);
+  };
+
+  const MenuItem = () => {
+    const scrollTo = async (id: string) => {
+      await history.push("/home");
+      const element = document.getElementById(id)!.parentElement!
+        .parentElement as HTMLElement;
+      element.scrollIntoView({
+        behavior: "smooth",
+      });
+      setVisibility(false);
+    };
+    return (
+      <>
+        <CustomNavLinkSmall onClick={() => scrollTo("about")}>
+          <Span>{t("About")}</Span>
+        </CustomNavLinkSmall>
+        <CustomNavLinkSmall onClick={() => scrollTo("mission")}>
+          <Span>{t("Mission")}</Span>
+        </CustomNavLinkSmall>
+        <CustomNavLinkSmall onClick={() => scrollTo("product")}>
+          <Span>{t("Product")}</Span>
+        </CustomNavLinkSmall>
+        <CustomNavLinkSmall onClick={() => scrollTo("contact")}>
+          <Span>{t("Contact")}</Span>
+        </CustomNavLinkSmall>
+        <CustomNavLinkSmall style={{ width: "180px" }}>
+          <Link to="/signup">
+            <Button>{t("Create Account")}</Button>
+          </Link>
+        </CustomNavLinkSmall>
+      </>
+    );
+  };
+
+  return (
+    <HeaderSection>
+      <Container>
+        <Row justify="space-between">
+          <LogoContainer to="/" aria-label="homepage">
+            <SvgIcon src="logo.svg" width="101px" height="64px" />
+          </LogoContainer>
+          <NotHidden>
+            <MenuItem />
+          </NotHidden>
+          <Burger onClick={showDrawer}>
+            <Outline />
+          </Burger>
+        </Row>
+        <Drawer closable={false} visible={visible} onClose={onClose}>
+          <Col style={{ marginBottom: "2.5rem" }}>
+            <Label onClick={onClose}>
+              <Col span={12}>
+                <Menu>Menu</Menu>
+              </Col>
+              <Col span={12}>
+                <Outline />
+              </Col>
+            </Label>
+          </Col>
+          <MenuItem />
+        </Drawer>
+      </Container>
+    </HeaderSection>
+  );
+};
+
+export default withTranslation()(Header);
