@@ -2,11 +2,11 @@
 
 ## Inspiration
 
-Managing finances were always an issue for me, every few weeks I had to go ask my parents or friends for a bit of money just to get through the week, but then after a certain point I decided...**enough is enough**...I won't ask my parents for money...rather I'll ask a whole community for money, and thus moni-moni was born.
+Managing finances were always an issue for me, every few weeks I had to go ask my parents or friends for a bit of money just to get through the week, but then after a certain point I decided...**enough is enough**...I won't ask my parents for money...rather I'll ask a whole community for money, and thus Moni Moni was born.
 
 ## What it does
 
-Moni-Moni is fundamentally a crowdfunded small-scale loaning service. Users can post their loan requests along with the interest they can payback and the reason they want money for, other users can view the request and decide whether they want to invest in the person depending upon the interest rate and the reason for request.
+Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can post their loan requests along with the interest they can payback and the reason they want money for, other users can view the request and decide whether they want to invest in the person depending upon the interest rate and the reason for request.
 
 ## How we built it
 
