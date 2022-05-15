@@ -1,4 +1,4 @@
-name: GitHub Actions Workflow
+name: Build
 
 on: push
 
@@ -35,7 +35,7 @@ jobs:
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
       - name: Build the stack
         run: docker-compose up -d
-      - name: Test Backend
+      - name: Test Backend Container
         run: docker run --network container:moni-moni-backend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8000/
-      - name: Test Frontend
+      - name: Test Frontend Container
         run: docker run --network container:moni-moni-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost/

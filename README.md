@@ -3,6 +3,9 @@
 # Moni Moni
 
 ![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg)
+![License](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+![Views](https://views.whatilearened.today/views/github/MShawon/github-clone-count-badge.svg)
+![Clones](https://img.shields.io/badge/dynamic/json?color=success&label=Clone&query=count&url=https://gist.githubusercontent.com/MShawon/cf89f3274d06170b8a4973039aa6220a/raw/clone.json&logo=github)
 
 ## Inspiration
 
