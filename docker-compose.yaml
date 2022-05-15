@@ -15,19 +15,6 @@ services:
     networks:
       main:
 
-
-  nginx:
-    image: amalthundiyil/nginx:latest
-    build:
-      context: './moni-moni/nginx'
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    networks:
-      main:
-
-
   backend:
     restart: always
     image: amalthundiyil/backend:latest
