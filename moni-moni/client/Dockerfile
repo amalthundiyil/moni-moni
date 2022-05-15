@@ -11,5 +11,8 @@ ENV REACT_APP_PORT=${REACT_APP_PORT}
 RUN npm install && npm run build
 
 FROM nginx:1.21.6-alpine
+
+RUN apk add --no-cache bash
+
 COPY --from=client /client/build/ /var/www/frontend
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
