@@ -4,12 +4,7 @@
 
 ![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg)
 ![License](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
-![Views](https://views.whatilearened.today/views/github/MShawon/github-clone-count-badge.svg)
-![Clones](https://img.shields.io/badge/dynamic/json?color=success&label=Clone&query=count&url=https://gist.githubusercontent.com/MShawon/cf89f3274d06170b8a4973039aa6220a/raw/clone.json&logo=github)
-
-## Inspiration
-
-Managing finances were always an issue for me, every few weeks I had to go ask my parents or friends for a bit of money just to get through the week, but then after a certain point I decided...**enough is enough**...I won't ask my parents for money...rather I'll ask a whole community for money, and thus Moni Moni was born.
+<!-- ![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Famal-thundiyil%2Fmoni-moni&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false) -->
 
 ## What it does
 
