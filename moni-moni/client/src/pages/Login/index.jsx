@@ -18,8 +18,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const history = useHistory();
-
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
     try {
@@ -29,7 +27,6 @@ const Login = () => {
       );
       if (response.message === "success") {
         resetForm();
-        history.push("/dashboard");
       }
       console.log(response);
     } catch (error) {

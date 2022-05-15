@@ -5,12 +5,12 @@ const routes = [
     component: "Home",
   },
   {
-    path: ["/Signup"],
+    path: ["/signup"],
     exact: true,
     component: "Signup",
   },
   {
-    path: ["/Login"],
+    path: ["/login"],
     exact: true,
     component: "Login",
   },

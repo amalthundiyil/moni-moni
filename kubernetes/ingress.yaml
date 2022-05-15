@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: payment-app-backend-ingress
+  name: moni-moni-backend-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -21,7 +21,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: payment-app-frontend-ingress
+  name: moni-moni-frontend-ingress
 spec:
   rules:
     - host: payment.app
