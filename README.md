@@ -1,6 +1,6 @@
 # Moni Moni
 
-![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/Build/badge.svg?event=push)
+![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg)
 
 ## Inspiration
 
