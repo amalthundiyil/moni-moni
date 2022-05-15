@@ -3,6 +3,7 @@ version: '3'
 services:
   frontend:
     image: amalthundiyil/frontend:latest
+    container_name: moni-moni-frontend
     build:
       context: './moni-moni/client'
       args:
@@ -15,9 +16,11 @@ services:
     networks:
       main:
 
+
   backend:
     restart: always
     image: amalthundiyil/backend:latest
+    container_name: moni-moni-backend
     command: gunicorn server.wsgi --bind 0.0.0.0:8000
     build:
       context: './moni-moni/server'
@@ -52,6 +55,7 @@ services:
 
 
   postgres:
+    container_name: moni-moni-db
     build:
       context: ./moni-moni/db
       dockerfile: Dockerfile

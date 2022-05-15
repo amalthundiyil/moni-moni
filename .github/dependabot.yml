@@ -9,7 +9,8 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "update"
+      - "Status:Needs-Review"
+      - "Topic:Dependencies"
 
   # Update npm packages
   - package-ecosystem: "npm"
@@ -17,7 +18,8 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "npm update"
+      - "Status:Needs-Review"
+      - "Topic:Dependencies"
 
   # Update pip packages
   - package-ecosystem: "pip"
@@ -25,4 +27,5 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "pip update"
+      - "Status:Needs-Review"
+      - "Topic:Dependencies"

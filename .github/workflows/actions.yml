@@ -1,4 +1,4 @@
-name: Docker Compose Actions Workflow
+name: GitHub Actions Workflow
 
 on: push
 
@@ -36,6 +36,6 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d
       - name: Test Backend
-        run: docker run --network container:frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8000/
+        run: docker run --network container:moni-moni-backend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8000/
       - name: Test Frontend
-        run: docker run --network container:backend appropriate/curl -s --retry 10 --retry-connrefused http://localhost/
+        run: docker run --network container:moni-moni-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost/
