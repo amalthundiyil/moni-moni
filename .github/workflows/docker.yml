@@ -5,31 +5,34 @@ on: push
 jobs:
   docker-compose:
     runs-on: ubuntu-latest
-    env:
-      ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
-      CORS_ALLOWED_ORIGINS: ${{ secrets.CORS_ALLOWED_ORIGINS }}
-      CORS_ALLOW_CREDENTIALS: ${{ secrets.CORS_ALLOW_CREDENTIALS }}
-      DATABASE_USER: ${{ secrets.DATABASE_USER }}
-      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-      DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-      DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
-      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      DEBUG: ${{ secrets.DEBUG }}
-      EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
-      EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
-      EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-      EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
-      EMAIL_USE_TLS: ${{ secrets.EMAIL_USE_TLS }}
-      FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
-      PAYPAL_CLIENT_ID: ${{ secrets.PAYPAL_CLIENT_ID }}
-      PAYPAL_CLIENT_SECRET: ${{ secrets.PAYPAL_CLIENT_SECRET }}
-      PYTHONUNBUFFERED: ${{ secrets.PYTHONUNBUFFERED }}
-      REACT_APP_HOST: ${{ secrets.REACT_APP_HOST }}
-      REACT_APP_PORT: ${{ secrets.REACT_APP_PORT }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
       - uses: actions/checkout@v3
+      - name: create env file
+        run: |
+          touch .env
+          echo VARIABLE=${{ secrets.VARIABLE }} >> .env
+          echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
+          echo CORS_ALLOWED_ORIGINS=${{ secrets.CORS_ALLOWED_ORIGINS }} >> .env
+          echo CORS_ALLOW_CREDENTIALS=${{ secrets.CORS_ALLOW_CREDENTIALS }} >> .env
+          echo DATABASE_USER=${{ secrets.DATABASE_USER }} >> .env
+          echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
+          echo DATABASE_HOST=${{ secrets.DATABASE_HOST }} >> .env
+          echo DATABASE_PORT=${{ secrets.DATABASE_PORT }} >> .env
+          echo DATABASE_NAME=${{ secrets.DATABASE_NAME }} >> .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          echo DEBUG=${{ secrets.DEBUG }} >> .env
+          echo EMAIL_HOST=${{ secrets.EMAIL_HOST }} >> .env
+          echo EMAIL_PORT=${{ secrets.EMAIL_PORT }} >> .env
+          echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
+          echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
+          echo EMAIL_USE_TLS=${{ secrets.EMAIL_USE_TLS }} >> .env
+          echo FRONTEND_URL=${{ secrets.FRONTEND_URL }} >> .env
+          echo PAYPAL_CLIENT_ID=${{ secrets.PAYPAL_CLIENT_ID }} >> .env
+          echo PAYPAL_CLIENT_SECRET=${{ secrets.PAYPAL_CLIENT_SECRET }} >> .env
+          echo PYTHONUNBUFFERED=${{ secrets.PYTHONUNBUFFERED }} >> .env
+          echo REACT_APP_HOST=${{ secrets.REACT_APP_HOST }} >> .env
+          echo REACT_APP_PORT=${{ secrets.REACT_APP_PORT }} >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
       - name: Build the stack
         run: docker-compose up -d
       - name: Test Backend
