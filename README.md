@@ -29,7 +29,7 @@ First and foremost we learnt about teamwork, coordination with people we have ne
 
 There are a lot of loopholes legal and logical, our first and topmost priority is to work upon them. We are well aware of the potential for scam and a workaround is needed. We also wish to plan on integrating Blockchain transactions in the future.
 
-## Want to use this project?
+<!-- ## Want to use this project?
 
 ### Docker
 
@@ -42,7 +42,7 @@ $ docker-compose up -d --build
 Test it out at:
 
 1. [http://localhost:8000/](http://localhost:8000/)
-
+ -->
 <!-- ### Kubernetes
 
 #### Minikube
