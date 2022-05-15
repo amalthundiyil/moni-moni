@@ -1,8 +1,6 @@
-FROM python:3.8-alpine
+FROM python:3.8-slim
 
 WORKDIR /server
-
-RUN apk add --no-cache bash
 
 COPY ./requirements.txt requirements.txt
 
