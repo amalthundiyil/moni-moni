@@ -1,5 +1,7 @@
 # Moni Moni
 
+![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/Build/badge.svg?event=push)
+
 ## Inspiration
 
 Managing finances were always an issue for me, every few weeks I had to go ask my parents or friends for a bit of money just to get through the week, but then after a certain point I decided...**enough is enough**...I won't ask my parents for money...rather I'll ask a whole community for money, and thus Moni Moni was born.
