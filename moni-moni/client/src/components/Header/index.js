@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useState } from "react";
 import logo from "../../assets/svg/logo.png";
+import { Link } from "react-router-dom";
 
 const pages = ["Discover", "Start a Fundraiser"];
 const settings = ["Profile", "Account", "Logout"];
@@ -77,7 +78,7 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <Toolbar>
+          <Toolbar component={Link} to="/home">
             <img src={logo} alt="logo" width={100} />
           </Toolbar>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -92,11 +93,19 @@ const Header = () => {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Button
+              variant="contained"
+              color="secondary"
+              component={Link}
+              to="/signup"
+            >
+              Get Started
+            </Button>
+            {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
