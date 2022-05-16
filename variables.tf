@@ -1,43 +1,38 @@
-
-variable "project" {
-  description = "AWS Project ID to use."
-  type        = "string"
-  default     = "moni-moni-342608"
-}
-
-variable "credentials_file" {
-  description = "AWS Credentials path to use."
-  type        = "string"
-  default     = ""
-
- }
-
-variable "profile" {
-  description = "AWS Profile to use."
-  type        = "string"
-  default = ""
-}
-
 variable "region" {
-  description = "AWS Region name"
-  type        = "string"
-  default     = "us-central"
+  type        = string
+  description = "AWS region"
 }
 
-variable "zone" {
-  description = "AWS Zone name"
-  type        = "string"
-  default     = "us-central1"
+variable "availability_zones" {
+  type        = list(string)
+  description = "List of availability zones"
 }
 
-variable "aws-ami-id" {
-  description = "AWS AMI Id"
-  type        = "string"
-  default     = "ami-d874e0a0"
+variable "associate_public_ip_address" {
+  type        = bool
+  description = "Associate a public IP address with the instance"
 }
 
-variable "instance-type" {
-  description = "Instance type"
-  type        = "string"
-  default     = "t2.micro"
+variable "assign_eip_address" {
+  type        = bool
+  description = "Assign an Elastic IP address to the instance"
+}
+
+variable "instance_type" {
+  type        = string
+  description = "The type of the instance"
+}
+
+variable "ssh_public_key_path" {
+  type        = string
+  description = "Path to SSH public key directory (e.g. `/secrets`)"
+}
+
+variable "security_group_rules" {
+  type        = list(any)
+  description = <<-EOT
+    A list of maps of Security Group rules. 
+    The values of map is fully complated with `aws_security_group_rule` resource. 
+    To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule .
+  EOT
 }
