@@ -11,7 +11,7 @@ export default function Fundraisers() {
   const spacing = 4;
 
   return (
-    <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+    <Grid sx={{ flexGrow: 1 }} container spacing={2} m={4}>
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing={spacing}>
           {[0, 1, 2].map((value) => (
