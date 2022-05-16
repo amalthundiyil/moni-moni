@@ -87,7 +87,10 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link
+                  href={`http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/v1/auth/request-reset-email/`}
+                  variant="body2"
+                >
                   Forgot password?
                 </Link>
               </Grid>

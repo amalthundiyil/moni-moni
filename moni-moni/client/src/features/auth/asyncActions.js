@@ -11,7 +11,6 @@ import {
   verifyUserSuccess,
   userLogout,
 } from "./authSlice";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const verifyTokenAsync =
   (silentAuth = false) =>
