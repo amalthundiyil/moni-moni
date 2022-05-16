@@ -158,6 +158,19 @@ if DEBUG:
     CORS_ALLOWED_ORIGINS += json.loads(os.getenv("CORS_ALLOWED_ORIGINS"))
 
 CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS")) == "1"  # 1 is True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    "refresh-token", 
+]
+
 
 EMAIL_USE_TLS = str(os.getenv("EMAIL_USE_TLS")) == "1"
 EMAIL_PORT = os.getenv("EMAIL_PORT")

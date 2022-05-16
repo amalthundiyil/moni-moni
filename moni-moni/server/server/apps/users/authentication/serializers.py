@@ -8,6 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -96,3 +97,13 @@ class SetNewPasswordSerializer(serializers.Serializer):
             return user
         except Exception as e:
             raise AuthenticationFailed("The reset link is invalid", 401)
+
+class RefreshTokenSerializer(TokenRefreshSerializer):
+    refresh = serializers.CharField(required=False)
+    access = serializers.CharField(read_only=True)
+
+    def validate(self, attrs):
+        if not self.context.get("refresh"):
+            return {"refresh": ["This field is required."]} 
+        attrs['refresh'] = self.context.get("refresh")
+        return super().validate(attrs)

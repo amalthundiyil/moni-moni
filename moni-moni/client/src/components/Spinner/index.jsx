@@ -7,7 +7,6 @@ export default function Spinner({ ...props }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(open);
 
   return (
     <div>

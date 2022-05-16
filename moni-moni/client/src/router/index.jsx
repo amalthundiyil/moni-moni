@@ -16,7 +16,6 @@ const Router = () => {
   const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  console.log(isAuthenticated);
   useEffect(() => {
     dispatch(verifyTokenAsync());
   }, []);

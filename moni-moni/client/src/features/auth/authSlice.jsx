@@ -1,4 +1,4 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: null,
@@ -30,10 +30,9 @@ const authSlice = createSlice({
       state.loginStatus = "rejected";
     },
     verifyUserSuccess: (state, action) => {
-      const { token, expiredAt, username } = action.payload;
+      const { access: token, refresh } = action.payload;
       state.token = token;
-      state.expiredAt = expiredAt;
-      state.user = username;
+      state.refresh = refresh;
       state.isAuthenticated = true;
       state.verifyStatus = "end";
       state.loginStatus = "fulfilled";

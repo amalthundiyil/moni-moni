@@ -88,10 +88,7 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link
-                  href={"/api/v1/auth/request-reset-email/"}
-                  variant="body2"
-                >
+                <Link href={"/checkout"} variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

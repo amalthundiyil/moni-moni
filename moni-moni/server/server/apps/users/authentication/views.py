@@ -6,11 +6,13 @@ from .serializers import (
     RegisterSerializer,
     SetNewPasswordSerializer,
     ResetPasswordEmailRequestSerializer,
+    RefreshTokenSerializer
 )
 from rest_framework import status
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework import generics, status, permissions
+from rest_framework_simplejwt.views import TokenRefreshView
 from django.conf.global_settings import AUTH_USER_MODEL as User
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
@@ -156,3 +158,12 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
             {"success": True, "message": "Password reset success"},
             status=status.HTTP_200_OK,
         )
+
+class RefreshTokenView(TokenRefreshView):
+    serializer_class = RefreshTokenSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, context={'refresh': request.headers.get("Refresh-Token")})
+        serializer.is_valid(raise_exception=True)
+        print(serializer.validated_data)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
