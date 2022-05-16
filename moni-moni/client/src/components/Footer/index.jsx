@@ -18,22 +18,17 @@ function Copyright() {
   );
 }
 
-function Footer(props) {
-  const { description, title } = props;
-
+function Footer() {
   return (
     <Box component="footer" sx={{ bgcolor: "background.paper", py: 6 }}>
       <Container maxWidth="lg">
-        <Typography variant="h6" align="center" gutterBottom>
-          {title}
-        </Typography>
         <Typography
           variant="subtitle1"
           align="center"
           color="text.secondary"
           component="p"
         >
-          {description}
+          Made with ❤️ by Amal Thundiyil
         </Typography>
         <Copyright />
       </Container>
