@@ -26,18 +26,17 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Home() {
   const [featFundraisers, setFeatFundraisers] = useState([]);
-  const { token, refresh, expiredAt } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(token, refresh);
   useEffect(() => {
-    setAuthToken(token, refresh);
+    setAuthToken(token);
     const verifyTokenTimer = setTimeout(() => {
       dispatch(verifyTokenAsync(true));
     }, 4 * 60 * 1000);
     return () => {
       clearTimeout(verifyTokenTimer);
     };
-  }, [expiredAt, token]);
+  }, [token]);
 
   // useEffect(async () => {
   //   const res = await axios.get("/catalogue/fundraisers/");

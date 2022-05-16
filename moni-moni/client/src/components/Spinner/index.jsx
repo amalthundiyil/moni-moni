@@ -1,12 +1,22 @@
 import * as React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useEffect } from "react";
 
-export default function Spinner({ ...props }) {
-  const [open, setOpen] = React.useState(props.open);
+export default function Spinner() {
+  const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpen(true);
+    }, 1);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   return (
     <div>

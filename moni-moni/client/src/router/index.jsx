@@ -16,20 +16,28 @@ const Router = () => {
   const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  console.log(isAuthenticated, verifyStatus);
   useEffect(() => {
     dispatch(verifyTokenAsync());
   }, []);
 
+  if (verifyStatus === "start") {
+    return <Spinner open={true} />;
+  }
+
   return (
     <Suspense fallback={null}>
-      {verifyStatus === "loading" && <Spinner open={true} />}
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
-        <Route exact path="/" element={<PrivateRoute auth={isAuthenticated} />}>
+        <Route
+          exact
+          path="/"
+          element={<PrivateRoute auth={isAuthenticated} v={verifyStatus} />}
+        >
           <Route path="/checkout" element={<Checkout />} />
         </Route>
       </Routes>

@@ -51,8 +51,11 @@ class LoginAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
-        token = user.tokens()
-        return Response(token)
+        tokens = user.tokens()
+        access_token = {"token": tokens["access"]}
+        response = Response(access_token, status=status.HTTP_200_OK)
+        response.set_cookie('x-refresh-token', tokens["refresh"])
+        return response
 
 
 class LogoutAPI(generics.GenericAPIView):
@@ -163,7 +166,10 @@ class RefreshTokenView(TokenRefreshView):
     serializer_class = RefreshTokenSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={'refresh': request.headers.get("Refresh-Token")})
+        serializer = self.get_serializer(data=request.data, context={'refresh': request.COOKIES.get("x-refresh-token")})
         serializer.is_valid(raise_exception=True)
-        print(serializer.validated_data)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        access_token = {"token": serializer.validated_data["access"]}
+        response = Response(access_token, status=status.HTTP_200_OK)
+        response.set_cookie('x-refresh-token', serializer.validated_data["refresh"])
+        return response
+

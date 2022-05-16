@@ -30,9 +30,8 @@ const authSlice = createSlice({
       state.loginStatus = "rejected";
     },
     verifyUserSuccess: (state, action) => {
-      const { access: token, refresh } = action.payload;
+      const { token } = action.payload;
       state.token = token;
-      state.refresh = refresh;
       state.isAuthenticated = true;
       state.verifyStatus = "end";
       state.loginStatus = "fulfilled";
