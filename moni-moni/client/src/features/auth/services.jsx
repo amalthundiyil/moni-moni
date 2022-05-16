@@ -1,7 +1,6 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import axios from "../../utils/axios";
 
-const API_URL = "http://localhost:5000";
+axios.defaults.withCredentials = true;
 
 export const setAuthToken = (token) => {
   if (token) {
@@ -13,7 +12,7 @@ export const setAuthToken = (token) => {
 
 export const verifyTokenService = async () => {
   try {
-    return await axios.post(`${API_URL}/api/v1/auth/verify`);
+    return await axios.post("/api/v1/auth/token/refresh/");
   } catch (err) {
     return {
       error: true,
@@ -22,10 +21,10 @@ export const verifyTokenService = async () => {
   }
 };
 
-export const userLoginService = async (username, password) => {
-  const body = { username, password };
+export const userLoginService = async (email, password) => {
+  const body = { email, password };
   try {
-    return await axios.post(`${API_URL}/api/v1/auth/login`, body);
+    return await axios.post("/api/v1/auth/login/", body);
   } catch (err) {
     console.log(err);
     return {
@@ -37,7 +36,7 @@ export const userLoginService = async (username, password) => {
 
 export const userLogoutService = async () => {
   try {
-    return await axios.post(`${API_URL}/api/v1/auth/logout`);
+    return await axios.post("/api/v1/auth/logout");
   } catch (err) {
     return {
       error: true,

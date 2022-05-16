@@ -12,21 +12,22 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
+import axios from "../../utils/axios";
+import { useSelector, useDispatch } from "react-redux";
+import { userLoginAsync } from "./asyncActions";
 
 const theme = createTheme();
 
 export default function Login() {
+  const authObj = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const { userLoginLoading, loginError } = authObj;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const res = await axios.post(
-      `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/v1/auth/login/`,
-      {
-        email: data.get("email"),
-        password: data.get("password"),
-      }
-    );
+    dispatch(userLoginAsync(data.get("email"), data.get("password")));
   };
 
   return (
@@ -88,7 +89,7 @@ export default function Login() {
             <Grid container>
               <Grid item xs>
                 <Link
-                  href={`http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/v1/auth/request-reset-email/`}
+                  href={"/api/v1/auth/request-reset-email/"}
                   variant="body2"
                 >
                   Forgot password?

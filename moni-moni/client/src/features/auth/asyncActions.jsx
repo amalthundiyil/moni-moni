@@ -29,10 +29,10 @@ const verifyTokenAsync =
     else dispatch(verifyUserSuccess(result.data));
   };
 
-const userLoginAsync = (username, password) => async (dispatch) => {
+const userLoginAsync = (email, password) => async (dispatch) => {
   dispatch(userLoginStarted());
 
-  const result = await userLoginService(username, password);
+  const result = await userLoginService(email, password);
 
   if (result.error) {
     dispatch(userLoginFailure({ error: result.response.data.msg }));
