@@ -11,7 +11,7 @@ import Fundraisers from "../../components/Fundraisers";
 import FundraiserCard from "../../components/Fundraiser";
 import { useEffect } from "react";
 import { useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios";
 import { setAuthToken } from "../auth/services";
 import { verifyTokenAsync } from "../auth/asyncActions";
 import { useSelector, useDispatch } from "react-redux";
