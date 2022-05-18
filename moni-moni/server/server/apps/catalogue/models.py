@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 from .managers import FundraiserManager
 from django.utils.translation import gettext_lazy as _
 
@@ -31,7 +32,7 @@ class Fundraiser(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255, default="admin")
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to="images/", default="images/default.png")
+    image = models.ImageField(upload_to="../../media/", default="default.png")
     slug = models.SlugField(max_length=255)
     tags = models.CharField(max_length=30, default="newest")
     fund_total = models.DecimalField(max_digits=1000, decimal_places=2)

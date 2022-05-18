@@ -1,20 +1,18 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Fundraisers from "../../components/Fundraisers";
-import FundraiserCard from "../../components/Fundraiser";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../../utils/axios";
 import { setAuthToken } from "../auth/services";
 import { verifyTokenAsync } from "../auth/asyncActions";
 import { useSelector, useDispatch } from "react-redux";
+import { useGlobalContext } from "../../context";
+import Spinner from "../../components/Spinner";
+import Fundraisers from "../../components/Fundraisers";
+import Fundraiser from "../../components/Fundraiser";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -25,7 +23,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Home() {
-  const [featFundraisers, setFeatFundraisers] = useState([]);
+  const { loading, setLoading } = useGlobalContext();
+  const [fundraisers, setFundraisers] = useState([]);
+  const [mainFundraiser, setMainFundraiser] = useState();
+  const [featuredFundraisers, setFeaturedFundraisers] = useState([]);
+
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,77 +40,50 @@ export default function Home() {
     };
   }, [token]);
 
-  // useEffect(async () => {
-  //   const res = await axios.get("/catalogue/fundraisers/");
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      // TODO @amal-thundiyil: Fix sign in error after resetting db
+      const res = await axios.get("/api/v1/catalogue/fundraisers/");
+      const data = await res.data;
+      setMainFundraiser(data[0]);
+      setFeaturedFundraisers(data.slice(1, 3));
+      setFundraisers(data.slice(3));
+      setLoading(false);
+    };
+    fetchData().catch(console.error);
+  }, []);
+
+  if (loading === true) {
+    return <Spinner open={true} />;
+  }
 
   return (
     <>
-      <Container maxWidth="sm">
-        <Typography
-          component="h1"
-          variant="h2"
-          align="center"
-          color="text.primary"
-          gutterBottom
-        >
-          Album layout
-        </Typography>
-        <Typography
-          variant="h5"
-          align="center"
-          color="text.secondary"
-          paragraph
-        >
-          Something short and leading about the collection below—its contents,
-          the creator, etc. Make it short and sweet, but not too short so folks
-          don&apos;t simply skip over it entirely.
-        </Typography>
-        <Stack
-          sx={{ pt: 4 }}
-          direction="row"
-          spacing={2}
-          justifyContent="center"
-        >
-          <Button variant="contained">Main call to action</Button>
-          <Button variant="outlined">Secondary action</Button>
-        </Stack>
+      <Container maxWidth="xl">
+        <main>
+          <Fundraiser type="main" fundraiser={mainFundraiser} />
+          <Grid container spacing={4}>
+            {featuredFundraisers.map((fundraiser) => (
+              <Fundraiser
+                type="featured"
+                key={fundraiser.title}
+                fundraiser={fundraiser}
+              />
+            ))}
+          </Grid>
+          <Grid container spacing={5} sx={{ mt: 3 }}>
+            {fundraisers.map((fundraiser) => (
+              <Fundraiser
+                type="normal"
+                title="Art"
+                key={fundraiser.title}
+                fundraiser={fundraiser}
+              />
+            ))}
+          </Grid>
+        </main>
       </Container>
-      <Box sx={{ flexGrow: 1 }} m={10}>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <FundraiserCard
-              type="featured"
-              cardWidth={1000}
-              data={featFundraisers[0]}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <FundraiserCard
-              type="featured"
-              cardWidth={500}
-              data={featFundraisers[1]}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <FundraiserCard
-              type="featured"
-              cardWidth={500}
-              data={featFundraisers[2]}
-            />
-          </Grid>
-          <Grid item xs={8}>
-            <FundraiserCard
-              type="featured"
-              cardWidth={1000}
-              data={featFundraisers[3]}
-            />
-          </Grid>
-        </Grid>
-      </Box>
-      <Fundraisers />
-      <Fundraisers />
-      <Fundraisers />
     </>
   );
 }
