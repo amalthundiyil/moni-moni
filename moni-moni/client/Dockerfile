@@ -10,7 +10,7 @@ ENV REACT_APP_PORT=${REACT_APP_PORT}
 
 RUN npm install && npm run build
 
-FROM nginx:1.21.6-alpine
+FROM nginx:1.20-alpine
 
 RUN apk add --no-cache bash
 
