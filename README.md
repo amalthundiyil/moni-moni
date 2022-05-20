@@ -18,4 +18,4 @@ Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can 
 
 ## 📝 Further Changes to be Done
 
-- [] Blockchain integration
+- [ ] Blockchain integration
