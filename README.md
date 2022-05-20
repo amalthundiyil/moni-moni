@@ -1,6 +1,6 @@
 ![Screenshot from 2022-05-15 09-06-35](https://user-images.githubusercontent.com/90337323/168456070-a0d9faec-b2ef-46b4-987d-8c3d1b640781.png)
 
-# 🤑 Moni Moni 🤑
+# Moni Moni 🤑
 
 ![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg)
 ![License](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
