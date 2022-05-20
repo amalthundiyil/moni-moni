@@ -4,6 +4,7 @@
 
 ![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg)
 ![License](https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE)
 
 ## 📌 Introduction
 
