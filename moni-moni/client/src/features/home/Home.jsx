@@ -13,6 +13,7 @@ import { useGlobalContext } from "../../context";
 import Spinner from "../../components/Spinner";
 import Fundraisers from "../../components/Fundraisers";
 import Fundraiser from "../../components/Fundraiser";
+import { groupBy } from "lodash";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -44,11 +45,11 @@ export default function Home() {
     const fetchData = async () => {
       setLoading(true);
       // TODO @amal-thundiyil: Fix sign in error after resetting db
-      const res = await axios.get("/api/v1/catalogue/fundraisers/");
-      const data = await res.data;
+      let res = await axios.get("/api/v1/catalogue/fundraisers/");
+      let data = await res.data;
       setMainFundraiser(data[0]);
       setFeaturedFundraisers(data.slice(1, 3));
-      setFundraisers(data.slice(3));
+      setFundraisers(groupBy(data, "category"));
       setLoading(false);
     };
     fetchData().catch(console.error);
@@ -74,9 +75,13 @@ export default function Home() {
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
             {fundraisers.map((fundraiser) => (
+              //         <Main title="From the firehose" posts={posts} />
+              // <Typography variant="h6" gutterBottom>
+              //   {title}
+              // </Typography>
+              //   <Divider />
               <Fundraiser
                 type="normal"
-                title="Art"
                 key={fundraiser.title}
                 fundraiser={fundraiser}
               />

@@ -5,9 +5,19 @@ from django.conf import settings
 from .managers import FundraiserManager
 from django.utils.translation import gettext_lazy as _
 
+CATEGORY_NAMES = (
+    ('help', 'Help Needed'),
+    ('trending', 'Trending'),
+    ('urgent', 'Urgent'),
+)
+
+class CategoryEnum(object):
+    OTHERS =  'others'
+    TRENDING = 'trending'
+    URGENT =  'urgent'
 
 class Category(models.Model):
-    name = models.CharField(max_length=255, db_index=True)
+    name = models.CharField(max_length=20, db_index=True, primary_key=True, choices=CATEGORY_NAMES, default=CategoryEnum.OTHERS)
     slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:

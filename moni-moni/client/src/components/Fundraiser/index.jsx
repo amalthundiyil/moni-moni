@@ -5,7 +5,6 @@ import MainFeaturedFundraiser from "./MainFeaturedFundraiser";
 import Spinner from "../../components/Spinner";
 
 const Fundraiser = ({ ...props }) => {
-  console.log(props);
   if (!props.fundraiser) {
     return <Spinner open={true} />;
   }

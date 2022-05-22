@@ -26,7 +26,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function NormalFundraiser({ title, fundraiser }) {
+export default function NormalFundraiser({ fundraiser }) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);

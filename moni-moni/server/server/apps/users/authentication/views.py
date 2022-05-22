@@ -168,8 +168,8 @@ class RefreshTokenView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, context={'refresh': request.COOKIES.get("x-refresh-token")})
         serializer.is_valid(raise_exception=True)
-        access_token = {"token": serializer.validated_data["access"]}
+        access_token = {"token": serializer.validated_data.get("access")}
         response = Response(access_token, status=status.HTTP_200_OK)
-        response.set_cookie('x-refresh-token', serializer.validated_data["refresh"])
+        response.set_cookie('x-refresh-token', serializer.validated_data.get("refresh"))
         return response
 
