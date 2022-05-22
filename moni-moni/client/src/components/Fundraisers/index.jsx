@@ -3,20 +3,37 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import NormalFundraiser from "../Fundraiser/NormalFundraiser";
+import Spinner from "../Spinner";
+import { v4 as uuidv4 } from "uuid";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Autoplay, Pagination, Navigation } from "swiper";
 
-function Fundraisers(props) {
-  const { posts: fundraiser, title } = props;
+function Fundraisers({ fundraiser }) {
+  if (!fundraiser) {
+    return <Spinner open={true} />;
+  }
 
   return (
-    <Grid item xs={12} md={8}>
-      <Typography variant="h6" gutterBottom>
-        {title}
-      </Typography>
-      <Divider />
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={4}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      pagination={{
+        clickable: true,
+      }}
+      navigation={true}
+      modules={[Autoplay, Pagination, Navigation]}
+    >
       {fundraiser.map((fundraiser) => (
-        <NormalFundraiser {...fundraiser} />
+        <SwiperSlide>
+          <NormalFundraiser key={uuidv4()} {...fundraiser} />
+        </SwiperSlide>
       ))}
-    </Grid>
+    </Swiper>
   );
 }
 

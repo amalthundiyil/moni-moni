@@ -10,10 +10,14 @@ import { setAuthToken } from "../auth/services";
 import { verifyTokenAsync } from "../auth/asyncActions";
 import { useSelector, useDispatch } from "react-redux";
 import { useGlobalContext } from "../../context";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 import Spinner from "../../components/Spinner";
 import Fundraisers from "../../components/Fundraisers";
 import Fundraiser from "../../components/Fundraiser";
 import { groupBy } from "lodash";
+
+import { v4 as uuidv4 } from "uuid";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -25,7 +29,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Home() {
   const { loading, setLoading } = useGlobalContext();
-  const [fundraisers, setFundraisers] = useState([]);
+  const [fundraisers, setFundraisers] = useState({});
   const [mainFundraiser, setMainFundraiser] = useState();
   const [featuredFundraisers, setFeaturedFundraisers] = useState([]);
 
@@ -64,28 +68,26 @@ export default function Home() {
       <Container maxWidth="xl">
         <main>
           <Fundraiser type="main" fundraiser={mainFundraiser} />
-          <Grid container spacing={4}>
+          <Grid container spacing={4} sx={{ mb: 4 }}>
             {featuredFundraisers.map((fundraiser) => (
               <Fundraiser
                 type="featured"
-                key={fundraiser.title}
+                key={uuidv4()}
                 fundraiser={fundraiser}
               />
             ))}
           </Grid>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
-            {fundraisers.map((fundraiser) => (
-              //         <Main title="From the firehose" posts={posts} />
-              // <Typography variant="h6" gutterBottom>
-              //   {title}
-              // </Typography>
-              //   <Divider />
-              <Fundraiser
-                type="normal"
-                key={fundraiser.title}
-                fundraiser={fundraiser}
-              />
-            ))}
+          <Grid container>
+            {Object.entries(fundraisers).map(([category, fundraiser]) => {
+              return (
+                <React.Fragment key={uuidv4()}>
+                  <Typography key={uuidv4()} variant="h5" sx={{ m: 4 }}>
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </Typography>
+                  <Fundraisers key={uuidv4()} fundraiser={fundraiser} />
+                </React.Fragment>
+              );
+            })}
           </Grid>
         </main>
       </Container>
