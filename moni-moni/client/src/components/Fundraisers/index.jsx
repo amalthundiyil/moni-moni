@@ -21,16 +21,13 @@ export default function App({ fundraiser }) {
   return (
     <>
       <Swiper
+        slidesPerView={3}
         spaceBetween={30}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
         pagination={{
           clickable: true,
         }}
         navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Pagination, Navigation]}
       >
         {fundraiser.map((fundraiser) => (
           <SwiperSlide>
