@@ -77,7 +77,7 @@ export default function Home() {
               />
             ))}
           </Grid>
-          <Grid container>
+          <Grid container spacing={4} sx={{ mb: 4 }}>
             {Object.entries(fundraisers).map(([category, fundraiser]) => {
               return (
                 <React.Fragment key={uuidv4()}>
