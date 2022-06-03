@@ -1,13 +1,11 @@
 <p align='center'>
-<img height="500px" src='./docs/images/logo_readme.jpg'>
+<img width="40%" src='./docs/images/logo.jpg'>
 </p>
 
 <h1>
 <p align='center'>
 Moni Moni - Crowdfunding Platform 
-</h1>
 </p>
-
 <p align='center'>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 </p>
@@ -15,6 +13,8 @@ Moni Moni - Crowdfunding Platform
 <p align='center'>
 <img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
 <a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
+</p>
+</h1>
 </p>
 
 ## 📌 Introduction
