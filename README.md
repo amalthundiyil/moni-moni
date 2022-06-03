@@ -14,7 +14,7 @@ Moni Moni - Crowdfunding Platform
 <p align='center'>
 <img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
 <a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
-<a href="https://twitter.com/intent/follow?screen_name=amal-thundiyil"><img src="https://img.shields.io/twitter/follow/amal-thundiyil?style=social" alt="follow on Twitter"></a>
+<a href="https://twitter.com/intent/follow?screen_name=amal_thundiyil"><img src="https://img.shields.io/twitter/follow/amal_thundiyil?style=social" alt="follow on Twitter"></a>
 
 <a href="https://github.com/amal-thundiyil/moni-moni/pulls"><img src="https://img.shields.io/badge/PR-Welcome-brightgreen.svg"></a>
 
