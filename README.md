@@ -6,7 +6,7 @@
 <p align='center'>
 Moni Moni
 </p>
-<p align='center'>
+<p align='center' style="font-size:1rem">
 Crowdfunding Platform
 </p>
 <p align='center'>
