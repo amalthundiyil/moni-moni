@@ -6,7 +6,7 @@
 
 <p align='center'>
 <br> Crowdfunding Platform <br>
-<img src="https://visitor-badge.laobi.icu/badge?page_id=halfrost.threes-ai">
+<img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 </p>
 
 <p align='center'>
