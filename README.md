@@ -1,9 +1,18 @@
-![Screenshot from 2022-05-15 09-06-35](https://user-images.githubusercontent.com/90337323/168456070-a0d9faec-b2ef-46b4-987d-8c3d1b640781.png)
+<p align='center'>
+<img src='./docs/images/logo_readme.jpg'>
+</p>
 
-# Moni Moni 🤑
+# Moni Moni
 
-![Build](https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE)
+<p align='center'>
+<br> Crowdfunding Platform <br>
+<img src="https://visitor-badge.laobi.icu/badge?page_id=halfrost.threes-ai">
+</p>
+
+<p align='center'>
+<img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
+<a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
+</p>
 
 ## 📌 Introduction
 
@@ -18,4 +27,4 @@ Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can 
 
 ## 📝 Further Changes to be Done
 
-- [ ] Blockchain integration
+- [ ] Add options to accept funding made with NFTs and digital currency.
