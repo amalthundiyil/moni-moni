@@ -4,20 +4,16 @@
 
 <h1>
 <p align='center'>
-Moni Moni
+Moni Moni - Crowdfunding Platform
 </p>
-<p align='center' style="font-size:1rem">
-Crowdfunding Platform
-</p>
+</h1>
+
 <p align='center'>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 </p>
-
 <p align='center'>
 <img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
 <a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
-</p>
-</h1>
 </p>
 
 ## 📌 Introduction
