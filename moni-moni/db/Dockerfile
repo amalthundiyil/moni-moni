@@ -1,5 +1,5 @@
 # base image
-FROM postgres:14.2-alpine
+FROM postgres:14-alpine
 
 RUN apk add --no-cache bash
 
