@@ -1,11 +1,14 @@
 <p align='center'>
-<img src='./docs/images/logo_readme.jpg'>
+<img height="500px" src='./docs/images/logo_readme.jpg'>
 </p>
 
-# Moni Moni
+<h1>
+<p align='center'>
+Moni Moni - Crowdfunding Platform 
+</h1>
+</p>
 
 <p align='center'>
-<br> Crowdfunding Platform <br>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 </p>
 
