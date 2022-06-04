@@ -29,29 +29,29 @@ Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can 
 
 ## 🙏 Contributing
 
-Read [the contributing guidlines](CONTRIBUTING.md). To setup this project locally:
+Please read the [contributing guidlines](CONTRIBUTING.md). To setup this project locally:
 
 ### 🐋 Using Docker
 
-- With Docker and docker-compose installed, run docker-compose up --build
+With Docker and docker-compose installed, run docker-compose up --build
 
-```
+```sh
 docker-compose up --build
 ```
 
-- Open the browser at http://localhost:8080/
+Open the browser at http://localhost:8080/. 👨‍🏭️
 
 ### 🛠️ Other
 
-- `cd` into the `client` and run:
+Change the directory to the `moni-moni/client/` folder and run:
 
 ```
 npm start
 ```
 
-- `cd` into the server folder and run:
+Change the directory to the `moni-moni/server/` folder and run:
 
-```
+```sh
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
