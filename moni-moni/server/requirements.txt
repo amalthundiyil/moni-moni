@@ -3,6 +3,7 @@ Django==4.0.4
 django-cors-headers==3.12.0
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.1.0
+django-extensions==3.1.5
 django-dotenv==1.4.2
 django-seed==0.3.1
 Pillow==9.1.1  
@@ -11,3 +12,4 @@ pytest-django==4.5.2
 gunicorn==20.1.0
 six==1.16.0
 paypal-checkout-serversdk==1.0.1
+pygraphviz==1.9
