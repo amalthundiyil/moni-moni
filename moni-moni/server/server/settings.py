@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     "server.apps.catalogue.apps.CatalogueConfig",
     "server.apps.orders.apps.OrdersConfig",
     "server.apps.checkout.apps.CheckoutConfig",
-    'django_seed',
+    "django_seed",
 ]
 
 MIDDLEWARE = [
@@ -144,6 +144,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -159,16 +161,16 @@ if DEBUG:
 
 CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS")) == "1"  # 1 is True
 CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    "refresh-token", 
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+    "refresh-token",
 ]
 
 

@@ -16,6 +16,8 @@ Moni Moni - Crowdfunding Platform
 
 </p>
 
+The website is live [here](https://monimoni.heroku.app) 🚧 .
+
 ## 📌 Introduction
 
 Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can post their loan requests along with the interest they can payback and the reason they want money for, other users can view the request and decide whether they want to invest in the person depending upon the interest rate and the reason for request.
@@ -39,7 +41,7 @@ With Docker and docker-compose installed, run docker-compose up --build
 docker-compose up --build
 ```
 
-Open the browser at http://localhost:8080/. 👨‍🏭️
+Open the browser at http://localhost:3000/. 👨‍🏭️
 
 ### 🛠️ Other alternative
 
@@ -57,9 +59,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 python manage.py runserver
 ```
-    
+
 Open the browser at http://localhost:3000/. 👨‍🏭️
-    
+
 ## 🎓 Description
 
 This is the overview of the architecture of the web application:
