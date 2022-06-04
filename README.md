@@ -27,6 +27,43 @@ Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can 
 - [Django](https://github.com/django/django)
 - [Amazon Web Services (AWS)](https://github.com/aws)
 
+## 🙏 Contributing
+
+Read [the contributing guidlines](CONTRIBUTING.md). To setup this project locally:
+
+### 🐋 Using Docker
+
+- With Docker and docker-compose installed, run docker-compose up --build
+
+```
+docker-compose up --build
+```
+
+- Open the browser at http://localhost:8080/
+
+### 🛠️ Other
+
+- `cd` into the `client` and run:
+
+```
+npm start
+```
+
+- `cd` into the server folder and run:
+
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py runserver
+```
+
+## Description
+
+<p align="center">
+    <img src="./docs/images/Arch.png">
+</p>
+
 ## 📝 Further Changes to be Done
 
 - [ ] Add options to accept funding made with NFTs and digital currency.
