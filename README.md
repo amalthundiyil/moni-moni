@@ -16,7 +16,7 @@ Moni Moni - Crowdfunding Platform
 
 </p>
 
-The website is live [here](https://monimoni.heroku.app) 🚧 .
+### 🚧 Moni Moni is live [here](https://monimoni.heroku.app).
 
 ## 📌 Introduction
 
@@ -68,13 +68,6 @@ This is the overview of the architecture of the web application:
 
 <p align="center">
     <img src="./docs/images/Arch.png" width="70%">
-</p>
-
-
-Here's a sample schema diagram of the app generated using graph visualization tools:
-
-<p align="center">
-    <img src="./docs/images/schema.png" width="70%">
 </p>
 
 ## 📝 Further Changes to be Done
