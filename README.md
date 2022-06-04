@@ -70,6 +70,13 @@ This is the overview of the architecture of the web application:
     <img src="./docs/images/Arch.png" width="70%">
 </p>
 
+
+Here's a sample schema diagram of the app generated using graph visualization tools:
+
+<p align="center">
+    <img src="./docs/images/schema.png" width="70%">
+</p>
+
 ## 📝 Further Changes to be Done
 
 - [ ] Add options to accept funding made with NFTs and digital currency.
