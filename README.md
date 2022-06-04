@@ -63,7 +63,7 @@ python manage.py runserver
 This is the overview of the architecture of the web application:
 
 <p align="center">
-    <img src="./docs/images/Arch.png" width="50%">
+    <img src="./docs/images/Arch.png" width="70%">
 </p>
 
 ## 📝 Further Changes to be Done
