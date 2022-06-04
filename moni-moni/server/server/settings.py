@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     "server.apps.orders.apps.OrdersConfig",
     "server.apps.checkout.apps.CheckoutConfig",
     "django_seed",
-    "django_extensions",
 ]
 
 MIDDLEWARE = [
