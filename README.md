@@ -57,7 +57,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 python manage.py runserver
 ```
-
+    
+Open the browser at http://localhost:3000/. 👨‍🏭️
+    
 ## 🎓 Description
 
 This is the overview of the architecture of the web application:
