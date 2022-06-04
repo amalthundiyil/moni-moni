@@ -11,9 +11,9 @@ Moni Moni - Crowdfunding Platform
 <p align='center'>
 <img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
 <a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
-<img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 <a href="https://github.com/amal-thundiyil/moni-moni/pulls"><img src="https://img.shields.io/badge/PR-Welcome-brightgreen.svg"></a>
-
+<a href="https://github.com/amal-thundiyil/moni-moni/issues"><img src="https://img.shields.io/github/issues/amal-thundiyil/moni-moni"></a>
+<img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 </p>
 
 ### 🚧 Moni Moni is live [here](https://moni-moni.herokuapp.com/).
