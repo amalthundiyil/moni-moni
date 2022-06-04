@@ -16,7 +16,7 @@ Moni Moni - Crowdfunding Platform
 
 </p>
 
-### 🚧 Moni Moni is live [here](https://monimoni.heroku.app).
+### 🚧 Moni Moni is live [here](https://moni-moni.herokuapp.com/).
 
 ## 📌 Introduction
 
