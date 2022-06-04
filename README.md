@@ -58,10 +58,12 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
-## Description
+## 🎓 Description
+
+This is the overview of the architecture of the web application:
 
 <p align="center">
-    <img src="./docs/images/Arch.png">
+    <img src="./docs/images/Arch.png" width="50%">
 </p>
 
 ## 📝 Further Changes to be Done
