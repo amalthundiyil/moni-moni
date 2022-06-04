@@ -31,7 +31,7 @@ Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can 
 
 Please read the [contributing guidlines](CONTRIBUTING.md). To setup this project locally:
 
-### 🐋 Using Docker
+### 🐳 Using Docker
 
 With Docker and docker-compose installed, run docker-compose up --build
 
@@ -41,7 +41,7 @@ docker-compose up --build
 
 Open the browser at http://localhost:8080/. 👨‍🏭️
 
-### 🛠️ Other
+### 🛠️ Other alternative
 
 Change the directory to the `moni-moni/client/` folder and run:
 
