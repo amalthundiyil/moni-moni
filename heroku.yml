@@ -6,7 +6,3 @@ build:
   docker:
     web: moni-moni/client/Dockerfile
     server: moni-moni/server/Dockerfile
-release:
-  image:
-    web: moni-moni/client/Dockerfile
-    server: moni-moni/server/Dockerfile
