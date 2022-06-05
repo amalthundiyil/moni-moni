@@ -19,7 +19,7 @@ Moni Moni - Crowdfunding Platform
 
 <h3>
 <p align='center'>
-🚧 Moni Moni is kinda live <a href="https://moni-moni.herokuapp.com/">here</a> 🚧
+🚧 Moni Moni is live <a href="https://moni-moni.herokuapp.com/">here</a> 🚧
 </p>
 </h3>
 
