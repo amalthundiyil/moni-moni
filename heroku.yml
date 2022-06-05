@@ -6,3 +6,9 @@ build:
   docker:
     web: moni-moni/client/Dockerfile
     server: moni-moni/server/Dockerfile
+run:
+  server:
+    command:
+      - gunicorn server.wsgi --bind 0.0.0.0:8000
+      - python asset-syncer.py
+    server: moni-moni/server/Dockerfile

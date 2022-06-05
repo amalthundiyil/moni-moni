@@ -12,6 +12,8 @@ RUN npm install && npm run build
 
 FROM nginx:1.22.0-alpine
 
+ARG PORT=REACT_APP_PORT
+
 RUN apk add --no-cache bash
 
 COPY --from=client /client/build/ /var/www/frontend
