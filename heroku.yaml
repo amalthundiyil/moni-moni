@@ -1,0 +1,21 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    web: moni-moni/client/Dockerfile
+    server: moni-moni/server/Dockerfile
+  config:
+    RAILS_ENV: development
+release:
+  command:
+    - ./-tasks.sh
+  image: worker
+run:
+  web: bundle exec puma -C config/puma.rb
+  worker: python myworker.py
+  asset-syncer:
+    command:
+      - python asset-syncer.py
+    image: worker
