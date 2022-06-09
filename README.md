@@ -16,12 +16,12 @@ Moni Moni - Crowdfunding Platform
 <img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 
 </p>
-
+<!-- 
 <h3>
 <p align='center'>
 🚧 Moni Moni is live <a href="https://moni-moni.herokuapp.com/">here</a> 🚧
 </p>
-</h3>
+</h3> -->
 
 ## 📌 Introduction
 
