@@ -11,7 +11,7 @@ import Login from "../features/auth/Login";
 import Checkout from "../features/checkout/Checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
 import PrivateRoute from "./PrivateRoute";
-import FundraiserDetails from "../features/fundraiser/FundraiserDetails";
+import Fundraiser from "../features/fundraiser";
 import { useGlobalContext } from "../context";
 import { groupBy } from "lodash";
 import axios from "../utils/axios";
@@ -86,7 +86,7 @@ const Router = () => {
             <Route
               key={fundraiser.id}
               path={`/fundraisers/${fundraiser.slug}`}
-              element={<FundraiserDetails fundraiser={fundraiser} />}
+              element={<Fundraiser fundraiser={fundraiser} />}
             />
           );
         })}
