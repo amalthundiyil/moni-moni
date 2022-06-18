@@ -5,11 +5,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 export default function NormalFundraiser({ fundraiser }) {
-  console.log(fundraiser);
+  const navigate = useNavigate();
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{ maxWidth: 345 }}
+      onClick={() => navigate(`/fundraisers/${fundraiser.slug}`)}
+    >
       <CardMedia
         component="img"
         height="140"
