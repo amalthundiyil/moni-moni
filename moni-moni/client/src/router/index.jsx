@@ -35,7 +35,6 @@ const Router = () => {
       let res = await axios.get("/api/v1/catalogue/fundraisers/");
       let data = await res.data;
       setAllFundraisers(data);
-      console.log("hello", allFundraisers);
       setMainFundraiser(data[0]);
       setFeaturedFundraisers(data.slice(1, 3));
       setFundraisers(groupBy(data, "category"));
@@ -83,10 +82,13 @@ const Router = () => {
           <Route path="/checkout" element={<Checkout />} />
         </Route>
         {allFundraisers.map((fundraiser) => {
-          <Route
-            path={`/fundraisers/${fundraiser.slug}`}
-            element={<FundraiserDetails fundraiser={fundraiser} />}
-          />;
+          return (
+            <Route
+              key={fundraiser.id}
+              path={`/fundraisers/${fundraiser.slug}`}
+              element={<FundraiserDetails fundraiser={fundraiser} />}
+            />
+          );
         })}
       </Routes>
       <Footer />
