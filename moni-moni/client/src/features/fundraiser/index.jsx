@@ -3,8 +3,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
-import Hero from "./Hero";
-import Statistics from "./Statistics";
+import Header from "./Header";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Fundraiser({ fundraiser }) {
@@ -12,11 +11,7 @@ export default function Fundraiser({ fundraiser }) {
     <>
       <Container maxWidth="lg">
         <main>
-          <Hero fundraiser={fundraiser} />
-          <Grid container spacing={4} sx={{ mb: 4 }}>
-            <Statistics key={uuidv4()} fundraiser={fundraiser} />
-            <Statistics key={uuidv4()} fundraiser={fundraiser} />
-          </Grid>
+          <Header key={uuidv4()} fundraiser={fundraiser} />
           <Grid container spacing={5} sx={{ mt: 3 }}>
             <Main fundraiser={fundraiser} />
             <Sidebar fundraiser={fundraiser} />

@@ -5,13 +5,19 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 
 const social = [
-  { name: "GitHub", icon: GitHubIcon },
-  { name: "Twitter", icon: TwitterIcon },
-  { name: "Facebook", icon: FacebookIcon },
+  {
+    name: "GitHub",
+    icon: GitHubIcon,
+    link: "https://github.com/amal-thundiyil",
+  },
+  {
+    name: "Twitter",
+    icon: TwitterIcon,
+    link: "https://twitter.com/amal_thundiyil",
+  },
 ];
 
 function Sidebar({ fundraiser }) {
@@ -30,7 +36,7 @@ function Sidebar({ fundraiser }) {
         <Link
           display="block"
           variant="body1"
-          href="#"
+          href={network.link}
           key={network.name}
           sx={{ mb: 0.5 }}
         >
