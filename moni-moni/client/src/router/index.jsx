@@ -8,6 +8,7 @@ import Spinner from "../components/Spinner";
 import Home from "../features/home/Home";
 import Register from "../features/auth/Register";
 import Login from "../features/auth/Login";
+import Pricing from "../features/fundraiser/Pricing";
 import Checkout from "../features/checkout/Checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
 import PrivateRoute from "./PrivateRoute";
@@ -15,6 +16,7 @@ import Fundraiser from "../features/fundraiser";
 import { useGlobalContext } from "../context";
 import { groupBy } from "lodash";
 import axios from "../utils/axios";
+import { v4 as uuidv4 } from "uuid";
 
 const Router = () => {
   const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
@@ -83,11 +85,18 @@ const Router = () => {
         </Route>
         {allFundraisers.map((fundraiser) => {
           return (
-            <Route
-              key={fundraiser.id}
-              path={`/fundraisers/${fundraiser.slug}`}
-              element={<Fundraiser fundraiser={fundraiser} />}
-            />
+            <>
+              <Route
+                key={uuidv4()}
+                path={`/fundraisers/${fundraiser.slug}`}
+                element={<Fundraiser fundraiser={fundraiser} />}
+              />
+              <Route
+                key={uuidv4()}
+                path={`/fundraisers/${fundraiser.slug}/pricing`}
+                element={<Pricing fundraiser={fundraiser} />}
+              />
+            </>
           );
         })}
       </Routes>

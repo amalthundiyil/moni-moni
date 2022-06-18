@@ -17,9 +17,4 @@ function Main({ fundraiser }) {
   );
 }
 
-Main.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  title: PropTypes.string.isRequired,
-};
-
 export default Main;

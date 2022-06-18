@@ -26,9 +26,6 @@ function FeaturedFundraiser({ fundraiser }) {
             <Typography variant="subtitle1" paragraph>
               {fundraiser.description}
             </Typography>
-            <Typography variant="subtitle1" color="primary">
-              Continue reading...
-            </Typography>
           </CardContent>
           <CardMedia
             component="img"
