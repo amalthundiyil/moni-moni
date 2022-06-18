@@ -5,8 +5,10 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
 
 function MainFeaturedPost({ fundraiser }) {
+  const navigate = useNavigate();
   return (
     <Paper
       sx={{
@@ -19,6 +21,7 @@ function MainFeaturedPost({ fundraiser }) {
         backgroundPosition: "center",
         backgroundImage: `url(${fundraiser.image})`,
       }}
+      onClick={() => navigate("/signup")}
     >
       {/* Increase the priority of the hero background image */}
       {

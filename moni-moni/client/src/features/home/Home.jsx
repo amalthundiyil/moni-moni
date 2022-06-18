@@ -15,7 +15,6 @@ import Divider from "@mui/material/Divider";
 import Spinner from "../../components/Spinner";
 import Fundraisers from "../../components/Fundraisers";
 import Fundraiser from "../../components/Fundraiser";
-import { groupBy } from "lodash";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -27,12 +26,11 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Home() {
-  const { loading, setLoading } = useGlobalContext();
-  const [fundraisers, setFundraisers] = useState({});
-  const [mainFundraiser, setMainFundraiser] = useState();
-  const [featuredFundraisers, setFeaturedFundraisers] = useState([]);
-
+export default function Home({
+  fundraisers,
+  mainFundraiser,
+  featuredFundraisers,
+}) {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,21 +43,7 @@ export default function Home() {
     };
   }, [token]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      // TODO @amal-thundiyil: Fix sign in error after resetting db
-      let res = await axios.get("/api/v1/catalogue/fundraisers/");
-      let data = await res.data;
-      setMainFundraiser(data[0]);
-      setFeaturedFundraisers(data.slice(1, 3));
-      setFundraisers(groupBy(data, "category"));
-      setLoading(false);
-    };
-    fetchData().catch(console.error);
-  }, []);
-
-  if (loading === true) {
+  if (!fundraisers || !mainFundraiser || !featuredFundraisers) {
     return <Spinner open={true} />;
   }
 
