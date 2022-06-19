@@ -1,5 +1,5 @@
 # Use image with both python and node installed
-FROM nikolaik/python-nodejs:python3.10-nodejs14
+FROM nikolaik/python-nodejs:python3.7-nodejs17
 
 WORKDIR /app/server/
 
