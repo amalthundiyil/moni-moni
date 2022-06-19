@@ -2,6 +2,7 @@ import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+
 const SearchBar = ({ setSearchQuery }) => (
   <form>
     <TextField
@@ -10,37 +11,29 @@ const SearchBar = ({ setSearchQuery }) => (
       onInput={(e) => {
         setSearchQuery(e.target.value);
       }}
-      label="Enter a city name"
+      label="Enter a fundraiser name"
       variant="outlined"
       placeholder="Search..."
       size="small"
+      sx={{ width: "80vw" }}
     />
     <IconButton type="submit" aria-label="search">
       <SearchIcon style={{ fill: "blue" }} />
     </IconButton>
   </form>
 );
+
 const filterData = (query, data) => {
   if (!query) {
-    return data;
+    return [];
   } else {
-    return data.filter((d) => d.toLowerCase().includes(query));
+    return data.filter((d) =>
+      d.title.toLowerCase().includes(query.toLowerCase())
+    );
   }
 };
-const data = [
-  "Paris",
-  "London",
-  "New York",
-  "Tokyo",
-  "Berlin",
-  "Buenos Aires",
-  "Cairo",
-  "Canberra",
-  "Rio de Janeiro",
-  "Dublin",
-];
 
-export default function Discover() {
+export default function Discover({ data }) {
   const [searchQuery, setSearchQuery] = useState("");
   const dataFiltered = filterData(searchQuery, data);
 
@@ -48,9 +41,10 @@ export default function Discover() {
     <div
       style={{
         display: "flex",
-        alignSelf: "center",
+        alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
+        height: "50vh",
         padding: 20,
       }}
     >
@@ -59,6 +53,7 @@ export default function Discover() {
         {dataFiltered.map((d) => (
           <div
             className="text"
+            key={d.id}
             style={{
               padding: 5,
               justifyContent: "normal",
@@ -69,9 +64,8 @@ export default function Discover() {
               BorderColor: "green",
               borderWidth: "10px",
             }}
-            key={d.id}
           >
-            {d}
+            {d.title}
           </div>
         ))}
       </div>

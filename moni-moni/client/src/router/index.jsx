@@ -107,7 +107,11 @@ const Router = () => {
             </React.Fragment>
           );
         })}
-        <Route exact path="/discover" element={<Discover />} />
+        <Route
+          exact
+          path="/discover"
+          element={<Discover data={allFundraisers} />}
+        />
         <Route
           exact
           path="/start-a-fundraiser"
