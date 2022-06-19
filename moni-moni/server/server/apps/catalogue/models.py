@@ -4,20 +4,29 @@ from django.urls import reverse
 from django.conf import settings
 from .managers import FundraiserManager
 from django.utils.translation import gettext_lazy as _
+import random
 
 CATEGORY_NAMES = (
-    ('help', 'Help Needed'),
-    ('trending', 'Trending'),
-    ('urgent', 'Urgent'),
+    ("help", "Help Needed"),
+    ("trending", "Trending"),
+    ("urgent", "Urgent"),
 )
 
+
 class CategoryEnum(object):
-    OTHERS =  'others'
-    TRENDING = 'trending'
-    URGENT =  'urgent'
+    OTHERS = "others"
+    TRENDING = "trending"
+    URGENT = "urgent"
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=20, db_index=True, primary_key=True, choices=CATEGORY_NAMES, default=CategoryEnum.OTHERS)
+    name = models.CharField(
+        max_length=20,
+        db_index=True,
+        primary_key=True,
+        choices=CATEGORY_NAMES,
+        default=CategoryEnum.OTHERS,
+    )
     slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
@@ -45,8 +54,16 @@ class Fundraiser(models.Model):
     image = models.ImageField(upload_to="../../media/", default="default.png")
     slug = models.SlugField(max_length=255)
     tags = models.CharField(max_length=30, default="newest")
-    fund_total = models.DecimalField(max_digits=1000, decimal_places=2)
-    fund_remaining = models.DecimalField(max_digits=1000, decimal_places=2)
+    fund_total = models.DecimalField(
+        max_digits=1000,
+        decimal_places=2,
+        default=random.randint(100000, 100000000),
+    )
+    fund_remaining = models.DecimalField(
+        max_digits=1000,
+        decimal_places=2,
+        default=random.randint(100, 10000),
+    )
     funding_method = models.JSONField(
         verbose_name=_("funding_method"),
         help_text=_("Required"),
