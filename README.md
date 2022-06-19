@@ -64,7 +64,7 @@ Then come the do-it-yourself options. There are many HTML templates out there, s
 
 It is for all of these reasons I created Moni Moni. It's entirely open source and yours to use as you wish. I think it's also an example of how easy it can be to develop cool, interactive stuff in React and Django. I hope you find it useful, and I hope you will consider [contributing](#CONTRIBUTING) to the project as well.
 
-### Technical Overview
+### 💻 Technical Overview
 
 This is the overview of the architecture of the web application:
 
