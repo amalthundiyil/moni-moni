@@ -25,21 +25,21 @@ Moni Moni - Crowdfunding Platform
 
 ## 📌 Introduction
 
-Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can post their loan requests along with the interest they can payback and the reason they want money for, other users can view the request and decide whether they want to invest in the person depending upon the interest rate and the reason for request.
+Moni Moni is a crowdfunded small-scale service. Users can post their loan or donation requests along with the interest or other rewards they can offer along with the story backing the fundraiser. Backers can view the request and decide whether they want to pledge or invest depending upon the rewards and the story. It is meant to be as simple as possible to facilitate the greater unempowered population of the world.
 
 ## 👨‍💻️ Technology Stack
 
 - [React.js](https://github.com/facebook/react)
 - [Material UI](https://github.com/mui/material-ui)
 - [Django](https://github.com/django/django)
-- [Amazon Web Services (AWS)](https://github.com/aws)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## 🎓 Description
 
 ### Features
 
 - A beautiful space to tell your story
-- Highlight your donors, either by name or anonymously
+- Simple to use, create fundraisers either by name or anonymously
 - Clearly detail fees
 - Super fast and responsive design
 - Handles payments via [PayPal](https://paypal.com/)
@@ -53,7 +53,7 @@ A significant portion of debt from non-institutional sources is used for other h
 
 Access to institutional credit is largely determined by the ability of households to furnish assets as collateral.The report shows that the top 10 per cent of asset-owning households have borrowed 80 per cent of their total debt from institutional sources, whereas those in the bottom 50 per cent borrowed around 53 per cent of total debt from non-institutional sources. Moreover, the Debt-Asset Ratio (DAR) of the bottom 10 per cent asset-owning households in rural India is 39, much higher than the DAR of 2.6 estimated for the top 10 per cent households. This, coupled with higher borrowing from non-institutional sources, acts as a debt trap for households with fewer assets. The low asset ownership of marginalised social groups curtails their access to institutional credit.
 
-Bankers and private financial institutions erroneously believe that a poor person takes a microcredit loan because she cannot save. In reality, if you go to any remote area in India and ask any woman how much she has saved in the post office, you will find huge numbers. They are able to save because of village postal agents who collect their savings from their doorstep. Greater accessibility has major benefits for not only the customer but also the supplier ([source](https://indianexpress.com/article/opinion/columns/financial-inclusion-rural-economy-nano-enterprises-7506874/))
+Bankers and private financial institutions erroneously believe that a poor person takes a microcredit loan because she cannot save. In reality, if you go to any remote area in India and ask any woman how much she has saved in the post office, you will find huge numbers. They are able to save because of village postal agents who collect their savings from their doorstep. Greater accessibility has major benefits for not only the customer but also the supplier ([source](https://indianexpress.com/article/opinion/columns/financial-inclusion-rural-economy-nano-enterprises-7506874/)).
 
 Now you may ask why Moni Moni and not the other big crowdfunding platforms.
 
