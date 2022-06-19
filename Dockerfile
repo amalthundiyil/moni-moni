@@ -14,8 +14,8 @@ COPY ./moni-moni/client/package.json ./moni-moni/client/package-lock.json /app/c
 RUN npm install
 
 # Add the rest of the code
-COPY . /app/
-COPY ./server/scripts/ /app/
+COPY ./moni-moni /app/
+COPY ./moni-moni/server/scripts/ /app/
 
 # Build static files
 RUN npm run build
