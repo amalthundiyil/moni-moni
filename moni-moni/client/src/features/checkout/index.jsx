@@ -9,14 +9,12 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
-import Review from "./Review";
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Shipping address", "Payment details"];
 
 function getStepContent(step) {
   switch (step) {
@@ -24,8 +22,6 @@ function getStepContent(step) {
       return <AddressForm />;
     case 1:
       return <PaymentForm />;
-    case 2:
-      return <Review />;
     default:
       throw new Error("Unknown step");
   }
@@ -67,9 +63,8 @@ export default function Checkout() {
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                We have emailed your order confirmation, and will send you an
+                update when your order has shipped.
               </Typography>
             </React.Fragment>
           ) : (
@@ -87,7 +82,7 @@ export default function Checkout() {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  {activeStep === steps.length - 1 ? "Submit" : "Next"}
                 </Button>
               </Box>
             </React.Fragment>

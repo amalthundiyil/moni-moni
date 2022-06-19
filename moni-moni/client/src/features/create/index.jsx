@@ -14,18 +14,18 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
-import Review from "./Review";
+import StartFundraiser from "./StartFundraiser";
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Start fundraiser", "Address", "Payment details"];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <StartFundraiser />;
     case 1:
-      return <PaymentForm />;
+      return <AddressForm />;
     case 2:
-      return <Review />;
+      return <PaymentForm />;
     default:
       throw new Error("Unknown step");
   }
@@ -51,7 +51,7 @@ export default function Checkout() {
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
         <Typography component="h1" variant="h4" align="center">
-          Checkout
+          Start a Fundraiser
         </Typography>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
@@ -64,12 +64,11 @@ export default function Checkout() {
           {activeStep === steps.length ? (
             <React.Fragment>
               <Typography variant="h5" gutterBottom>
-                Thank you for your order.
+                Thank you for your time.
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                We have emailed your fundraiser confirmation, and will send you
+                an update when your fundraiser has begun.
               </Typography>
             </React.Fragment>
           ) : (

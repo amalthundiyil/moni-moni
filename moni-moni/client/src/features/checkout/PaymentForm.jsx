@@ -1,9 +1,11 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { useState } from "react";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function PaymentForm() {
   return (
@@ -60,6 +62,7 @@ export default function PaymentForm() {
           />
         </Grid>
       </Grid>
+      <PayPalButtons style={{ layout: "horizontal" }} />
     </React.Fragment>
   );
 }

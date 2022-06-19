@@ -63,7 +63,7 @@ const Router = () => {
       setAllFundraisers(data);
       setMainFundraiser(data[0]);
       setFeaturedFundraisers(data.slice(1, 3));
-      setFundraisers(groupBy(data, "category"));
+      setFundraisers(groupBy(data.slice(3), "category"));
       setLoading(false);
     };
     fetchData().catch(console.error);
