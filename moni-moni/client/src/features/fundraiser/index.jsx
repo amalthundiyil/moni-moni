@@ -5,8 +5,13 @@ import Main from "./Main";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { v4 as uuidv4 } from "uuid";
+import Spinner from "../../components/Spinner";
 
 export default function Fundraiser({ fundraiser }) {
+  if (!fundraiser) {
+    return <Spinner open={true} />;
+  }
+
   return (
     <>
       <Container maxWidth="lg">

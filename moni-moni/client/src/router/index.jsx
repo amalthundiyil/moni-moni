@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
@@ -9,7 +10,7 @@ import Home from "../features/home/Home";
 import Register from "../features/auth/Register";
 import Login from "../features/auth/Login";
 import Pricing from "../features/fundraiser/Pricing";
-import Checkout from "../features/checkout/Checkout";
+import Checkout from "../features/checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
 import PrivateRoute from "./PrivateRoute";
 import Fundraiser from "../features/fundraiser";
@@ -76,16 +77,16 @@ const Router = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
-        <Route
+        {/* <Route
           exact
           path="/"
           element={<PrivateRoute auth={isAuthenticated} v={verifyStatus} />}
         >
           <Route path="/checkout" element={<Checkout />} />
-        </Route>
+        </Route> */}
         {allFundraisers.map((fundraiser) => {
           return (
-            <>
+            <React.Fragment key={uuidv4()}>
               <Route
                 key={uuidv4()}
                 path={`/fundraisers/${fundraiser.slug}`}
@@ -96,7 +97,12 @@ const Router = () => {
                 path={`/fundraisers/${fundraiser.slug}/pricing`}
                 element={<Pricing fundraiser={fundraiser} />}
               />
-            </>
+              <Route
+                key={uuidv4()}
+                path={`/${fundraiser.slug}/checkout`}
+                element={<Checkout fundraiser={fundraiser} />}
+              />
+            </React.Fragment>
           );
         })}
       </Routes>

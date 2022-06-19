@@ -14,10 +14,13 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
+import Spinner from "../../components/Spinner";
+import Checkout from "../checkout";
+import { useNavigate } from "react-router-dom";
 
 const tiers = [
   {
-    title: "Free",
+    title: "Pledge",
     price: "0",
     description: [
       "10 users included",
@@ -25,7 +28,7 @@ const tiers = [
       "Help center access",
       "Email support",
     ],
-    buttonText: "Sign up for free",
+    buttonText: "Pledge",
     buttonVariant: "outlined",
   },
   {
@@ -56,6 +59,13 @@ const tiers = [
 ];
 
 function PricingContent({ fundraiser }) {
+  const navigate = useNavigate();
+
+  if (!fundraiser) {
+    return <Spinner open={true} />;
+  }
+
+  console.log(fundraiser);
   return (
     <React.Fragment>
       <GlobalStyles
@@ -74,7 +84,7 @@ function PricingContent({ fundraiser }) {
           color="text.primary"
           gutterBottom
         >
-          Pricing
+          Funding Options
         </Typography>
         <Typography
           variant="h5"
@@ -82,9 +92,7 @@ function PricingContent({ fundraiser }) {
           color="text.secondary"
           component="p"
         >
-          Quickly build an effective pricing table for your potential customers
-          with this layout. It&apos;s built with default MUI components with
-          little customization.
+          Select your choice of funding
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -149,7 +157,11 @@ function PricingContent({ fundraiser }) {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant}>
+                  <Button
+                    fullWidth
+                    variant={tier.buttonVariant}
+                    onClick={() => navigate(`/${fundraiser.slug}/checkout`)}
+                  >
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -162,6 +174,6 @@ function PricingContent({ fundraiser }) {
   );
 }
 
-export default function Pricing() {
-  return <PricingContent />;
+export default function Pricing(props) {
+  return <PricingContent {...props} />;
 }
