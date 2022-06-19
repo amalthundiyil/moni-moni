@@ -18,6 +18,7 @@ import { useGlobalContext } from "../context";
 import { groupBy } from "lodash";
 import axios from "../utils/axios";
 import { v4 as uuidv4 } from "uuid";
+import Error from "../features/error";
 
 const Router = () => {
   const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
@@ -77,13 +78,6 @@ const Router = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
-        {/* <Route
-          exact
-          path="/"
-          element={<PrivateRoute auth={isAuthenticated} v={verifyStatus} />}
-        >
-          <Route path="/checkout" element={<Checkout />} />
-        </Route> */}
         {allFundraisers.map((fundraiser) => {
           return (
             <React.Fragment key={uuidv4()}>
@@ -98,13 +92,20 @@ const Router = () => {
                 element={<Pricing fundraiser={fundraiser} />}
               />
               <Route
-                key={uuidv4()}
-                path={`/${fundraiser.slug}/checkout`}
-                element={<Checkout fundraiser={fundraiser} />}
-              />
+                exact
+                path="/"
+                element={<PrivateRoute auth={isAuthenticated} />}
+              >
+                <Route
+                  key={uuidv4()}
+                  path={`/${fundraiser.slug}/checkout`}
+                  element={<Checkout fundraiser={fundraiser} />}
+                />
+              </Route>
             </React.Fragment>
           );
         })}
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </Suspense>
