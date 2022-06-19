@@ -5,7 +5,7 @@ WORKDIR /app/server/
 
 # Install Python dependencies
 COPY ./moni-moni/server/requirements.txt /app/server/
-RUN pip install --upgrade pip && pip -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Install client dependencies
 WORKDIR /app/client/
