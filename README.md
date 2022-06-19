@@ -34,6 +34,50 @@ Moni Moni is fundamentally a crowdfunded small-scale loaning service. Users can 
 - [Django](https://github.com/django/django)
 - [Amazon Web Services (AWS)](https://github.com/aws)
 
+## 🎓 Description
+
+### Features
+
+- A beautiful space to tell your story
+- Highlight your donors, either by name or anonymously
+- Clearly detail fees
+- Super fast and responsive design
+- Handles payments via [PayPal](https://paypal.com/)
+- Easy social sharing
+- Open source, so adapt it to your needs
+
+### Background
+
+In February 2017, a family member approached me to talk fundraising. They had established a college fund for a very special family, and wanted a way to accept donations from others.
+
+Platforms like [Kickstarter](https://www.kickstarter.com/), [Indiegogo](https://www.indiegogo.com/), and [everydayhero](https://www.everydayhero.com/) are great for attracting attention to important campaigns, but they charge high fees. Including credit processing fees, they both charge around 8%. That money goes toward supporting the platform, and not the cause. And that's fine if raising funds for a for-profit venture, but my mission is non-profit.
+
+Then come the do-it-yourself options. There are many HTML templates out there, some free and others not. However, they lack any behind-the-scenes logic to actually handle donations. Adding a PayPal button is easy, but that doesn't allow donors to track campaign progress.
+
+It is for all of these reasons I created Moni Moni. It's entirely open source and yours to use as you wish. I think it's also an example of how easy it can be to develop cool, interactive stuff in React. I hope you find it useful, and I hope you will consider [contributing](#CONTRIBUTING) to the project as well.
+
+### Technical Overview
+
+This is the overview of the architecture of the web application:
+
+<p align="center">
+    <img src="./docs/images/Arch.png" width="70%">
+</p>
+
+### Screenshots
+
+#### Signup Page
+
+<p align="center">
+    <img src="./docs/images/signup.png" width="70%">
+</p>
+
+#### Login Page
+
+<p align="center">
+    <img src="./docs/images/login.png" width="70%">
+</p>
+
 ## 🙏 Contributing
 
 Please read the [contributing guidlines](CONTRIBUTING.md). To setup this project locally:
@@ -66,28 +110,6 @@ python manage.py runserver
 ```
 
 Open the browser at http://localhost:3000/. 👨‍🏭️
-
-## 🎓 Description
-
-This is the overview of the architecture of the web application:
-
-<p align="center">
-    <img src="./docs/images/Arch.png" width="70%">
-</p>
-
-### Screenshots
-
-#### Signup Page
-
-<p align="center">
-    <img src="./docs/images/signup.png" width="70%">
-</p>
-
-#### Login Page
-
-<p align="center">
-    <img src="./docs/images/login.png" width="70%">
-</p>
 
 ## 📝 Further Changes to be Done
 
