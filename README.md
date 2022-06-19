@@ -71,20 +71,6 @@ This is the overview of the architecture of the web application:
     <img src="./docs/images/Arch.png" width="70%">
 </p>
 
-### Screenshots
-
-#### Signup Page
-
-<p align="center">
-    <img src="./docs/images/signup.png" width="70%">
-</p>
-
-#### Login Page
-
-<p align="center">
-    <img src="./docs/images/login.png" width="70%">
-</p>
-
 ## 🙏 Contributing
 
 Please read the [contributing guidlines](CONTRIBUTING.md). To setup this project locally:
