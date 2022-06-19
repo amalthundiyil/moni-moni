@@ -67,14 +67,3 @@ class Fundraiser(models.Model):
 
     def __str__(self):
         return self.title
-
-
-# class CreditScore(models.Model):
-#     fundraiser = models.ForeignKey(
-#         Fundraiser, related_name="fundraiser", on_delete=models.CASCADE
-#     )
-
-
-#     person_age =
-#     person_income =
-#     person_home_ownership = erson_emp_length,loan_intent,loan_grade,loan_amnt,loan_int_rate,loan_status,loan_percent_income,cb_person_default_on_file,cb_person_cred_hist_length

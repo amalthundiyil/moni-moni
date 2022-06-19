@@ -22,6 +22,20 @@ import Error from "../features/error";
 import Discover from "../features/discover";
 import Create from "../features/create";
 
+const images = [
+  "pexels-zachariah-schrueder-5056573.jpg",
+  "pexels-mentatdgt-1185433.jpg",
+  "pexels-mathias-reding-11421247.jpg",
+  "pexels-rebecca-zaal-764681.jpg",
+  "pexels-pixabay-50709.jpg",
+  "pexels-markus-spiske-2990650.jpg",
+  "default.png",
+  "pexels-thibault-trillet-167590.jpg",
+  "pexels-camille-12457506.jpg",
+  "pexels-roxanne-shewchuk-2405944.jpg",
+  "pexels-kübra-üç-7508806.jpg",
+];
+
 const Router = () => {
   const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
   const { loading, setLoading } = useGlobalContext();
@@ -40,6 +54,12 @@ const Router = () => {
       setLoading(true);
       let res = await axios.get("/api/v1/catalogue/fundraisers/");
       let data = await res.data;
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        data[
+          i
+        ].image = `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/media/${images[i]}`;
+      }
       setAllFundraisers(data);
       setMainFundraiser(data[0]);
       setFeaturedFundraisers(data.slice(1, 3));
