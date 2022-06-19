@@ -19,6 +19,8 @@ import { groupBy } from "lodash";
 import axios from "../utils/axios";
 import { v4 as uuidv4 } from "uuid";
 import Error from "../features/error";
+import Discover from "../features/discover";
+import CreateFundraiser from "../features/fundraiser/Create";
 
 const Router = () => {
   const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
@@ -105,6 +107,12 @@ const Router = () => {
             </React.Fragment>
           );
         })}
+        <Route exact path="/discover" element={<Discover />} />
+        <Route
+          exact
+          path="/start-a-fundraiser"
+          element={<CreateFundraiser />}
+        />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
