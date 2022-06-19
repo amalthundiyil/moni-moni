@@ -35,7 +35,7 @@ Moni Moni is a crowdfunded small-scale service. Users can post their loan or don
 
 ## 🎓 Description
 
-### Features
+### ✨ Features
 
 - A beautiful space to tell your story
 - Simple to use, create fundraisers either by name or anonymously
@@ -44,7 +44,7 @@ Moni Moni is a crowdfunded small-scale service. Users can post their loan or don
 - Handles payments via [PayPal](https://paypal.com/)
 - Open source, so adapt it to your needs
 
-### Background
+### ⏳️ Background
 
 In India people are turning to private moneylenders as banks are turning them away. People fear an increase in farmer suicides as more and more farmers approach moneylenders in desperation. The credit policy reform has just remained on paper ([source](https://indianexpress.com/article/india/as-lending-by-rural-banks-dips-farmers-turn-to-moneylenders-in-maharashtra-5091469/)).
 
@@ -54,7 +54,7 @@ Access to institutional credit is largely determined by the ability of household
 
 Bankers and private financial institutions erroneously believe that a poor person takes a microcredit loan because she cannot save. In reality, if you go to any remote area in India and ask any woman how much she has saved in the post office, you will find huge numbers. They are able to save because of village postal agents who collect their savings from their doorstep. Greater accessibility has major benefits for not only the customer but also the supplier ([source](https://indianexpress.com/article/opinion/columns/financial-inclusion-rural-economy-nano-enterprises-7506874/)).
 
-#### Competition
+### 🤷 Why Moni Moni?
 
 Now you may ask why Moni Moni and not the other big crowdfunding platforms.
 
