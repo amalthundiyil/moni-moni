@@ -1,10 +1,5 @@
-FROM python:3.7
-
-# Install curl, node, npm 
-RUN apt-get install -y curl \
-    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-    && apt-get install -y nodejs \
-    && curl -o- -L https://www.npmjs.com/package/install.sh | bash
+# Use image with both python and node installed
+FROM nikolaik/python-nodejs:python3.10-nodejs14
 
 WORKDIR /app/server/
 
@@ -12,23 +7,23 @@ WORKDIR /app/server/
 COPY ./moni-moni/server/requirements.txt /app/server/
 RUN pip3 install --upgrade pip -r requirements.txt
 
-# Install JS dependencies
+# Install client dependencies
 WORKDIR /app/client/
 
 COPY ./moni-moni/client/package.json ./moni-moni/client/package-lock.json /app/client/
-RUN $HOME/.npm/bin/npm install
+RUN npm install
 
 # Add the rest of the code
 COPY . /app/
-COPY ./moni-moni/server/scripts/ /app/
-# Build static files
-RUN $HOME/.npm/bin/npm build
+COPY ./server/scripts/ /app/
 
-# Have to move all static files other than index.html to root/
-# for whitenoise middleware
+# Build static files
+RUN npm run build
+
+# Move all static files other than index.html to root/ for whitenoise middleware
 WORKDIR /app/client/build
 
-RUN mkdir root && mv *.ico *.js *.json root
+RUN mkdir root && mv *.ico *.json root
 
 # Collect static files
 RUN mkdir /app/server/staticfiles
@@ -36,6 +31,6 @@ RUN mkdir /app/server/staticfiles
 WORKDIR /app
 
 # SECRET_KEY is only included here to avoid raising an error when generating static files.
-# Be sure to add a real SECRET_KEY config variable in Heroku.
-RUN SECRET_KEY=TEST_SECRET_KEY \
+# Add a real SECRET_KEY config variable in Heroku.
+RUN SECRET_KEY=KEY_ONLY_FOR_STATIC_FILES \
     python3 server/manage.py collectstatic --noinput
