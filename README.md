@@ -9,19 +9,18 @@ Moni Moni - Crowdfunding Platform
 </h1>
 
 <p align='center'>
-<img src="https://github.com/amal-thundiyil/monimoni/actions/workflows/actions.yml/badge.svg">
-<a href="https://github.com/amal-thundiyil/monimoni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
-<a href="https://github.com/amal-thundiyil/monimoni/pulls"><img src="https://img.shields.io/badge/PR-Welcome-brightgreen.svg"></a>
-<a href="https://github.com/amal-thundiyil/monimoni/issues"><img src="https://img.shields.io/github/issues/amal-thundiyil/monimoni"></a>
-<img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.monimoni">
+<img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
+<a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
+<a href="https://github.com/amal-thundiyil/moni-moni/pulls"><img src="https://img.shields.io/badge/PR-Welcome-brightgreen.svg"></a>
+<a href="https://github.com/amal-thundiyil/moni-moni/issues"><img src="https://img.shields.io/github/issues/amal-thundiyil/moni-moni"></a>
+<img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 
 </p>
-<!-- 
 <h3>
 <p align='center'>
 🚧 Moni Moni is live <a href="https://moni-moni.herokuapp.com/">here</a> 🚧
 </p>
-</h3> -->
+</h3>
 
 ## 📌 Introduction
 
@@ -87,13 +86,13 @@ Open the browser at http://localhost:3000/. 👨‍🏭️
 
 ### 🛠️ Other alternative
 
-Change the directory to the `monimoni/client/` folder and run:
+Change the directory to the `moni-moni/client/` folder and run:
 
 ```
 npm start
 ```
 
-Change the directory to the `monimoni/server/` folder and run:
+Change the directory to the `moni-moni/server/` folder and run:
 
 ```sh
 python3 -m venv venv
