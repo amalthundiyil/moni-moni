@@ -12,3 +12,5 @@ Makefile
 **/__pycache__
 venv/
 pytest_cache/
+
+*/*/staticfiles
