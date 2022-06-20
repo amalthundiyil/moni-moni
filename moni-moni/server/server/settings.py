@@ -83,8 +83,7 @@ DATABASES = {
 }
 
 
-if os.getenv("CODE_ENV") == "PROD":
-    print(os.getenv("DATABASE_URL"))
+if os.getenv("CODE_ENV") == "PROD" and os.getenv("DATABASE_URL"):
     DATABASES["default"] = dj_database_url.config(
         default=os.getenv("DATABASE_URL"), conn_max_age=500, ssl_require=True
     )
