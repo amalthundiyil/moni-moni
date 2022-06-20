@@ -15,6 +15,9 @@ ALLOWED_HOSTS = []
 if DEBUG:
     ALLOWED_HOSTS += json.loads(os.getenv("ALLOWED_HOSTS"))
 
+if os.environ.get("DATABASE_URL"):
+    ALLOWED_HOSTS.append("moni-moni.herokuapp.com")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -43,6 +46,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
 ]
+
+if os.getenv("DATABASE_URL"):
+    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 
 ROOT_URLCONF = "server.urls"
 
@@ -77,7 +83,9 @@ DATABASES = {
 }
 
 if os.getenv("DATABASE_URL"):
-    DATABASES["default"] = dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    DATABASES["default"] = dj_database_url.config(
+        default=os.getenv("DATABASE_URL"), conn_max_age=500, ssl_require=True
+    )
 
 # DATABASES = {
 #     "default": {
@@ -148,7 +156,10 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+
+if os.getenv("DATABASE_URL"):
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
