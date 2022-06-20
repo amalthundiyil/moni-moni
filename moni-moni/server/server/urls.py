@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.conf import settings
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
+from django.shortcuts import render
+
+
+def render_react(request):
+    return render(request, "index.html")
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -15,6 +21,8 @@ urlpatterns = [
     path(
         "api/v1/checkout/", include("server.apps.checkout.urls", namespace="checkout")
     ),
+    re_path(r"^$", render_react),
+    re_path(r"^(?:.*)/?$", render_react),
 ]
 
 if settings.DEBUG:

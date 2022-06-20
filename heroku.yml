@@ -2,7 +2,7 @@
 
 build:
   docker:
-    web: Dockerfile
+    web: Dockerfile.prod
 
 release:
   command:

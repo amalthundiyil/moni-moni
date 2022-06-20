@@ -47,7 +47,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 
-if os.getenv("DATABASE_URL"):
+if os.getenv("CODE_ENV") == "PROD":
     MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 
 ROOT_URLCONF = "server.urls"
@@ -55,7 +55,7 @@ ROOT_URLCONF = "server.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [os.path.join(BASE_DIR, "build")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -82,10 +82,12 @@ DATABASES = {
     }
 }
 
-if os.getenv("DATABASE_URL"):
-    DATABASES["default"] = dj_database_url.config(
-        default=os.getenv("DATABASE_URL"), conn_max_age=500, ssl_require=True
-    )
+
+# if os.getenv("CODE_ENV") == "PROD":
+#     print(os.getenv("DATABASE_URL"))
+#     DATABASES["default"] = dj_database_url.config(
+#         default=os.getenv("DATABASE_URL"), conn_max_age=500, ssl_require=True
+#     )
 
 # DATABASES = {
 #     "default": {
@@ -157,9 +159,13 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-if os.getenv("DATABASE_URL"):
+if os.getenv("CODE_ENV") == "PROD":
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    STATICFILES_DIRS = [
+        # Tell Django where to look for React's static files (css, js)
+        os.path.join(BASE_DIR, "build/static"),
+    ]
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -187,7 +193,7 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
     "refresh-token",
 ]
-
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 EMAIL_USE_TLS = str(os.getenv("EMAIL_USE_TLS")) == "1"
 EMAIL_PORT = os.getenv("EMAIL_PORT")
