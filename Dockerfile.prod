@@ -30,7 +30,3 @@ WORKDIR /app
 # Add a real SECRET_KEY config variable in Heroku.
 RUN SECRET_KEY=KEY_ONLY_FOR_STATIC_FILES \
     python3 ./server/manage.py collectstatic --noinput
-
-WORKDIR /app/server
-
-CMD ["gunicorn", "server.wsgi:application", "--bind", "0.0.0.0:8000"]
