@@ -15,7 +15,7 @@ ALLOWED_HOSTS = []
 if DEBUG:
     ALLOWED_HOSTS += json.loads(os.getenv("ALLOWED_HOSTS"))
 
-if os.environ.get("DATABASE_URL"):
+if os.getenv("CODE_ENV") == "PROD":
     ALLOWED_HOSTS.append("moni-moni.herokuapp.com")
 
 INSTALLED_APPS = [
