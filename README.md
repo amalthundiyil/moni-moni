@@ -29,9 +29,11 @@ Moni Moni is a crowdfunded small-scale service. Users can post their loan or don
 ## 👨‍💻️ Technology Stack
 
 - [React.js](https://github.com/facebook/react)
-- [Material UI](https://github.com/mui/material-ui)
 - [Django](https://github.com/django/django)
 - [PostgreSQL](https://www.postgresql.org/)
+- [Heroku](https://dashboard.heroku.com/)
+- [Redux](https://github.com/reduxjs/redux)
+- [Material UI](https://github.com/mui/material-ui)
 
 ## 🎓 Description
 
@@ -107,4 +109,5 @@ Open the browser at http://localhost:3000/. 👨‍🏭️
 
 ## 📝 Further Changes to be Done
 
+- [ ] Add credit score to every individual or business using Machine Learning.
 - [ ] Add options to accept funding made with NFTs and digital currency.
