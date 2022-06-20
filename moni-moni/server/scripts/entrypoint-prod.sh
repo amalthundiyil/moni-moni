@@ -1,5 +1,7 @@
 #!/bin/bash
-python manage.py makemigrations --no-input
-python manage.py migrate --no-input
 
-python backend/manage.py runserver 0.0.0.0:$PORT
+chmod +x $PWD/reset.sh
+chmod +x $PWD/seed.sh
+
+$PWD/reset.sh
+$PWD/seed.sh

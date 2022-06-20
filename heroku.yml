@@ -6,11 +6,11 @@ build:
 
 release:
   command:
-    - chmod +x ./entrypoint-prod.sh && ./entrypoint-prod.sh
+    - chmod +x ./server/scripts/entrypoint-prod.sh && ./server/scripts/entrypoint-prod.sh
   image: web
 
 run:
   web:
     command:
-      - cd backend && gunicorn core.wsgi:application
+      - cd server && gunicorn server.wsgi --bind 0.0.0.0:$PORT
     image: web
