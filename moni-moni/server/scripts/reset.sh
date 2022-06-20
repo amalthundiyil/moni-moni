@@ -1,9 +1,12 @@
 #!/bin/sh
 
-chmod +x $PWD/delete_migrations.sh
-chmod +x $PWD/reinit_db.sh
-chmod +x $PWD/make_migrations.sh
+FILEPATH=$(realpath "${BASH_SOURCE:-$0}")
+DIRPATH=$(dirname $FILEPATH)
 
-$PWD/delete_migrations.sh
-$PWD/reinit_db.sh
-$PWD/make_migrations.sh
+chmod +x $DIRPATH/delete_migrations.sh
+chmod +x $DIRPATH/reinit_db.sh
+chmod +x $DIRPATH/make_migrations.sh
+
+$DIRPATH/delete_migrations.sh
+$DIRPATH/reinit_db.sh
+$DIRPATH/make_migrations.sh

@@ -1,7 +1,10 @@
 #!/bin/bash
 
-chmod +x $PWD/reset.sh
-chmod +x $PWD/seed.sh
+FILEPATH=$(realpath "${BASH_SOURCE:-$0}")
+DIRPATH=$(dirname $FILEPATH)
 
-$PWD/reset.sh
-$PWD/seed.sh
+chmod +x $DIRPATH/reset.sh
+chmod +x $DIRPATH/seed.sh
+
+$DIRPATH/reset.sh
+$DIRPATH/seed.sh
