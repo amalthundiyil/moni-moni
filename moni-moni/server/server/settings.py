@@ -3,6 +3,7 @@ import json
 from datetime import timedelta
 import sys
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -74,6 +75,9 @@ DATABASES = {
         "PORT": os.getenv("POSTGRES_PORT", 5432),
     }
 }
+
+if os.getenv("DATABASE_URL"):
+    DATABASES["default"] = dj_database_url.config(default=os.getenv("DATABASE_URL"))
 
 # DATABASES = {
 #     "default": {
