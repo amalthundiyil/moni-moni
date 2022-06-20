@@ -25,6 +25,11 @@ WORKDIR /app/client/build
 RUN mkdir root && mv *.ico *.json root
 
 # Collect static files
-RUN mkdir /app/server/staticfiles
+RUN mkdir /app/backend/staticfiles
 
 WORKDIR /app
+
+# SECRET_KEY is only included here to avoid raising an error when generating static files.
+# Add a real SECRET_KEY config variable in Heroku.
+RUN SECRET_KEY=KEY_ONLY_FOR_STATIC_FILES \
+    python3 server/manage.py collectstatic --noinput
