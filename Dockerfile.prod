@@ -19,12 +19,7 @@ RUN npm install
 COPY ./moni-moni /app/
 
 # Build static files
-RUN npm run build
-
-# Move all static files other than index.html to root/ for whitenoise middleware
-WORKDIR /app/client/build
-
-RUN mkdir root && mv *.ico *.json root
+RUN npm run relocate
 
 # Collect static files
 RUN mkdir /app/server/staticfiles
