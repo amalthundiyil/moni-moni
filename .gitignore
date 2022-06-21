@@ -210,4 +210,4 @@ __pycache__
 build/
 reports/
 
-staticfiles/
+moni-moni/server/staticfiles/
