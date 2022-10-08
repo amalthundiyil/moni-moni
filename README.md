@@ -11,31 +11,38 @@ Moni Moni - Crowdfunding Platform
 <p align='center'>
 <img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
 <a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
-<a href="https://github.com/amal-thundiyil/moni-moni/pulls"><img src="https://img.shields.io/badge/PR-Welcome-brightgreen.svg"></a>
-<a href="https://github.com/amal-thundiyil/moni-moni/issues"><img src="https://img.shields.io/github/issues/amal-thundiyil/moni-moni"></a>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
-
-</p>
-<h3>
-<p align='center'>
-🚧 Moni Moni is live <a href="https://moni-moni.herokuapp.com/">here</a> 🚧
-</p>
-</h3>
 
 ## 📌 Introduction
 
 Moni Moni is a crowdfunding website for individuals and small scale businesses. Users can post their loan or donation requests along with the interest or other rewards they can offer and the story backing the fundraiser. Backers can view the request and decide whether they want to pledge or invest depending upon the rewards and the story. It is meant to be as simple as possible to facilitate the unempowered population of our world.
 
-## 👨‍💻️ Technology Stack
+## 🤖 Usage
 
-- [React.js](https://github.com/facebook/react)
-- [Django](https://github.com/django/django)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Heroku](https://dashboard.heroku.com/)
-- [Redux](https://github.com/reduxjs/redux)
-- [Material UI](https://github.com/mui/material-ui)
+With Docker and docker-compose installed:
+
+```sh
+docker-compose up --build
+```
+
+Otherwise, you can also use the [Makefile](Makefile):
+
+```sh
+python3.8 -m venv venv
+source venv/bin/activate
+make install-dev
+make frontend-start
+make backend-start
+```
 
 ## 🎓 Description
+
+### 👨‍💻️ Technology Stack
+
+- [React.js](https://github.com/facebook/react)
+- [Redux](https://github.com/reduxjs/redux)
+- [Django](https://github.com/django/django)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ### ✨ Features
 
@@ -66,46 +73,9 @@ Then come the do-it-yourself options. There are many HTML templates out there, s
 
 It is for all of these reasons I created Moni Moni. It's entirely open source and yours to use as you wish. I think it's also an example of how easy it can be to develop cool, interactive stuff in React and Django. I hope you find it useful, and I hope you will consider [contributing](#CONTRIBUTING) to the project as well.
 
-### 💻 Technical Overview
-
-This is the overview of the architecture of the web application:
-
-<p align="center">
-    <img src="./docs/images/Arch.png" width="70%">
-</p>
-
 ## 🙏 Contributing
 
 Please read the [contributing guidlines](CONTRIBUTING.md). To setup this project locally:
-
-### 🐳 Using Docker
-
-With Docker and docker-compose installed, run docker-compose up --build
-
-```sh
-docker-compose up --build
-```
-
-Open the browser at http://localhost:3000/. 👨‍🏭️
-
-### 🛠️ Other alternative
-
-Change the directory to the `moni-moni/client/` folder and run:
-
-```
-npm start
-```
-
-Change the directory to the `moni-moni/server/` folder and run:
-
-```sh
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python manage.py runserver
-```
-
-Open the browser at http://localhost:3000/. 👨‍🏭️
 
 ## 📝 Further Changes to be Done
 

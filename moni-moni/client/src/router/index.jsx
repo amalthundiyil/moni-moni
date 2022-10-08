@@ -78,6 +78,8 @@ const Router = () => {
     fetchData().catch(console.error);
   }, []);
 
+  console.log(fundraisers);
+
   if (verifyStatus === "start" || loading) {
     return <Spinner open={true} />;
   }

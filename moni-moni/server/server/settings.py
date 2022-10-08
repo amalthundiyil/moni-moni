@@ -9,14 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = str(os.getenv("DEBUG")) == "1"  # 1 is True
+DEBUG = str(os.getenv("DEBUG", 1)) == "1"  # 1 is True
 
-ALLOWED_HOSTS = []
-if DEBUG:
-    ALLOWED_HOSTS += json.loads(os.getenv("ALLOWED_HOSTS"))
-
-if os.getenv("CODE_ENV") == "PROD":
-    ALLOWED_HOSTS.append("moni-moni.herokuapp.com")
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -47,16 +42,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-if os.getenv("CODE_ENV") == "PROD":
-    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
-
 ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "build")],
-        "APP_DIRS": True,
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": False,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -73,28 +65,18 @@ WSGI_APPLICATION = "server.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST"),
-        "PORT": os.getenv("POSTGRES_PORT", 5432),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
-
-if os.getenv("CODE_ENV") == "PROD" and os.getenv("DATABASE_URL"):
+if os.getenv("DATABASE_URL"):
     DATABASES["default"] = dj_database_url.config(
-        default=os.getenv("DATABASE_URL"), conn_max_age=500, ssl_require=True
+        default=os.getenv("DATABASE_URL"),
+        engine="django_cockroachdb",
+        conn_max_age=500,
+        ssl_require=True,
     )
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
 
 if "test" in sys.argv or "test_coverage" in sys.argv:
     DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
@@ -156,17 +138,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
-
-if os.getenv("CODE_ENV") == "PROD":
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    STATICFILES_DIRS = [
-        # Tell Django where to look for React's static files (css, js)
-        os.path.join(BASE_DIR, "build/static"),
-    ]
-
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.CustomUser"
@@ -174,31 +145,22 @@ AUTH_USER_MODEL = "users.CustomUser"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-# CORS_ALLOWED_ORIGINS = []
-
-# if DEBUG:
-#     CORS_ALLOWED_ORIGINS += json.loads(os.getenv("CORS_ALLOWED_ORIGINS"))
-
-CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS")) == "1"  # 1 is True
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-    "refresh-token",
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "http://localhost",
+    "http://127.0.0.1",
 ]
+CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS", 1)) == "1"  # 1 is True
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
-EMAIL_USE_TLS = str(os.getenv("EMAIL_USE_TLS")) == "1"
-EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_HOST = os.getenv("EMAIL_HOST")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
+
+
+EMAIL_USE_TLS = str(os.getenv("EMAIL_USE_TLS", 1)) == "1"
+EMAIL_PORT = os.getenv("EMAIL_PORT", 587)
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
