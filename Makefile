@@ -1,7 +1,6 @@
 .PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db
 
 install-dev:
-	$(MAKE) pip-compile
 	@echo "Setting environment variables\n"
 	@cp .env moni-moni/server/.env
 	@cp .env moni-moni/client/.env

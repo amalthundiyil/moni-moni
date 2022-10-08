@@ -77,6 +77,8 @@ platformdirs==2.5.2
     # via black
 pluggy==1.0.0
     # via pytest
+psycopg2==2.9.4
+    # via -r moni-moni/server/requirements.in
 psycopg2-binary==2.9.4
     # via
     #   -r moni-moni/server/requirements.in

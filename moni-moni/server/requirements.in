@@ -9,6 +9,7 @@ dj-database-url
 django-cockroachdb
 django-on-heroku
 Pillow
+psycopg2
 psycopg2-binary
 pytest-django
 gunicorn
