@@ -31,7 +31,7 @@ import Image7 from "../assets/default.png";
 import Image8 from "../assets/pexels-thibault-trillet-167590.jpg";
 import Image9 from "../assets/pexels-camille-12457506.jpg";
 import Image10 from "../assets/pexels-roxanne-shewchuk-2405944.jpg";
-import Image11 from "../assets/pexels-kübra-üç-7508806.jpg";
+import Image11 from "../assets/pexels-someimage.jpg";
 
 const images = [
   Image1,
