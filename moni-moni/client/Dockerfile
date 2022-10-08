@@ -15,6 +15,6 @@ ENV PORT=${FRONTEND_PORT}
 RUN apk add --no-cache bash
 
 COPY --from=client /client/build/ /var/www/frontend
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=client /client/nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
+CMD ["nginx", "-g", "daemon off;"]

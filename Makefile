@@ -1,6 +1,7 @@
-.PHONY: install-dev backend-start frontend-start pip-compile
+.PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db
 
 install-dev:
+	$(MAKE) pip-compile
 	@echo "Setting environment variables\n"
 	@cp .env moni-moni/server/.env
 	@cp .env moni-moni/client/.env
@@ -22,4 +23,11 @@ frontend-start:
 	@cd moni-moni/client && npm start
 
 pip-compile:
-	@ pip-compile -v moni-moni/server/requirements.in
+	@pip-compile -v moni-moni/server/requirements.in
+
+delete-db:
+	@bash . .env
+	@python scripts/delete_db.py
+
+seed-db:
+	@bash scripts/seed.sh
