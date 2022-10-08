@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  frontend:
+    image: amalthundiyil/moni-moni-frontend:latest
+    container_name: moni-moni-frontend
+    env_file: .env
+    build:
+      context: './moni-moni/client'
+      args:
+        - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    restart: always
+    image: amalthundiyil/moni-moni-backend:latest
+    container_name: moni-moni-backend
+    command: gunicorn server.wsgi --bind 0.0.0.0:8000
+    build:
+      context: './moni-moni/server'
+    env_file: .env
+    ports:
+      - "8000:8000"

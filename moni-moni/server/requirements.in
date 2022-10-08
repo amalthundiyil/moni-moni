@@ -1,0 +1,17 @@
+django-countries
+Django
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt
+django-dotenv
+django-seed
+dj-database-url
+django-cockroachdb
+django-on-heroku
+Pillow
+psycopg2-binary
+pytest-django
+gunicorn
+six
+paypal-checkout-serversdk
+black
