@@ -5,9 +5,6 @@ import { useEffect } from "react";
 
 export default function Spinner() {
   const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -23,7 +20,6 @@ export default function Spinner() {
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
-        onClick={handleClose}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

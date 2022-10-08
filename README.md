@@ -11,14 +11,13 @@ Moni Moni - Crowdfunding Platform
 <p align='center'>
 <img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
 <a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
-<a href="https://github.com/amal-thundiyil/moni-moni/issues"><img src="https://img.shields.io/github/issues/amal-thundiyil/moni-moni"></a>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 
 ## 📌 Introduction
 
 Moni Moni is a crowdfunding website for individuals and small scale businesses. Users can post their loan or donation requests along with the interest or other rewards they can offer and the story backing the fundraiser. Backers can view the request and decide whether they want to pledge or invest depending upon the rewards and the story. It is meant to be as simple as possible to facilitate the unempowered population of our world.
 
-## 🤖 Installation
+## 🤖 Usage
 
 With Docker and docker-compose installed:
 
@@ -30,7 +29,10 @@ Otherwise, you can also use the [Makefile](Makefile):
 
 ```sh
 python3.8 -m venv venv
+source venv/bin/activate
 make install-dev
+make frontend-start
+make backend-start
 ```
 
 ## 🎓 Description

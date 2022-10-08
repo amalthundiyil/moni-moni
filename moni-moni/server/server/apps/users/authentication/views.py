@@ -6,7 +6,7 @@ from .serializers import (
     RegisterSerializer,
     SetNewPasswordSerializer,
     ResetPasswordEmailRequestSerializer,
-    RefreshTokenSerializer
+    RefreshTokenSerializer,
 )
 from rest_framework import status
 from rest_framework import generics, permissions
@@ -54,7 +54,7 @@ class LoginAPI(generics.GenericAPIView):
         tokens = user.tokens()
         access_token = {"token": tokens["access"]}
         response = Response(access_token, status=status.HTTP_200_OK)
-        response.set_cookie('x-refresh-token', tokens["refresh"])
+        response.set_cookie("x-refresh-token", tokens["refresh"])
         return response
 
 
@@ -83,13 +83,16 @@ class ActivateAccountView(generics.GenericAPIView):
             user.is_verified = True
             user.save()
             return Response(
-                {"msg": "Account activated successfully.", "status": status.HTTP_200_OK}
+                {
+                    "message": "Account activated successfully.",
+                },
+                status=status.HTTP_200_OK,
             )
         return Response(
             {
-                "msg": "Account activation failed.",
-                "status": status.HTTP_401_UNAUTHORIZED,
-            }
+                "message": "Account activation failed.",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
 
@@ -99,12 +102,17 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         email = request.data.get("email", "")
-        if User.objects.filter(email=email).exists():
-            user = User.objects.get(email=email)
-            send_email = Email.password_reset(request, user)
-            send_email.start()
+        if not User.objects.filter(email=email).exists():
+            return Response(
+                {"message": "Couldn't find an account with that email address"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = User.objects.get(email=email)
+        send_email = Email.password_reset(request, user)
+        send_email.start()
         return Response(
-            {"success": "We have sent you a link to reset your password"},
+            {"message": "We have sent you a link to reset your password"},
             status=status.HTTP_200_OK,
         )
 
@@ -146,7 +154,7 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
 
             except UnboundLocalError as e:
                 return Response(
-                    {"error": "Token is not valid, please request a new one"},
+                    {"message": "Token is not valid, please request a new one"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
@@ -162,14 +170,17 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
             status=status.HTTP_200_OK,
         )
 
+
 class RefreshTokenView(TokenRefreshView):
     serializer_class = RefreshTokenSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={'refresh': request.COOKIES.get("x-refresh-token")})
+        serializer = self.get_serializer(
+            data=request.data,
+            context={"refresh": request.COOKIES.get("x-refresh-token")},
+        )
         serializer.is_valid(raise_exception=True)
         access_token = {"token": serializer.validated_data.get("access")}
         response = Response(access_token, status=status.HTTP_200_OK)
-        response.set_cookie('x-refresh-token', serializer.validated_data.get("refresh"))
+        response.set_cookie("x-refresh-token", serializer.validated_data.get("refresh"))
         return response
-

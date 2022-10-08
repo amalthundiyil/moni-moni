@@ -1,7 +1,7 @@
 .PHONY: install-dev backend-start frontend-start pip-compile
 
 install-dev:
-	@echo "\nAdding environment variables\n"
+	@echo "Setting environment variables\n"
 	@cp .env moni-moni/server/.env
 	@cp .env moni-moni/client/.env
 	@echo "\nInstalling backend dependencies\n"
