@@ -2,15 +2,17 @@ version: '3'
 
 services:
   frontend:
-    image: amalthundiyil/frontend:latest
+    image: amalthundiyil/moni-moni-frontend:latest
     container_name: moni-moni-frontend
     build:
       context: './moni-moni/client'
       args:
         - REACT_APP_HOST=${REACT_APP_HOST}
         - REACT_APP_PORT=${REACT_APP_PORT}
+        - REACT_APP_SCHEME=${REACT_APP_SCHEME}
+        - FRONTEND_PORT=${FRONTEND_PORT}
     ports:
-      - "3000:80"
+      - "3000:3000" # <>:FRONTEND_PORT
     depends_on:
       - backend
     networks:
@@ -19,7 +21,7 @@ services:
 
   backend:
     restart: always
-    image: amalthundiyil/backend:latest
+    image: amalthundiyil/moni-moni-backend:latest
     container_name: moni-moni-backend
     command: gunicorn server.wsgi --bind 0.0.0.0:8000
     build:
@@ -56,6 +58,7 @@ services:
 
   postgres:
     container_name: moni-moni-db
+    image: amalthundiyil/moni-moni-db:latest
     build:
       context: ./moni-moni/db
       dockerfile: Dockerfile
