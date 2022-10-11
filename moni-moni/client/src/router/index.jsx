@@ -20,6 +20,7 @@ import axios from "../utils/axios";
 import { v4 as uuidv4 } from "uuid";
 import Error from "../features/error";
 import Discover from "../features/discover";
+import Dashboard from "../features/dashboard";
 import Create from "../features/create";
 import Image1 from "../assets/pexels-zachariah-schrueder-5056573.jpg";
 import Image2 from "../assets/pexels-mentatdgt-1185433.jpg";
@@ -144,6 +145,7 @@ const Router = () => {
           element={<Discover data={allFundraisers} />}
         />
         <Route exact path="/start-a-fundraiser" element={<Create />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
