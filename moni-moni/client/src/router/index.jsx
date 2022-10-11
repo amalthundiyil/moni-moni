@@ -127,9 +127,11 @@ const Router = () => {
               />
               <Route
                 exact
-                path="/"
+                path=""
                 element={<PrivateRoute auth={isAuthenticated} />}
               >
+                <Route exact path="/dashboard" element={<Dashboard />} />
+                <Route />
                 <Route
                   key={uuidv4()}
                   path={`/${fundraiser.slug}/checkout`}
