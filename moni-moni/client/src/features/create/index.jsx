@@ -13,10 +13,9 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
-import PaymentForm from "./PaymentForm";
 import StartFundraiser from "./StartFundraiser";
 
-const steps = ["Start fundraiser", "Address", "Payment details"];
+const steps = ["Start Fundraiser", "Address"];
 
 function getStepContent(step) {
   switch (step) {
@@ -24,8 +23,6 @@ function getStepContent(step) {
       return <StartFundraiser />;
     case 1:
       return <AddressForm />;
-    case 2:
-      return <PaymentForm />;
     default:
       throw new Error("Unknown step");
   }

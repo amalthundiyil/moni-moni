@@ -16,11 +16,13 @@ import { useState } from "react";
 import logo from "../../assets/svg/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const pages = ["Discover", "Causes", "About", "Blogs"];
 const settings = ["Profile", "Account", "Logout"];
 
 const Header = () => {
+  const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -110,12 +112,9 @@ const Header = () => {
               variant="contained"
               color="secondary"
               component={Link}
-              to="/signup"
-              sx = {
-                {marginLeft: "2%"}
-              }
+              to={isAuthenticated === true ? "/dashboard" : "/signup"}
             >
-              Get Started
+              {isAuthenticated === true ? "Dashboard" : "Get Started"}
             </Button>
             {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
