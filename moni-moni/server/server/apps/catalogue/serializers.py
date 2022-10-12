@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from server.apps.users.models import CustomUser
 from .models import Fundraiser, Category
 
 
