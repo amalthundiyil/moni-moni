@@ -17,7 +17,7 @@ import logo from "../../assets/svg/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Discover", "Start a Fundraiser"];
+const pages = ["Discover", "Causes", "About", "Blogs"];
 const settings = ["Profile", "Account", "Logout"];
 
 const Header = () => {
@@ -97,12 +97,23 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0.1 }}>
+            <Button
+              variant="contained"
+              color="secondary"
+              component={Link}
+              to="/contact"
+            >
+              Contact
+            </Button>
             <Button
               variant="contained"
               color="secondary"
               component={Link}
               to="/signup"
+              sx = {
+                {marginLeft: "2%"}
+              }
             >
               Get Started
             </Button>
@@ -133,6 +144,7 @@ const Header = () => {
                 </MenuItem>
               ))}
             </Menu>
+
           </Box>
         </Toolbar>
       </Container>
