@@ -21,6 +21,8 @@ class UserAPI(generics.GenericAPIView):
 
     def delete(self, request, *args, **kwargs):
         user = CustomUser.objects.get(id=request.user.id)
+        if not user:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

@@ -56,6 +56,18 @@ class FundraiserAPI(generics.GenericAPIView):
             data=serializer.data,
             status=status.HTTP_201_CREATED,
         )
+    
+    @permission_classes([permissions.IsAuthenticated])
+    def delete(self, request, slug=None, *args, **kwargs):
+        f = Fundraiser.objects.filter(slug=slug)
+        if f is not None:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        f.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 class CategoryAPI(generics.GenericAPIView):
