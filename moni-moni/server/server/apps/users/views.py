@@ -5,6 +5,7 @@ from rest_framework.views import Response
 from rest_framework import status
 from .forms import UserAddressForm, UserEditForm
 from .models import Address, CustomUser
+from django.shortcuts import get_object_or_404
 
 
 class UserAPI(generics.GenericAPIView):
@@ -45,25 +46,31 @@ class AddressAPI(generics.GenericAPIView):
         serializer = self.get_serializer(
             Address.objects.filter(user=request.user), many=True
         )
-        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request):
-        address_form = UserAddressForm(data=request.data)
-        if address_form.is_valid():
-            address_form = address_form.save(commit=False)
-            address_form.user = request.user
-            address_form.save()
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                {"message": "Couldn't add address"},
+                status=status.HTTP_201_CREATED,
+            )
+        serializer.save()
+        return Response(
+            {"message": "Address added successfully"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
-    def put(self, request):
-        address = Address.objects.get(user=request.user)
-        address_form = UserAddressForm(instance=address, data=request.data)
-        if address_form.is_valid():
-            address_form.save()
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request, *args, **kwargs):
+        address = get_object_or_404(Address, id=request.data["id"])
+        serializer = AddressSerializer(address, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        print(serializer.save())
+        return Response(
+            {"message": "Address updated sucessfully"}, status=status.HTTP_200_OK
+        )
 
-    def delete(self, request):
-        address = Address.objects.filter(user=request.user).delete()
-        return Response(status=status.HTTP_200_OK)
+    def delete(self, request, id, *args, **kwargs):
+        address = get_object_or_404(Address, id=id)
+        address.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

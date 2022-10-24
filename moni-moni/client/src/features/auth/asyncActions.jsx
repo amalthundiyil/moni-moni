@@ -34,7 +34,7 @@ const userLoginAsync = (email, password) => async (dispatch) => {
 
   const result = await userLoginService(email, password);
   if (result.error) {
-    dispatch(userLoginFailure({ error: result.response.data.msg }));
+    dispatch(userLoginFailure({ error: JSON.stringify(result.response.data) }));
     return {
       message: JSON.stringify(result.response.data) || "Error Occurred",
       type: "error",

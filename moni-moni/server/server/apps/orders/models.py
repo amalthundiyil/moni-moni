@@ -13,7 +13,6 @@ class Order(models.Model):
     address1 = models.CharField(max_length=250)
     address2 = models.CharField(max_length=250)
     city = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20)
     country_code = models.CharField(max_length=4, blank=True)
     created = models.DateTimeField(auto_now_add=True)

@@ -13,7 +13,6 @@ class UserAddressForm(forms.ModelForm):
         model = Address
         fields = [
             "full_name",
-            "phone_number",
             "address_line_1",
             "address_line_2",
             "town_city",
@@ -24,9 +23,6 @@ class UserAddressForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["full_name"].widget.attrs.update(
             {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
-        )
-        self.fields["phone_number"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Phone number"}
         )
         self.fields["address_line_1"].widget.attrs.update(
             {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
