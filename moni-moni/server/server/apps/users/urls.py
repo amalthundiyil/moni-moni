@@ -4,4 +4,5 @@ from .views import UserAPI, AddressAPI
 urlpatterns = [
     path("user/", UserAPI.as_view()),
     path("address/", AddressAPI.as_view()),
+    path("address/<int:id>", AddressAPI.as_view()),
 ]

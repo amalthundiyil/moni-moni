@@ -180,17 +180,11 @@ class RefreshTokenView(TokenRefreshView):
     serializer_class = RefreshTokenSerializer
 
     def post(self, request, *args, **kwargs):
-        # import pdb; pdb.set_trace()
         serializer = self.get_serializer(
             data=request.data,
             context={"refresh": request.COOKIES.get("x-refresh-token")},
         )
-        print("in refresh token", request.COOKIES.get("x-refresh-token"))
-        if not serializer.is_valid():
-            return Response(
-                {"message": "Token is not valid, please request a new one"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        serializer.is_valid(raise_exception=True)
         access_token = {"token": serializer.validated_data.get("access")}
         response = Response(access_token, status=status.HTTP_200_OK)
         response.set_cookie("x-refresh-token", serializer.validated_data.get("refresh"))

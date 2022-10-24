@@ -100,9 +100,10 @@ class SetNewPasswordSerializer(serializers.Serializer):
 
 
 class RefreshTokenSerializer(TokenRefreshSerializer):
-    refresh = serializers.CharField(required=True)
+    refresh = serializers.CharField(required=False)
     access = serializers.CharField(read_only=True)
 
     def validate(self, attrs):
         attrs["refresh"] = self.context.get("refresh")
-        return super().validate(attrs)
+        res = super().validate(attrs)
+        return res
