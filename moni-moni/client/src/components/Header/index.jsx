@@ -53,7 +53,6 @@ const Header = () => {
     window.location.reload();
   };
 
-  console.log(isAuthenticated);
   return (
     <AppBar position="sticky" sx={{ bgcolor: "black", mb: 6 }}>
       <Container maxWidth="xl">
