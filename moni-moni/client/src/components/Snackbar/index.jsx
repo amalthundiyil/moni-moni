@@ -2,18 +2,14 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import MuiAlert from "@mui/material/Alert";
 
-const Alert = function Alert(props, ref) {
+const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-};
+});
 
-export default function CustomizedSnackbars({ message, type }) {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
+export default function CustomizedSnackbars({ message, type, ...rest }) {
+  const [open, setOpen] = React.useState(true);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -30,10 +26,10 @@ export default function CustomizedSnackbars({ message, type }) {
           {message}
         </Alert>
       </Snackbar>
-      // <Alert severity="error">This is an error message!</Alert>
-      // <Alert severity="warning">This is a warning message!</Alert>
-      // <Alert severity="info">This is an information message!</Alert>
-      // <Alert severity="success">This is a success message!</Alert>
+      {/* <Alert severity="error">This is an error message!</Alert>
+      <Alert severity="warning">This is a warning message!</Alert>
+      <Alert severity="info">This is an information message!</Alert>
+      <Alert severity="success">This is a success message!</Alert> */}
     </Stack>
   );
 }

@@ -15,23 +15,49 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "../../utils/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { userLoginAsync } from "./asyncActions";
+import CustomizedSnackbars from "../../components/Snackbar";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function Login() {
   const authObj = useSelector((state) => state.auth);
+  const [notify, setNotify] = React.useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { userLoginLoading, loginError } = authObj;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    dispatch(userLoginAsync(data.get("email"), data.get("password")));
+    const res = await dispatch(
+      userLoginAsync(data.get("email"), data.get("password"))
+    );
+    setNotify(true);
   };
+
+  if (authObj.isAuthenticated === true) {
+    navigate("/home");
+  }
 
   return (
     <ThemeProvider theme={theme}>
+      {notify === true && authObj.loginStatus === "fulfilled" && (
+        <CustomizedSnackbars
+          message={"Successfully logged you in"}
+          type={"success"}
+        />
+      )}
+      {notify === true && authObj.loginStatus === "loading" && (
+        <CustomizedSnackbars message={"Trying to log in"} type={"info"} />
+      )}
+      {notify === true && authObj.loginStatus === "rejected" && (
+        <CustomizedSnackbars
+          message={authObj.error || "Failed to log in"}
+          type={"error"}
+        />
+      )}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

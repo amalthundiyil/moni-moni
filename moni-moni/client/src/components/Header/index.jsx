@@ -17,6 +17,9 @@ import logo from "../../assets/svg/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "../../utils/axios";
+import { userLogoutAsync } from "../../features/auth/asyncActions";
+import CustomizedSnackbars from "../Snackbar";
 
 const pages = ["Discover", "Causes", "About", "Blogs"];
 const settings = ["Profile", "Account", "Logout"];
@@ -25,8 +28,9 @@ const Header = () => {
   const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-
+  const [notification, setNotification] = useState({ notify: false });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,10 +46,20 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const res = await dispatch(userLogoutAsync());
+    setNotification({ notify: true, message: res.message, type: res.type });
+    window.location.reload();
+  };
 
+  console.log(isAuthenticated);
   return (
     <AppBar position="sticky" sx={{ bgcolor: "black", mb: 6 }}>
       <Container maxWidth="xl">
+        {notification.notify === true && (
+          <CustomizedSnackbars {...notification} />
+        )}
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -104,18 +118,21 @@ const Header = () => {
               variant="contained"
               color="secondary"
               component={Link}
-              to="/contact"
-            >
-              Contact
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              component={Link}
-              to={isAuthenticated === true ? "/dashboard" : "/signup"}
+              sx={{ m: 1 }}
+              to={isAuthenticated === true ? "/dashboard" : "/login"}
             >
               {isAuthenticated === true ? "Dashboard" : "Get Started"}
             </Button>
+            {isAuthenticated && (
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ m: 1 }}
+                onClick={(e) => handleLogout(e)}
+              >
+                Logout
+              </Button>
+            )}
             {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -143,7 +160,6 @@ const Header = () => {
                 </MenuItem>
               ))}
             </Menu>
-
           </Box>
         </Toolbar>
       </Container>
