@@ -33,17 +33,33 @@ const userLoginAsync = (email, password) => async (dispatch) => {
   dispatch(userLoginStarted());
 
   const result = await userLoginService(email, password);
-
   if (result.error) {
     dispatch(userLoginFailure({ error: result.response.data.msg }));
-    return;
+    return {
+      message: JSON.stringify(result.response.data) || "Error Occurred",
+      type: "error",
+    };
   }
   dispatch(verifyUserSuccess(result.data));
+  return {
+    message: "Logged in successfully",
+    type: "success",
+  };
 };
 
-const userLogoutAsync = () => (dispatch) => {
+const userLogoutAsync = () => async (dispatch) => {
   dispatch(userLogout());
-  userLogoutService();
+  const result = await userLogoutService();
+  if (result.error) {
+    return {
+      message: JSON.stringify(result.response.data) || "Error Occurred",
+      type: "error",
+    };
+  }
+  return {
+    message: "Logged out successfully",
+    type: "success",
+  };
 };
 
 export { verifyTokenAsync, userLoginAsync, userLogoutAsync };

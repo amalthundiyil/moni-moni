@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import permission_classes
 from server.utils import unique_slug_generator
+from server.apps.users.models import CustomUser
 
 
 class FundraiserAPI(generics.GenericAPIView):
@@ -26,8 +27,28 @@ class FundraiserAPI(generics.GenericAPIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @permission_classes([permissions.IsAuthenticated])
+    def delete(self, request):
+        fd = Fundraiser.objects.filter(title=request.data["title"])
+        if not fd.exists():
+            return Response(
+                data={"detail": "Fundraiser does not exist"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        fd.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @permission_classes([permissions.IsAuthenticated])
     def post(self, request, slug=None, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return Response(
+                data={"detail": "Can't create a fundraiser"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
         request.data["slug"] = unique_slug_generator(Category, request.data)
+        request.data["created_by"] = request.user.id
+        cu = CustomUser.objects.get(id=request.user.id)
+        request.data["author"] = f"{cu.user_name}"
+        request.data["fund_remaining"] = request.data["fund_total"]
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -35,6 +56,18 @@ class FundraiserAPI(generics.GenericAPIView):
             data=serializer.data,
             status=status.HTTP_201_CREATED,
         )
+    
+    @permission_classes([permissions.IsAuthenticated])
+    def delete(self, request, slug=None, *args, **kwargs):
+        f = Fundraiser.objects.filter(slug=slug)
+        if f is not None:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        f.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 class CategoryAPI(generics.GenericAPIView):
@@ -58,15 +91,4 @@ class CategoryAPI(generics.GenericAPIView):
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
-        )
-
-    @permission_classes([permissions.IsAuthenticated])
-    def post(self, request, category_slug=None, *args, **kwargs):
-        request.data["slug"] = unique_slug_generator(Category, request.data)
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(
-            data=serializer.data,
-            status=status.HTTP_201_CREATED,
         )

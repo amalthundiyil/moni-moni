@@ -19,75 +19,123 @@ function Copyright() {
   );
 }
 
-const quickLink = ["Home", "About Us", "Blog Post", "Photo Gallery"]
-const getInTouch = ["Contact Us", "Our Services"]
+const quickLink = ["Home", "About Us", "Blog Post", "Photo Gallery"];
+const getInTouch = ["Contact Us", "Our Services"];
 
 function Footer() {
   return (
-    <Box component="footer" sx={{ bgcolor: "black", py: 6 }}>
+    <Box component="footer" sx={{ bgcolor: "black", py: 6, mt: 10 }}>
       <Container maxWidth="lg" sx={{ display: "flex", flexDirection: "row" }}>
         <Typography
           variant="h5"
           align="center"
           color="text.secondary"
           component="p"
-          sx={{ maxWidth: "20%", color: "white", marginTop: "6%", fontWeight: "bold" }}
+          sx={{
+            maxWidth: "20%",
+            color: "white",
+            marginTop: "6%",
+            fontWeight: "bold",
+          }}
         >
           10K Worldwide Client Already Connected
         </Typography>
 
-        <List sx={{ maxWidth: "50%", display: "flex", flexDirection: "column" }} >
+        <List
+          sx={{ maxWidth: "50%", display: "flex", flexDirection: "column" }}
+        >
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white", fontWeight: "bold" }} variant="h5">Quick Link</Typography>
+            <ListItemText>
+              <Typography
+                sx={{ color: "white", fontWeight: "bold" }}
+                variant="h5"
+              >
+                Quick Link
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white" }} variant="h6">Home</Typography>
+            <ListItemText>
+              <Typography sx={{ color: "white" }} variant="h6">
+                Home
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white" }} variant="h6">About Us</Typography>
+            <ListItemText>
+              <Typography sx={{ color: "white" }} variant="h6">
+                About Us
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white" }} variant="h6">Blog Post</Typography>
+            <ListItemText>
+              <Typography sx={{ color: "white" }} variant="h6">
+                Blog Post
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white" }} variant="h6">Photo Gallery</Typography>
+            <ListItemText>
+              <Typography sx={{ color: "white" }} variant="h6">
+                Photo Gallery
+              </Typography>
             </ListItemText>
           </ListItem>
         </List>
-        <List sx={{ maxWidth: "50%", display: "flex", flexDirection: "column", marginLeft: "7%" }} >
+        <List
+          sx={{
+            maxWidth: "50%",
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "7%",
+          }}
+        >
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white", fontWeight: "bold" }} variant="h5">Get In Touch</Typography>
+            <ListItemText>
+              <Typography
+                sx={{ color: "white", fontWeight: "bold" }}
+                variant="h5"
+              >
+                Get In Touch
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white" }} variant="h6">Contact Us</Typography>
+            <ListItemText>
+              <Typography sx={{ color: "white" }} variant="h6">
+                Contact Us
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white" }} variant="h6">Our Services</Typography>
+            <ListItemText>
+              <Typography sx={{ color: "white" }} variant="h6">
+                Our Services
+              </Typography>
             </ListItemText>
           </ListItem>
         </List>
-        <List sx={{ maxWidth: "20%", display: "flex", flexDirection: "column", marginLeft: "7%" }} >
+        <List
+          sx={{
+            maxWidth: "20%",
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "7%",
+          }}
+        >
           <ListItem disablePadding>
-            <ListItemText >
-              <Typography sx={{ color: "white", fontWeight: "bold" }} variant="h5">Address</Typography>
+            <ListItemText>
+              <Typography
+                sx={{ color: "white", fontWeight: "bold" }}
+                variant="h5"
+              >
+                Address
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemText >
+            <ListItemText>
               <Typography sx={{ color: "white" }} variant="h6">
                 2464 Royal Ln. Mesa, NewJersey 45463
               </Typography>
@@ -101,11 +149,10 @@ function Footer() {
           defaultValue="Hello World"
           variant="filled"
           color="primary"
-          sx={{color: "white"}}
+          sx={{ color: "white" }}
         />
       </Container>
     </Box>
   );
 }
-
 export default Footer;

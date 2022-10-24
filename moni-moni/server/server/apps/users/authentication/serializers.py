@@ -98,12 +98,11 @@ class SetNewPasswordSerializer(serializers.Serializer):
         except Exception as e:
             raise AuthenticationFailed("The reset link is invalid", 401)
 
+
 class RefreshTokenSerializer(TokenRefreshSerializer):
-    refresh = serializers.CharField(required=False)
+    refresh = serializers.CharField(required=True)
     access = serializers.CharField(read_only=True)
 
     def validate(self, attrs):
-        if not self.context.get("refresh"):
-            return {"refresh": ["This field is required."]} 
-        attrs['refresh'] = self.context.get("refresh")
+        attrs["refresh"] = self.context.get("refresh")
         return super().validate(attrs)

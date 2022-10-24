@@ -50,7 +50,6 @@ function PricingContent({ fundraiser }) {
     return <Spinner open={true} />;
   }
 
-  console.log(fundraiser);
   return (
     <React.Fragment>
       <GlobalStyles

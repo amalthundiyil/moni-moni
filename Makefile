@@ -15,7 +15,7 @@ backend-start:
 
 migrate:
 	@python moni-moni/server/manage.py makemigrations
-	@python moni-moni/server/manage.py migratemigrate
+	@python moni-moni/server/manage.py migrate
 
 frontend-start:
 	@cp .env moni-moni/client/.env

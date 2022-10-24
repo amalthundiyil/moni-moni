@@ -49,7 +49,7 @@ class Fundraiser(models.Model):
         related_name="fundraiser_creator",
     )
     title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255, default="admin")
+    author = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to="../../media/", default="default.png")
     slug = models.SlugField(max_length=255)

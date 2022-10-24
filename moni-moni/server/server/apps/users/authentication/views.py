@@ -64,11 +64,16 @@ class LogoutAPI(generics.GenericAPIView):
         permissions.IsAuthenticated,
     ]
 
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(
+            data={"refresh": request.COOKIES.get("x-refresh-token")}
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        res = Response(status=status.HTTP_204_NO_CONTENT)
+        res.delete_cookie("x-refresh-token")
+        print("asdfdsfdsfsdfsdf", request.COOKIES.get("x-refresh-token"))
+        return res
 
 
 class ActivateAccountView(generics.GenericAPIView):
@@ -175,11 +180,17 @@ class RefreshTokenView(TokenRefreshView):
     serializer_class = RefreshTokenSerializer
 
     def post(self, request, *args, **kwargs):
+        # import pdb; pdb.set_trace()
         serializer = self.get_serializer(
             data=request.data,
             context={"refresh": request.COOKIES.get("x-refresh-token")},
         )
-        serializer.is_valid(raise_exception=True)
+        print("in refresh token", request.COOKIES.get("x-refresh-token"))
+        if not serializer.is_valid():
+            return Response(
+                {"message": "Token is not valid, please request a new one"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         access_token = {"token": serializer.validated_data.get("access")}
         response = Response(access_token, status=status.HTTP_200_OK)
         response.set_cookie("x-refresh-token", serializer.validated_data.get("refresh"))
