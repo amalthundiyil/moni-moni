@@ -24,10 +24,7 @@ const getInTouch = ["Contact Us", "Our Services"];
 
 function Footer() {
   return (
-    <Box
-      component="footer"
-      sx={{ bgcolor: "black", py: 6, position: "relative", bottom: 0 }}
-    >
+    <Box component="footer" sx={{ bgcolor: "black", py: 6, mt: 10 }}>
       <Container maxWidth="lg" sx={{ display: "flex", flexDirection: "row" }}>
         <Typography
           variant="h5"

@@ -11,7 +11,7 @@ import ProgressBar from "../../components/ProgressBar";
 
 function Header({ fundraiser }) {
   return (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={12}>
       <Card sx={{ display: "flex" }}>
         <CardMedia
           component="img"
