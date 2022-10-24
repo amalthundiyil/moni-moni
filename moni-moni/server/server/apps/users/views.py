@@ -49,12 +49,10 @@ class AddressAPI(generics.GenericAPIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(
-                {"message": "Couldn't add address"},
-                status=status.HTTP_201_CREATED,
-            )
+        serializer = self.get_serializer(
+            data=request.data, context={"user": request.user.id}
+        )
+        serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(
             {"message": "Address added successfully"},
@@ -63,7 +61,9 @@ class AddressAPI(generics.GenericAPIView):
 
     def put(self, request, *args, **kwargs):
         address = get_object_or_404(Address, id=request.data["id"])
-        serializer = AddressSerializer(address, data=request.data, partial=True)
+        serializer = AddressSerializer(
+            address, data=request.data, partial=True, context={"user": request.user.id}
+        )
         serializer.is_valid(raise_exception=True)
         print(serializer.save())
         return Response(
