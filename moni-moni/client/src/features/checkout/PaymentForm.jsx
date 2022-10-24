@@ -7,13 +7,13 @@ import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-export default function PaymentForm() {
+export default function PaymentForm({ setPaymentData }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <TextField
             required

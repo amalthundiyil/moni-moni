@@ -34,6 +34,7 @@ import Image9 from "../assets/pexels-camille-12457506.jpg";
 import Image10 from "../assets/pexels-roxanne-shewchuk-2405944.jpg";
 import Image11 from "../assets/pexels-someimage.jpg";
 import { Container, Grid } from "@mui/material";
+import { setAuthToken } from "../features/auth/services";
 
 const images = [
   Image1,
@@ -50,7 +51,9 @@ const images = [
 ];
 
 const Router = () => {
-  const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
+  const { isAuthenticated, verifyStatus, token } = useSelector(
+    (state) => state.auth
+  );
   const { loading, setLoading } = useGlobalContext();
   const [fundraisers, setFundraisers] = useState({});
   const [allFundraisers, setAllFundraisers] = useState({});
@@ -59,8 +62,15 @@ const Router = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(verifyTokenAsync());
-  }, []);
+    setAuthToken(token);
+    const verifyTokenTimer = setTimeout(() => {
+      console.log(token);
+      dispatch(verifyTokenAsync(true));
+    }, 4 * 60 * 1000);
+    return () => {
+      clearTimeout(verifyTokenTimer);
+    };
+  }, [token]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,6 +86,7 @@ const Router = () => {
       setFundraisers(groupBy(data.slice(3), "category"));
       setLoading(false);
     };
+    dispatch(verifyTokenAsync());
     fetchData().catch(console.error);
   }, []);
 

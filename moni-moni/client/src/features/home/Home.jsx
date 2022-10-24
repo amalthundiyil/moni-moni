@@ -31,17 +31,6 @@ export default function Home({
   mainFundraiser,
   featuredFundraisers,
 }) {
-  const { token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    setAuthToken(token);
-    const verifyTokenTimer = setTimeout(() => {
-      dispatch(verifyTokenAsync(true));
-    }, 4 * 60 * 1000);
-    return () => {
-      clearTimeout(verifyTokenTimer);
-    };
-  }, [token]);
 
   if (!fundraisers || !mainFundraiser || !featuredFundraisers) {
     return <Spinner open={true} />;

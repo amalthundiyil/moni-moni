@@ -13,15 +13,16 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
+import { createNextState } from "@reduxjs/toolkit";
 
 const steps = ["Shipping address", "Payment details"];
 
-function getStepContent(step) {
+function getStepContent(step, handleData) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressForm setAddressData={handleData} />;
     case 1:
-      return <PaymentForm />;
+      return <PaymentForm setPaymentData={handleData} />;
     default:
       throw new Error("Unknown step");
   }
@@ -31,6 +32,11 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [data, setData] = React.useState({});
+
+  const handleData = (new_data) => {
+    setData({ ...data, ...new_data });
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -39,7 +45,7 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
+  console.log(data);
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
       <Paper
@@ -69,7 +75,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep)}
+              {getStepContent(activeStep, handleData)}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
