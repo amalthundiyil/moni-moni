@@ -33,7 +33,8 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 class AddressSerializer(CountryFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = "__all__"
+        exclude = ("user",)
 
     def create(self, validated_data):
+        validated_data["user"] = User.objects.get(id=self.context.get("user"))
         return Address.objects.create(**validated_data)
