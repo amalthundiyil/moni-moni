@@ -49,7 +49,7 @@ function Header({ fundraiser }) {
             <Grid item xs={3}>
               <Button
                 variant="contained"
-                href={`/fundraisers/${fundraiser.slug}/checkout`}
+                href={`/checkout/${fundraiser.slug}`}
                 disabled={!fundraiser.is_active}
               >
                 Contribute to this fundraiser

@@ -20,12 +20,14 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "../../utils/axios";
 import { userLogoutAsync } from "../../features/auth/asyncActions";
 import CustomizedSnackbars from "../Snackbar";
+import { setAuthToken } from "../../features/auth/services";
+import { verifyTokenAsync } from "../../features/auth/asyncActions";
 
 const pages = ["Discover", "Causes", "About", "Blogs"];
 const settings = ["Profile", "Account", "Logout"];
 
 const Header = () => {
-  const { isAuthenticated, verifyStatus } = useSelector((state) => state.auth);
+  const authObj = useSelector((state) => state.auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [notification, setNotification] = useState({ notify: false });
@@ -48,6 +50,8 @@ const Header = () => {
   };
   const handleLogout = async (e) => {
     e.preventDefault();
+    dispatch(verifyTokenAsync());
+    setAuthToken(authObj.token);
     const res = await dispatch(userLogoutAsync());
     setNotification({ notify: true, message: res.message, type: res.type });
     window.location.reload();
@@ -118,11 +122,11 @@ const Header = () => {
               color="secondary"
               component={Link}
               sx={{ m: 1 }}
-              to={isAuthenticated === true ? "/dashboard" : "/login"}
+              to={authObj.isAuthenticated === true ? "/dashboard" : "/login"}
             >
-              {isAuthenticated === true ? "Dashboard" : "Get Started"}
+              {authObj.isAuthenticated === true ? "Dashboard" : "Get Started"}
             </Button>
-            {isAuthenticated && (
+            {authObj.isAuthenticated && (
               <Button
                 variant="contained"
                 color="secondary"

@@ -1,3 +1,5 @@
+include .env
+
 .PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean
 
 install-dev:
@@ -25,9 +27,8 @@ pip-compile:
 	@pip-compile -v moni-moni/server/requirements.in
 
 reset-db:
-	@export $(grep -v "^#" .env | xargs)
-	@echo "Connecting to: $(DATABASE_URL)"
-	@psql "$(DATABASE_URL)" -c "DROP DATABASE moni_moni_db; CREATE DATABASE moni_moni_db;"
+	@echo "Connecting to database -> $(DATABASE_URL)"
+	@psql $(DATABASE_URL) -c "DROP DATABASE moni_moni_db; CREATE DATABASE moni_moni_db;"
 	@bash scripts/delete_migrations.sh
 	$(MAKE) migrate
 	# $(MAKE) seed-db

@@ -18,20 +18,31 @@ import Spinner from "../../components/Spinner";
 import Checkout from ".";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthToken } from "../auth/services";
+import { verifyTokenAsync } from "../auth/asyncActions";
 
 export default function Pricing(props) {
-  const [tiers, setTiers] = React.useState([]);
+  const [fundingOptions, setFundingOptions] = React.useState([]);
+  const authObj = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
+    dispatch(verifyTokenAsync());
+    setAuthToken(authObj.token);
     async function fetchData() {
-      const res = await axios.get("/api/v1/checkout/tiers/");
-      setTiers(res.data);
+      const res = await axios.get(
+        `/api/v1/checkout/funding-options/${props.data.fundraiser.slug}/`
+      );
+      if (res.data) {
+        setFundingOptions(res.data);
+      }
     }
     fetchData();
   }, []);
 
   const handleOnClick = (e, index) => {
-    props.handleData({ pricing: tiers[index] });
+    props.handleData({ pricing: fundingOptions[index] });
     props.handleNext();
   };
 
@@ -67,15 +78,9 @@ export default function Pricing(props) {
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier, index) => (
+          {fundingOptions.map((tier, index) => (
             // Enterprise card is full width at sm breakpoint
-            <Grid
-              item
-              key={tier.title}
-              xs={12}
-              sm={tier.title === "Enterprise" ? 12 : 6}
-              md={4}
-            >
+            <Grid item key={tier.id} xs={12} sm={6} md={4}>
               <Card>
                 <CardHeader
                   title={tier.title}
@@ -109,26 +114,23 @@ export default function Pricing(props) {
                       ${tier.price}
                     </Typography>
                   </Box>
-                  <ul>
-                    {tier.description.map((line) => (
-                      <Typography
-                        component="li"
-                        variant="subtitle1"
-                        align="center"
-                        key={line}
-                      >
-                        {line}
-                      </Typography>
-                    ))}
-                  </ul>
+                  <Typography
+                    variant="subtitle1"
+                    align="center"
+                    key={tier.description}
+                  >
+                    {tier.description}
+                  </Typography>
                 </CardContent>
                 <CardActions>
                   <Button
                     fullWidth
-                    variant={tier.buttonVariant}
+                    variant={
+                      tier.prefferred === true ? "contained" : "outlined"
+                    }
                     onClick={(e) => handleOnClick(e, index)}
                   >
-                    {tier.buttonText}
+                    Choose
                   </Button>
                 </CardActions>
               </Card>
