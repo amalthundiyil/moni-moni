@@ -44,7 +44,8 @@ class FundraiserAPI(generics.GenericAPIView):
                 data={"detail": "Can't create a fundraiser"},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-        request.data["slug"] = unique_slug_generator(Category, request.data)
+        import pdb; pdb.set_trace()
+        request.data["slug"] = unique_slug_generator(Fundraiser, request.data)
         request.data["author"] = request.user.id
         request.data["remaining_amount"] = request.data["total_amount"]
         serializer = self.get_serializer(data=request.data)

@@ -55,6 +55,7 @@ export default function Checkout({ fundraiser }) {
   if (activeStep === 0) {
     return getStepContent({
       activeStep,
+      data,
       handleData,
       handleNext,
     });
@@ -94,7 +95,6 @@ export default function Checkout({ fundraiser }) {
                 data,
                 handleData,
                 handleNext,
-                fundraiser,
               })}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
