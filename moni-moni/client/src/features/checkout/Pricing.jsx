@@ -77,7 +77,12 @@ export default function Pricing(props) {
       </Container>
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
+        <Grid
+          container
+          spacing={5}
+          alignItems="flex-end"
+          justifyContent="space-around"
+        >
           {fundingOptions.map((tier, index) => (
             // Enterprise card is full width at sm breakpoint
             <Grid item key={tier.id} xs={12} sm={6} md={4}>
@@ -111,7 +116,7 @@ export default function Pricing(props) {
                       variant="h3"
                       color="text.primary"
                     >
-                      ${tier.price}
+                      $ {tier.price}
                     </Typography>
                   </Box>
                   <Typography

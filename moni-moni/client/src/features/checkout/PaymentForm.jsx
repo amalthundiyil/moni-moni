@@ -15,22 +15,21 @@ export default function PaymentForm(props) {
       </Typography>
       <PayPalButtons
         createOrder={(data, actions) => {
-          return actions.order
-            .create({
-              purchase_units: [
-                {
-                  amount: {
-                    currency_code: "INR",
-                    value: props.data.pricing.price,
-                  },
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: `Added funds to ${props.data.fundraiser.title}`,
+                amount: {
+                  value: props.data.pricing.price,
+                  currency_code: "USD",
                 },
-              ],
-            })
-            .then((orderId) => {
-              console.log(orderId);
-              // Your code here after create the order
-              return orderId;
-            });
+              },
+            ],
+          });
+        }}
+        onApprove={async (data, actions) => {
+          const order = await actions.order.capture();
+          console.log("Approved", order);
         }}
       />
     </React.Fragment>
