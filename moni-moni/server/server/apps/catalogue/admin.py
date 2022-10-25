@@ -15,10 +15,10 @@ class FundraiserAdmin(admin.ModelAdmin):
         "title",
         "author",
         "slug",
-        "fund_total",
+        "total_amount",
         "created",
         "updated",
     ]
     list_filter = ["is_active"]
-    list_editable = ["fund_total"]
+    list_editable = ["total_amount"]
     prepopulated_fields = {"slug": ("title",)}

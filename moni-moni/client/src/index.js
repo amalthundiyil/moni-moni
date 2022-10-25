@@ -19,8 +19,8 @@ const theme = createTheme({
 });
 
 const initialOptions = {
-  "client-id": "test",
-  currency: "USD",
+  "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
+  currency: "INR",
   intent: "capture",
 };
 

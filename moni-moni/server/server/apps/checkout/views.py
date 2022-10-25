@@ -10,54 +10,60 @@ from server.apps.catalogue.models import Fundraiser
 from paypalcheckoutsdk.orders import OrdersGetRequest
 from .paypal import PayPalClient
 from rest_framework import generics, status, permissions
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from .serializers import PaymentSelectionSerializer, FundingOptionSerializer
 
 
-class FundingChoices(generics.GenericAPIView):
+class FundingOptionsView(generics.GenericAPIView):
     serializer_class = FundingOptionSerializer
     permission_classes = [
         permissions.IsAuthenticated,
     ]
 
+    def get(self, request, slug, *args, **kwargs):
+        fd = get_object_or_404(Fundraiser, slug=slug, is_active=True)
+        fo = FundingOptions.objects.filter(fundraiser=fd.pk)
+        serializer = self.get_serializer(fo, many=True, context={"id": request.user.id})
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     def put(self, request, *args, **kwargs):
-        funding_option = int(request.data["funding_option"])
-        funding_type = FundingOptions.objects.get(id=funding_option)
-
-        session = request.session
-        if "purchase" not in request.session:
-            session["purchase"] = {
-                "funding_id": funding_type.id,
-            }
-        else:
-            session["purchase"]["funding_id"] = funding_type.id
-            session.modified = True
-
-        response = JsonResponse(
-            {
-                "total": updated_total_price,
-                "funding_price": funding_type.funding_price,
-            }
+        funding_option = get_object_or_404(FundingOptions, id=request.data["id"])
+        serializer = FundingOptionSerializer(
+            funding_option,
+            data=request.data,
+            partial=True,
+            context={"id": request.user.id},
         )
-        return response
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"message": "Funding option updated sucessfully"}, status=status.HTTP_200_OK
+        )
 
-    def post(request):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(
+            data=request.data, context={"id": request.user.id}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"message": "Funding option created successfully"},
+            status=status.HTTP_201_CREATED,
+        )
 
-        session = request.session
-        if "purchase" not in request.session:
-            messages.success(request, "Please select funding option")
-            return HttpResponseRedirect(request.META["HTTP_REFERER"])
-
-        addresses = Address.objects.filter(customer=request.user).order_by("-default")
-
-        if "address" not in request.session:
-            session["address"] = {"address_id": str(addresses[0].id)}
-        else:
-            session["address"]["address_id"] = str(addresses[0].id)
-            session.modified = True
-
-        return render(
-            request, "checkout/funding_address.html", {"addresses": addresses}
+    def delete(self, request, id, *args, **kwargs):
+        funding_option = get_object_or_404(FundingOptions, id=id)
+        serializer = FundingOptionSerializer(
+            funding_option,
+            data={"fundraiser": funding_option.fundraiser.pk},
+            partial=True,
+            context={"id": request.user.id},
+        )
+        serializer.is_valid(raise_exception=True)
+        funding_option.delete()
+        return Response(
+            status=status.HTTP_204_NO_CONTENT,
         )
 
 
@@ -108,7 +114,7 @@ class PaymentComplete(generics.GenericAPIView):
         OrderItem.objects.create(
             order_id=order_id,
             product=item["fundraiser"],
-            price=item["fund_total"],
+            price=item["total_amount"],
             quantity=item["qty"],
         )
 

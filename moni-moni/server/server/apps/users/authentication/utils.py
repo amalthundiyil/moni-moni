@@ -28,7 +28,6 @@ class Email(threading.Thread):
     @classmethod
     def from_user(cls, request, user):
         current_site = get_current_site(request)
-        print(current_site)
         generate_token = TokenGenerator()
         link = (
             "http://"

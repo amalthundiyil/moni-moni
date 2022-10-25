@@ -26,16 +26,17 @@ function Header({ fundraiser }) {
           <br />
           <ProgressBar
             progress={
-              (fundraiser.fund_total - fundraiser.fund_remaining) /
-              fundraiser.fund_total
+              (fundraiser.total_amount - fundraiser.remaining_amount) /
+              fundraiser.total_amount
             }
           />
           <br />
           <Typography variant="h4" color="text.primary">
-            USD {Math.round(fundraiser.fund_total - fundraiser.fund_remaining)}
+            USD{" "}
+            {Math.round(fundraiser.total_amount - fundraiser.remaining_amount)}
           </Typography>
           <Typography variant="h5" color="text.secondary">
-            USD {Math.round(fundraiser.fund_remaining)} remaining
+            USD {Math.round(fundraiser.remaining_amount)} remaining
           </Typography>
           <br />
           <Grid

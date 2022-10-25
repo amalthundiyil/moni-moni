@@ -11,7 +11,7 @@ import { verifyTokenAsync } from "../auth/asyncActions";
 import { setAuthToken } from "../auth/services";
 import "./styles.css";
 
-export default function AddressForm({ handleData }) {
+export default function AddressForm(props) {
   const authObj = useSelector((state) => state.auth);
   const [newAddress, setNewAddress] = React.useState(false);
   const [addresses, setAddresses] = React.useState([]);
@@ -32,7 +32,7 @@ export default function AddressForm({ handleData }) {
   }, []);
 
   const handleChange = (e) => {
-    handleData({
+    props.handleData({
       address: addresses.filter((address) => address.id == e.target.id)[0],
     });
   };
@@ -40,7 +40,7 @@ export default function AddressForm({ handleData }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Address
+        Choose your Address
       </Typography>
       {notification.notify === true && (
         <CustomizedSnackbars {...notification} />

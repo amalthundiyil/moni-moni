@@ -1,37 +1,43 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from server.apps.catalogue.models import Fundraiser
 
 
 class FundingOptions(models.Model):
-
-    funding_name = models.CharField(
-        verbose_name=_("funding_name"),
+    fundraiser = models.ForeignKey(
+        Fundraiser, related_name="fundraiser", on_delete=models.CASCADE
+    )
+    title = models.CharField(
+        verbose_name=_("title"),
         help_text=_("Required"),
         max_length=255,
     )
-    funding_price = models.DecimalField(
-        verbose_name=_("funding price"),
+    subheader = models.CharField(
+        verbose_name=_("subheader"),
+        max_length=255,
+        blank=True,
+        null=True,
+    )
+    description = models.CharField(
+        verbose_name=_("description"),
+        max_length=3000,
+        blank=True,
+        null=True,
+    )
+    price = models.DecimalField(
+        verbose_name=_("price"),
         help_text=_("Required"),
         max_digits=1000,
         decimal_places=2,
     )
-    funding_timeframe = models.CharField(
-        verbose_name=_("funding timeframe"),
-        help_text=_("Required"),
-        max_length=255,
-    )
-    funding_window = models.CharField(
-        verbose_name=_("funding window"),
-        help_text=_("Required"),
-        max_length=255,
-    )
+    preferred = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _("Funding Option")
         verbose_name_plural = _("Funding Options")
 
     def __str__(self):
-        return self.funding_name
+        return self.title
 
 
 class PaymentSelections(models.Model):

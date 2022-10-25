@@ -1,10 +1,25 @@
 from django.urls import path
-from .views import FundingChoices, PaymentSelection, PaymentSuccessful, PaymentComplete
+from .views import (
+    FundingOptionsView,
+    PaymentSelection,
+    PaymentSuccessful,
+    PaymentComplete,
+)
 
 app_name = "checkout"
 
 urlpatterns = [
-    path("funding_choices/", FundingChoices.as_view(), name="fundingchoices"),
+    path(
+        "funding-options/<int:id>/",
+        FundingOptionsView.as_view(),
+        name="fundingchoices_id",
+    ),
+    path(
+        "funding-options/<slug:slug>/",
+        FundingOptionsView.as_view(),
+        name="fundingchoices_slug",
+    ),
+    path("funding-options/", FundingOptionsView.as_view(), name="fundingchoices"),
     path("payment_selection/", PaymentSelection.as_view(), name="payment_selection"),
     path("payment_complete/", PaymentComplete.as_view(), name="payment_successful"),
     path("payment_successful/", PaymentSuccessful.as_view(), name="payment_complete"),

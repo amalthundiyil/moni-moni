@@ -17,38 +17,23 @@ import Container from "@mui/material/Container";
 import Spinner from "../../components/Spinner";
 import Checkout from ".";
 import { useNavigate } from "react-router-dom";
-
-const tiers = [
-  {
-    title: "Pledge without Rewards",
-    price: "0",
-    description: [],
-    buttonText: "Pledge",
-    buttonVariant: "outlined",
-  },
-  {
-    title: "Pro",
-    subheader: "Rewards included",
-    price: "15",
-    description: ["Interest rate: 3.2% p.a."],
-    buttonText: "Get started",
-    buttonVariant: "contained",
-  },
-  {
-    title: "Enterprise",
-    price: "30",
-    description: ["Minimal Annual Income (ITR) > Rs. 1.5 lpa"],
-    buttonText: "Get started",
-    buttonVariant: "outlined",
-  },
-];
+import axios from "../../utils/axios";
 
 export default function Pricing(props) {
-  console.log(props);
+  const [tiers, setTiers] = React.useState([]);
 
-  if (!props.fundraiser) {
-    return <Spinner open={true} />;
-  }
+  React.useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get("/api/v1/checkout/tiers/");
+      setTiers(res.data);
+    }
+    fetchData();
+  }, []);
+
+  const handleOnClick = (e, index) => {
+    props.handleData({ pricing: tiers[index] });
+    props.handleNext();
+  };
 
   return (
     <React.Fragment>
@@ -82,7 +67,7 @@ export default function Pricing(props) {
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
+          {tiers.map((tier, index) => (
             // Enterprise card is full width at sm breakpoint
             <Grid
               item
@@ -141,7 +126,7 @@ export default function Pricing(props) {
                   <Button
                     fullWidth
                     variant={tier.buttonVariant}
-                    onClick={() => props.handleNext()}
+                    onClick={(e) => handleOnClick(e, index)}
                   >
                     {tier.buttonText}
                   </Button>
