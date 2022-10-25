@@ -15,7 +15,7 @@ import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 import Spinner from "../../components/Spinner";
-import Checkout from "../checkout";
+import Checkout from ".";
 import { useNavigate } from "react-router-dom";
 
 const tiers = [
@@ -43,10 +43,10 @@ const tiers = [
   },
 ];
 
-function PricingContent({ fundraiser }) {
-  const navigate = useNavigate();
+export default function Pricing(props) {
+  console.log(props);
 
-  if (!fundraiser) {
+  if (!props.fundraiser) {
     return <Spinner open={true} />;
   }
 
@@ -141,7 +141,7 @@ function PricingContent({ fundraiser }) {
                   <Button
                     fullWidth
                     variant={tier.buttonVariant}
-                    onClick={() => navigate(`/${fundraiser.slug}/checkout`)}
+                    onClick={() => props.handleNext()}
                   >
                     {tier.buttonText}
                   </Button>
@@ -153,8 +153,4 @@ function PricingContent({ fundraiser }) {
       </Container>
     </React.Fragment>
   );
-}
-
-export default function Pricing(props) {
-  return <PricingContent {...props} />;
 }

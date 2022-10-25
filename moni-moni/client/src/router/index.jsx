@@ -9,7 +9,7 @@ import Spinner from "../components/Spinner";
 import Home from "../features/home/Home";
 import Register from "../features/auth/Register";
 import Login from "../features/auth/Login";
-import Pricing from "../features/fundraiser/Pricing";
+import Pricing from "../features/checkout/Pricing";
 import Checkout from "../features/checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
 import PrivateRoute from "./PrivateRoute";
@@ -138,11 +138,11 @@ const Router = () => {
                     path={`/fundraisers/${fundraiser.slug}`}
                     element={<Fundraiser fundraiser={fundraiser} />}
                   />
-                  <Route
+                  {/* <Route
                     key={uuidv4()}
                     path={`/fundraisers/${fundraiser.slug}/pricing`}
                     element={<Pricing fundraiser={fundraiser} />}
-                  />
+                  /> */}
                   <Route
                     exact
                     path=""
@@ -152,7 +152,7 @@ const Router = () => {
                     <Route />
                     <Route
                       key={uuidv4()}
-                      path={`/${fundraiser.slug}/checkout`}
+                      path={`fundraisers/${fundraiser.slug}/checkout`}
                       element={<Checkout fundraiser={fundraiser} />}
                     />
                   </Route>

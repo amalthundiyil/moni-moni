@@ -61,7 +61,7 @@ function MainFeaturedPost({ fundraiser }) {
                 {fundraiser.title}
               </Typography>
               <Typography variant="h5" color="inherit" paragraph>
-                {fundraiser.description}
+                {fundraiser.description.substring(0, 300)}...
               </Typography>
               <Link variant="subtitle1" href="#">
                 {fundraiser.linkText}

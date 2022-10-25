@@ -8,10 +8,10 @@ const Error = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div class="body">
-        <img src={lightbulb} class="image" />
+      <div className="body">
+        <img src={lightbulb} className="image" />
         <div>
-          <div class="dialog">
+          <div className="dialog">
             <h1>Hey, who turned off the lights?</h1>
             <p>We were unable to find the page you were looking for.</p>
           </div>
