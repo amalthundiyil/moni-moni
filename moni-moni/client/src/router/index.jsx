@@ -64,7 +64,6 @@ const Router = () => {
   useEffect(() => {
     setAuthToken(token);
     const verifyTokenTimer = setTimeout(() => {
-      console.log(token);
       dispatch(verifyTokenAsync(true));
     }, 4 * 60 * 1000);
     return () => {
@@ -152,7 +151,7 @@ const Router = () => {
                     <Route />
                     <Route
                       key={uuidv4()}
-                      path={`fundraisers/${fundraiser.slug}/checkout`}
+                      path={`checkout/${fundraiser.slug}/`}
                       element={<Checkout fundraiser={fundraiser} />}
                     />
                   </Route>

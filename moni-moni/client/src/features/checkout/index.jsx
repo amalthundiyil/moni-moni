@@ -15,11 +15,11 @@ import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Pricing from "./Pricing";
 import { createNextState } from "@reduxjs/toolkit";
+import Spinner from "../../components/Spinner";
 
 const steps = ["Funding Choice", "Shipping address", "Payment details"];
 
 function getStepContent(props) {
-  console.log("in step", props);
   switch (props.activeStep) {
     case 0:
       return <Pricing {...props} />;
@@ -34,14 +34,13 @@ function getStepContent(props) {
 
 export default function Checkout({ fundraiser }) {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState({ fundraiser });
 
   const handleData = (new_data) => {
     setData({ ...data, ...new_data });
   };
 
   const handleNext = () => {
-    console.log("handle next");
     setActiveStep((activeStep) => activeStep + 1);
   };
 
@@ -49,12 +48,15 @@ export default function Checkout({ fundraiser }) {
     setActiveStep((activeStep) => activeStep - 1);
   };
 
+  if (!fundraiser) {
+    return <Spinner open={true} />;
+  }
+
   if (activeStep === 0) {
     return getStepContent({
       activeStep,
       handleData,
       handleNext,
-      fundraiser,
     });
   }
 
@@ -89,6 +91,7 @@ export default function Checkout({ fundraiser }) {
             <React.Fragment>
               {getStepContent({
                 activeStep,
+                data,
                 handleData,
                 handleNext,
                 fundraiser,

@@ -23,8 +23,8 @@ export default function AddressForm() {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="fund_total"
-            name="fund_total"
+            id="total_amount"
+            name="total_amount"
             label="Total funding required"
             fullWidth
             variant="standard"
@@ -42,9 +42,9 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sx={{ display: "none" }}>
           <TextField
-            id="fund_remaining"
+            id="remaining_amount"
             hidden={true}
-            name="fund_remaining"
+            name="remaining_amount"
             label="Fund Remaining"
             fullWidth
             value={0}

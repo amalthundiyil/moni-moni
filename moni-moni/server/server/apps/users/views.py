@@ -15,9 +15,7 @@ class UserAPI(generics.GenericAPIView):
     serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
-        serializer = self.get_serializer(
-            CustomUser.objects.filter(id=request.user.id).first()
-        )
+        serializer = self.get_serializer(CustomUser.objects.get(id=request.user.id))
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, *args, **kwargs):
@@ -65,7 +63,7 @@ class AddressAPI(generics.GenericAPIView):
             address, data=request.data, partial=True, context={"user": request.user.id}
         )
         serializer.is_valid(raise_exception=True)
-        print(serializer.save())
+        serializer.save()
         return Response(
             {"message": "Address updated sucessfully"}, status=status.HTTP_200_OK
         )

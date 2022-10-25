@@ -45,10 +45,8 @@ class FundraiserAPI(generics.GenericAPIView):
                 status=status.HTTP_401_UNAUTHORIZED,
             )
         request.data["slug"] = unique_slug_generator(Category, request.data)
-        request.data["created_by"] = request.user.id
-        cu = CustomUser.objects.get(id=request.user.id)
-        request.data["author"] = f"{cu.user_name}"
-        request.data["fund_remaining"] = request.data["fund_total"]
+        request.data["author"] = request.user.id
+        request.data["remaining_amount"] = request.data["total_amount"]
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -56,7 +54,7 @@ class FundraiserAPI(generics.GenericAPIView):
             data=serializer.data,
             status=status.HTTP_201_CREATED,
         )
-    
+
     @permission_classes([permissions.IsAuthenticated])
     def delete(self, request, slug=None, *args, **kwargs):
         f = Fundraiser.objects.filter(slug=slug)
@@ -66,8 +64,6 @@ class FundraiserAPI(generics.GenericAPIView):
             )
         f.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 
 
 class CategoryAPI(generics.GenericAPIView):

@@ -1,3 +1,6 @@
+import os
+from datetime import datetime
+
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -32,6 +35,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def tokens(self):
         token = RefreshToken.for_user(self)
         return {"refresh": str(token), "access": str(token.access_token)}
+
+    @classmethod
+    def get_default(cls):
+        user, created = cls.objects.get_or_create(
+            email=os.getenv("EMAIL_HOST_USER"),
+            defaults=dict(
+                password=os.getenv("EMAIL_HOST_PASSWORD"),
+                first_name="Moni",
+                last_name="Moni",
+                is_superuser=True,
+                is_verified=True,
+                created=datetime.now(),
+                updated=datetime.now(),
+            ),
+        )
+        return user.pk
 
     def __str__(self):
         return self.email
