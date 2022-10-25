@@ -1,11 +1,12 @@
 from django.db import models
+from server.apps.users.models import CustomUser
 from django.utils.translation import gettext_lazy as _
 from server.apps.catalogue.models import Fundraiser
 
 
 class FundingOptions(models.Model):
     fundraiser = models.ForeignKey(
-        Fundraiser, related_name="fundraiser", on_delete=models.CASCADE
+        Fundraiser, related_name="fundraiser_of_options", on_delete=models.CASCADE
     )
     title = models.CharField(
         verbose_name=_("title"),
@@ -40,22 +41,29 @@ class FundingOptions(models.Model):
         return self.title
 
 
-class PaymentSelections(models.Model):
-    """
-    Store payment options
-    """
+class Payment(models.Model):
 
-    name = models.CharField(
-        verbose_name=_("name"),
-        help_text=_("Required"),
-        max_length=255,
+    id = models.CharField(max_length=100, primary_key=True)
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.DO_NOTHING,
+        related_name="payer",
     )
-
-    is_active = models.BooleanField(default=True)
+    fundraiser = models.ForeignKey(
+        Fundraiser, related_name="fundraiser_payments", on_delete=models.DO_NOTHING
+    )
+    status = models.CharField(max_length=20)
+    payer_email = models.EmailField()
+    payee_email = models.EmailField()
+    payer_id = models.CharField(max_length=100)
+    payee_id = models.CharField(max_length=100)
+    created_time = models.DateTimeField(auto_now_add=True)
+    updated_time = models.DateTimeField(auto_now_add=True)
+    currency_code = models.CharField(max_length=10)
+    value = models.DecimalField(decimal_places=2, max_digits=1000)
 
     class Meta:
-        verbose_name = _("Payment Selection")
-        verbose_name_plural = _("Payment Selections")
+        verbose_name_plural = _("Payments")
 
     def __str__(self):
         return self.name

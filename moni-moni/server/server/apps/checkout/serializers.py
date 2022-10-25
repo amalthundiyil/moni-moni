@@ -3,7 +3,7 @@ from rest_framework import serializers
 from server.apps.users.models import CustomUser
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from .models import FundingOptions, PaymentSelections
+from .models import FundingOptions, Payment
 
 
 class FundingOptionSerializer(serializers.ModelSerializer):
@@ -12,7 +12,9 @@ class FundingOptionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, attrs):
-        fr = Fundraiser.objects.select_related().filter(author=self.context.get("id"))
+        fr = Fundraiser.objects.select_related("author").filter(
+            author=self.context.get("id")
+        )
         if attrs["fundraiser"] not in fr:
             raise ValidationError(
                 "Not authorized to edit that fundraiser", status.HTTP_401_UNAUTHORIZED
@@ -24,11 +26,14 @@ class FundingOptionSerializer(serializers.ModelSerializer):
         return option
 
 
-class PaymentSelectionSerializer(serializers.ModelSerializer):
+class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PaymentSelections
-        fields = "__all__"
+        model = Payment
+        exclude = ("user",)
+
+    def validate(self, attrs):
+        attrs["user"] = CustomUser.objects.get(id=self.context["id"])
+        return super().validate(attrs)
 
     def create(self, validated_data):
-        selection = PaymentSelections.objects.create(**validated_data)
-        return selection
+        return Payment.objects.create(**validated_data)

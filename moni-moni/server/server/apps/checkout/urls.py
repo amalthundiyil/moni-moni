@@ -1,9 +1,7 @@
 from django.urls import path
 from .views import (
     FundingOptionsView,
-    PaymentSelection,
-    PaymentSuccessful,
-    PaymentComplete,
+    PaymentView,
 )
 
 app_name = "checkout"
@@ -20,13 +18,6 @@ urlpatterns = [
         name="fundingchoices_slug",
     ),
     path("funding-options/", FundingOptionsView.as_view(), name="fundingchoices"),
-    path("payment_selection/", PaymentSelection.as_view(), name="payment_selection"),
-    path("payment_complete/", PaymentComplete.as_view(), name="payment_successful"),
-    path("payment_successful/", PaymentSuccessful.as_view(), name="payment_complete"),
-    # path("address/", , name="delivery_address"),
-    # path(
-    #     "basket_update_delivery/",
-    #     views.basket_update_delivery,
-    #     name="basket_update_delivery",
-    # ),
+    path("payments/<str:id>/", PaymentView.as_view(), name="payment_id"),
+    path("payments/", PaymentView.as_view(), name="payment"),
 ]

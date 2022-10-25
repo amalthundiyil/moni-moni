@@ -1,18 +1,10 @@
-import json
-from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
-from server.apps.orders.models import Order, OrderItem
-from server.apps.users.models import Address
 from .models import FundingOptions
-from server.apps.catalogue.serializers import FundraiserSerializer
 from server.apps.catalogue.models import Fundraiser
-from paypalcheckoutsdk.orders import OrdersGetRequest
-from .paypal import PayPalClient
+from .models import Payment
 from rest_framework import generics, status, permissions
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from .serializers import PaymentSelectionSerializer, FundingOptionSerializer
+from .serializers import PaymentSerializer, FundingOptionSerializer
 
 
 class FundingOptionsView(generics.GenericAPIView):
@@ -67,64 +59,37 @@ class FundingOptionsView(generics.GenericAPIView):
         )
 
 
-class PaymentSelection(generics.GenericAPIView):
+class PaymentView(generics.GenericAPIView):
+    serializer_class = PaymentSerializer
     permission_classes = [
         permissions.IsAuthenticated,
     ]
 
-    def post(self, request):
+    def get(self, request, *args, **kwargs):
+        fo = Payment.objects.filter(user=request.user.id)
+        serializer = self.get_serializer(fo, many=True, context={"id": request.user.id})
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-        session = request.session
-        if "address" not in request.session:
-            messages.success(request, "Please select address option")
-            return HttpResponseRedirect(request.META["HTTP_REFERER"])
-
-        return Response(status=status.HTTP_200_OK)
-
-
-class PaymentComplete(generics.GenericAPIView):
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-
-    def post(self, request):
-        PPClient = PayPalClient()
-        body = json.loads(request.body)
-        data = body["orderID"]
-        user_id = request.user.id
-        requestorder = OrdersGetRequest(data)
-        response = PPClient.client.execute(requestorder)
-        total_paid = response.result.purchase_units[0].amount.value
-        order = Order.objects.create(
-            user_id=user_id,
-            full_name=response.result.purchase_units[0].shipping.name.full_name,
-            email=response.result.payer.email_address,
-            address1=response.result.purchase_units[0].shipping.address.address_line_1,
-            address2=response.result.purchase_units[0].shipping.address.admin_area_2,
-            postal_code=response.result.purchase_units[0].shipping.address.postal_code,
-            country_code=response.result.purchase_units[
-                0
-            ].shipping.address.country_code,
-            total_paid=response.result.purchase_units[0].amount.value,
-            order_key=response.result.id,
-            payment_option="paypal",
-            billing_status=True,
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(
+            data=request.data, context={"id": request.user.id}
         )
-        order_id = order.pk
-        OrderItem.objects.create(
-            order_id=order_id,
-            product=item["fundraiser"],
-            price=item["total_amount"],
-            quantity=item["qty"],
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {"message": "Payment added successfully"},
+            status=status.HTTP_201_CREATED,
         )
 
-        return Response(status=status.HTTP_200_OK)
-
-
-class PaymentSuccessful(generics.GenericAPIView):
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-
-    def get(self, request):
-        return Response(status=status.HTTP_200_OK)
+    def delete(self, request, id, *args, **kwargs):
+        p = get_object_or_404(Payment, id=id)
+        if p.user.id != request.user.id:
+            return Response(
+                {"message": "Can't delete payment of different user"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        p.delete()
+        return Response(
+            status=status.HTTP_204_NO_CONTENT,
+        )

@@ -54,7 +54,7 @@ class AddressAPI(generics.GenericAPIView):
         serializer.save()
         return Response(
             {"message": "Address added successfully"},
-            status=status.HTTP_400_BAD_REQUEST,
+            status=status.HTTP_201_CREATED,
         )
 
     def put(self, request, *args, **kwargs):

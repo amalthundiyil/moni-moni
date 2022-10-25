@@ -3,6 +3,7 @@ from server.apps.users.models import CustomUser
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from django.db.models.signals import post_save
 from .managers import FundraiserManager
 from django.utils.translation import gettext_lazy as _
 import random
@@ -94,3 +95,21 @@ class Fundraiser(models.Model):
 
     def __str__(self):
         return self.title
+
+
+def update_fundraiser(sender, instance, created, *args, **kwargs):
+
+    from server.apps.catalogue.serializers import FundraiserSerializer
+
+    fr = Fundraiser.objects.get(id=instance.fundraiser.id)
+    data = dict()
+    data["total_backers"] = fr.total_backers + 1
+    data["remaining_amount"] = fr.remaining_amount - instance.value
+    s = FundraiserSerializer(fr, data=data, partial=True)
+    s.is_valid(raise_exception=True)
+    s.save()
+
+
+from server.apps.checkout.models import Payment
+
+post_save.connect(update_fundraiser, sender=Payment)
