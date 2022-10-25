@@ -24,7 +24,7 @@ function FeaturedFundraiser({ fundraiser }) {
               {fundraiser.created}
             </Typography>
             <Typography variant="subtitle1" paragraph>
-              {fundraiser.description}
+              {fundraiser.description.substring(0, 150)}...
             </Typography>
           </CardContent>
           <CardMedia

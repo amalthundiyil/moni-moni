@@ -13,24 +13,26 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
+import Pricing from "./Pricing";
 import { createNextState } from "@reduxjs/toolkit";
 
-const steps = ["Shipping address", "Payment details"];
+const steps = ["Funding Choice", "Shipping address", "Payment details"];
 
-function getStepContent(step, handleData) {
-  switch (step) {
+function getStepContent(props) {
+  console.log("in step", props);
+  switch (props.activeStep) {
     case 0:
-      return <AddressForm setAddressData={handleData} />;
+      return <Pricing {...props} />;
     case 1:
-      return <PaymentForm setPaymentData={handleData} />;
+      return <AddressForm {...props} />;
+    case 2:
+      return <PaymentForm {...props} />;
     default:
       throw new Error("Unknown step");
   }
 }
 
-const theme = createTheme();
-
-export default function Checkout() {
+export default function Checkout({ fundraiser }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [data, setData] = React.useState({});
 
@@ -39,13 +41,23 @@ export default function Checkout() {
   };
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    console.log("handle next");
+    setActiveStep((activeStep) => activeStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
+    setActiveStep((activeStep) => activeStep - 1);
   };
-  console.log(data);
+
+  if (activeStep === 0) {
+    return getStepContent({
+      activeStep,
+      handleData,
+      handleNext,
+      fundraiser,
+    });
+  }
+
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
       <Paper
@@ -75,7 +87,12 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, handleData)}
+              {getStepContent({
+                activeStep,
+                handleData,
+                handleNext,
+                fundraiser,
+              })}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

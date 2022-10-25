@@ -11,7 +11,7 @@ import { verifyTokenAsync } from "../auth/asyncActions";
 import { setAuthToken } from "../auth/services";
 import "./styles.css";
 
-export default function AddressForm({ setAddressData }) {
+export default function AddressForm({ handleData }) {
   const authObj = useSelector((state) => state.auth);
   const [newAddress, setNewAddress] = React.useState(false);
   const [addresses, setAddresses] = React.useState([]);
@@ -32,7 +32,7 @@ export default function AddressForm({ setAddressData }) {
   }, []);
 
   const handleChange = (e) => {
-    setAddressData({
+    handleData({
       address: addresses.filter((address) => address.id == e.target.id)[0],
     });
   };
@@ -51,7 +51,12 @@ export default function AddressForm({ setAddressData }) {
             const address_str = address.address_line_1.substring(0, 10);
             return (
               <div className="card" key={key}>
-                <input type="radio" name="pricing" id={address.id} />
+                <input
+                  type="radio"
+                  name="pricing"
+                  id={address.id}
+                  defaultChecked={key === 0}
+                />
                 <label htmlFor="card1">
                   <h5>
                     {address.full_name} - {address.town_city}, {address.country}
