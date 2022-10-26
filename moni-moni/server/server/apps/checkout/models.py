@@ -8,7 +8,7 @@ import uuid
 class FundingOptions(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     fundraiser = models.ForeignKey(
-        Fundraiser, related_name="fundraiser_of_options", on_delete=models.CASCADE
+        Fundraiser, related_name="fundraiser_options", on_delete=models.CASCADE
     )
     title = models.CharField(
         verbose_name=_("title"),
@@ -65,6 +65,7 @@ class Payment(models.Model):
 
     class Meta:
         verbose_name_plural = _("Payments")
+        ordering = ("-created_time",)
 
     def __str__(self):
         return self.name

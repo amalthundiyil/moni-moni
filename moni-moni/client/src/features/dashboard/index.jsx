@@ -18,14 +18,14 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Typography from "@mui/material/Typography";
 import Chart from "./Chart";
+import Credits from "./Credits";
 import Deposits from "./Deposits";
-import Orders from "./Orders";
 
 const drawerWidth = 240;
 
 export default function Dashboard() {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Container sx={{ display: "flex" }}>
       <Box component="main">
         <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
           <Grid container spacing={3}>
@@ -42,7 +42,7 @@ export default function Dashboard() {
                 <Chart />
               </Paper>
             </Grid>
-            {/* Recent Deposits */}
+            {/* Recent Credits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper
                 sx={{
@@ -52,18 +52,18 @@ export default function Dashboard() {
                   height: 240,
                 }}
               >
-                <Deposits />
+                <Credits />
               </Paper>
             </Grid>
-            {/* Recent Orders */}
+            {/* Recent Deposits */}
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                <Orders />
+                <Deposits />
               </Paper>
             </Grid>
           </Grid>
         </Container>
       </Box>
-    </Box>
+    </Container>
   );
 }

@@ -66,8 +66,21 @@ class PaymentView(generics.GenericAPIView):
     ]
 
     def get(self, request, *args, **kwargs):
-        fo = Payment.objects.filter(user=request.user.id)
-        serializer = self.get_serializer(fo, many=True, context={"id": request.user.id})
+        if request.GET.get("type") == "deposits":
+            payment = Payment.objects.filter(user=request.user.id)
+            payment = payment[: int(request.GET.get("limit", 0))]
+        elif request.GET.get("type") == "credits":
+            all_payments = Payment.objects.select_related("fundraiser").all()
+            payment = []
+            for p in all_payments:
+                if p.fundraiser.author.id == request.user.id:
+                    payment.append(p)
+            payment = payment[: int(request.GET.get("limit", 0))]
+        else:
+            payment = Payment.objects.filter(user=request.user.id)
+        serializer = self.get_serializer(
+            payment, many=True, context={"id": request.user.id}
+        )
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
