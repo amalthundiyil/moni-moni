@@ -22,9 +22,12 @@ import { userLogoutAsync } from "../../features/auth/asyncActions";
 import CustomizedSnackbars from "../Snackbar";
 import { setAuthToken } from "../../features/auth/services";
 import { verifyTokenAsync } from "../../features/auth/asyncActions";
+import Logout from "@mui/icons-material/Logout";
+import Divider from "@mui/material/Divider";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
 const pages = ["Discover", "Causes", "About", "Blogs"];
-const settings = ["Profile", "Account", "Logout"];
+const settings = ["Dashboard"];
 
 const Header = () => {
   const authObj = useSelector((state) => state.auth);
@@ -48,8 +51,8 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleLogout = async (e) => {
-    e.preventDefault();
+  const handleLogout = async () => {
+    console.log("helldsfdf");
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
     const res = await dispatch(userLogoutAsync());
@@ -117,52 +120,61 @@ const Header = () => {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0.1 }}>
-            <Button
-              variant="contained"
-              color="secondary"
-              component={Link}
-              sx={{ m: 1 }}
-              to={authObj.isAuthenticated === true ? "/dashboard" : "/login"}
-            >
-              {authObj.isAuthenticated === true ? "Dashboard" : "Get Started"}
-            </Button>
-            {authObj.isAuthenticated && (
+            {authObj.isAuthenticated === false && (
               <Button
                 variant="contained"
                 color="secondary"
+                component={Link}
                 sx={{ m: 1 }}
-                onClick={(e) => handleLogout(e)}
+                to={"/login"}
               >
-                Logout
+                {"Get Started"}
               </Button>
             )}
-            {/* <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip> */}
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            {authObj.isAuthenticated && (
+              <React.Fragment>
+                <Tooltip title="User Profile">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem
+                      key={setting}
+                      onClick={() => navigate(`/${setting.toLowerCase()}`)}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                  <Divider />
+                  <MenuItem onClick={() => handleLogout()}>
+                    <ListItemIcon>
+                      <Logout fontSize="small" />
+                    </ListItemIcon>
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </React.Fragment>
+            )}
           </Box>
         </Toolbar>
       </Container>

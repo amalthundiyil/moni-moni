@@ -1,27 +1,63 @@
 import * as React from "react";
 import Link from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import axios from "../../utils/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthToken } from "../auth/services";
+import { verifyTokenAsync } from "../auth/asyncActions";
 
 export default function Deposits() {
+  const [deposits, setDeposits] = React.useState([]);
+  const dispatch = useDispatch();
+  const authObj = useSelector((state) => state.auth);
+
+  React.useEffect(() => {
+    dispatch(verifyTokenAsync());
+    setAuthToken(authObj.token);
+    const fetchData = async () => {
+      const res = await axios.get(
+        "/api/v1/checkout/payments/?type=deposits&limit=10"
+      );
+      setDeposits(res.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <React.Fragment>
       <Title>Recent Deposits</Title>
-      <Typography component="p" variant="h4">
-        $3,024.00
-      </Typography>
-      <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 15 March, 2019
-      </Typography>
-      <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
-        </Link>
-      </div>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Date</TableCell>
+            <TableCell>To</TableCell>
+            <TableCell align="right">Amount</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {deposits.map((deposit) => (
+            <TableRow key={deposit.id}>
+              <TableCell>
+                {new Date(deposit.created_time).toDateString()}
+              </TableCell>
+              <TableCell>{deposit.fundraiser_title}</TableCell>
+              <TableCell align="right">{`$${deposit.value}`}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {/* <Grid>
+        <Button type="outlined" onClick={(e) => e.preventDefault} sx={{ mt: 3 }}>
+          See more deposits
+        </Button>
+      </Grid> */}
     </React.Fragment>
   );
 }

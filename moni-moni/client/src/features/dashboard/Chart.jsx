@@ -9,6 +9,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Title from "./Title";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthToken } from "../auth/services";
+import { verifyTokenAsync } from "../auth/asyncActions";
+import axios from "../../utils/axios";
 
 // Generate Sales Data
 function createData(time, amount) {
@@ -29,13 +33,39 @@ const data = [
 
 export default function Chart() {
   const theme = useTheme();
+  const [credits, setCredits] = React.useState([]);
+  const dispatch = useDispatch();
+  const authObj = useSelector((state) => state.auth);
+
+  React.useEffect(() => {
+    dispatch(verifyTokenAsync());
+    setAuthToken(authObj.token);
+    const fetchData = async () => {
+      const res = await axios.get(
+        "/api/v1/checkout/payments/?type=credits&limit=10"
+      );
+      const arr = [];
+      res.data.map((credit) => {
+        var date = new Date(credit.created_time);
+        function pad(s) {
+          return s < 10 ? "0" + s : s;
+        }
+        var time = [pad(date.getDate()), pad(date.getMonth() + 1)].join("/");
+        arr.push({ time, amount: credit.value, date: date.toDateString() });
+      });
+      setCredits(arr.slice(0, 10));
+    };
+    fetchData();
+  }, []);
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>
+        Since {credits.length > 0 && credits[credits.length - 1].date}
+      </Title>
       <ResponsiveContainer>
         <LineChart
-          data={data}
+          data={credits}
           margin={{
             top: 16,
             right: 16,
@@ -61,7 +91,7 @@ export default function Chart() {
                 ...theme.typography.body1,
               }}
             >
-              Sales ($)
+              Fund raised ($)
             </Label>
           </YAxis>
           <Line

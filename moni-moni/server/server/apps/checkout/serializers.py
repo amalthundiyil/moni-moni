@@ -12,9 +12,12 @@ class FundingOptionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, attrs):
-        fr = Fundraiser.objects.select_related("author").filter(
-            author=self.context.get("id")
-        )
+        fundraisers = Fundraiser.objects.select_related("author")
+        fr = []
+        for fundraiser in fundraisers:
+            if fundraiser.author.id == self.context["id"]:
+                fr.append(fundraiser)
+
         if attrs["fundraiser"] not in fr:
             raise ValidationError(
                 "Not authorized to edit that fundraiser", status.HTTP_401_UNAUTHORIZED
@@ -37,3 +40,8 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Payment.objects.create(**validated_data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["fundraiser_title"] = instance.fundraiser.title
+        return data
