@@ -22,7 +22,7 @@ function Footer() {
   const navigate = useNavigate();
 
   return (
-    <Box component="footer" sx={{ bgcolor: "black", py: 6 }}>
+    <Box component="footer" sx={{ bgcolor: "black", py: 6, mt: 10 }}>
       <Grid
         container
         justifyContent="center"

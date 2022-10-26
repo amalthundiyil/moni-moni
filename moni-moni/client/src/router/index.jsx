@@ -9,7 +9,8 @@ import Spinner from "../components/Spinner";
 import Home from "../features/home/Home";
 import Register from "../features/auth/Register";
 import Login from "../features/auth/Login";
-import Pricing from "../features/checkout/Pricing";
+import AboutUs from "../features/aboutUs";
+import ContactUs from "../features/contactUs";
 import Checkout from "../features/checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
 import PrivateRoute from "./PrivateRoute";
@@ -129,6 +130,8 @@ const Router = () => {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Register />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/contact-us" element={<ContactUs />} />
             {allFundraisers.map((fundraiser) => {
               return (
                 <React.Fragment key={uuidv4()}>
