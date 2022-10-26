@@ -9,14 +9,23 @@ import Title from "./Title";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import axios from "../../utils/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthToken } from "../auth/services";
+import { verifyTokenAsync } from "../auth/asyncActions";
 
 export default function Deposits() {
   const [deposits, setDeposits] = React.useState([]);
+  const dispatch = useDispatch();
+  const authObj = useSelector((state) => state.auth);
 
   React.useEffect(() => {
+    dispatch(verifyTokenAsync());
+    setAuthToken(authObj.token);
     const fetchData = async () => {
-      const res = await axios.get("/api/v1/payments/?type=deposits&limit=10/");
-      setDeposits(res);
+      const res = await axios.get(
+        "/api/v1/checkout/payments/?type=deposits&limit=10"
+      );
+      setDeposits(res.data);
     };
     fetchData();
   }, []);
@@ -28,7 +37,6 @@ export default function Deposits() {
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
             <TableCell>To</TableCell>
             <TableCell align="right">Amount</TableCell>
           </TableRow>
@@ -36,18 +44,20 @@ export default function Deposits() {
         <TableBody>
           {deposits.map((deposit) => (
             <TableRow key={deposit.id}>
-              <TableCell>{deposit.date}</TableCell>
-              <TableCell>{deposit.title}</TableCell>
-              <TableCell align="right">{`$${deposit.amount}`}</TableCell>
+              <TableCell>
+                {new Date(deposit.created_time).toDateString()}
+              </TableCell>
+              <TableCell>{deposit.fundraiser_title}</TableCell>
+              <TableCell align="right">{`$${deposit.value}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Grid>
-        {/* <Button type="outlined" onClick={(e) => e.preventDefault} sx={{ mt: 3 }}>
+      {/* <Grid>
+        <Button type="outlined" onClick={(e) => e.preventDefault} sx={{ mt: 3 }}>
           See more deposits
-        </Button> */}
-      </Grid>
+        </Button>
+      </Grid> */}
     </React.Fragment>
   );
 }

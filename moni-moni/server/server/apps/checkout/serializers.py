@@ -40,3 +40,8 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Payment.objects.create(**validated_data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["fundraiser_title"] = instance.fundraiser.title
+        return data
