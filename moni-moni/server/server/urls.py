@@ -12,7 +12,6 @@ def render_react(request):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/auth/", include("server.apps.users.authentication.urls")),
-    path("api/v1/orders/", include("server.apps.orders.urls")),
     path("api/v1/users/", include("server.apps.users.urls")),
     path(
         "api/v1/catalogue/",

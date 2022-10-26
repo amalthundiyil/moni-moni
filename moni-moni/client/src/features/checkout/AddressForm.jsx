@@ -23,7 +23,7 @@ export default function AddressForm(props) {
     setAuthToken(authObj.token);
     async function fetchData() {
       const res = await axios.get("/api/v1/users/address/");
-      if (!res.data) {
+      if (res.data.length <= 0) {
         setNewAddress(true);
       }
       setAddresses(res.data);
@@ -40,7 +40,7 @@ export default function AddressForm(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Choose your Address
+        {newAddress === true ? "Enter your Address" : "Choose your Address"}
       </Typography>
       {notification.notify === true && (
         <CustomizedSnackbars {...notification} />
@@ -153,14 +153,6 @@ export default function AddressForm(props) {
               fullWidth
               autoComplete="shipping country"
               variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox color="secondary" name="saveAddress" value="yes" />
-              }
-              label="Use this address for payment details"
             />
           </Grid>
         </Grid>

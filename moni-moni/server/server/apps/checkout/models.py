@@ -2,9 +2,11 @@ from django.db import models
 from server.apps.users.models import CustomUser
 from django.utils.translation import gettext_lazy as _
 from server.apps.catalogue.models import Fundraiser
+import uuid
 
 
 class FundingOptions(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     fundraiser = models.ForeignKey(
         Fundraiser, related_name="fundraiser_of_options", on_delete=models.CASCADE
     )
@@ -42,7 +44,6 @@ class FundingOptions(models.Model):
 
 
 class Payment(models.Model):
-
     id = models.CharField(max_length=100, primary_key=True)
     user = models.ForeignKey(
         CustomUser,

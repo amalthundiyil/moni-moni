@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     "django_countries",
     "server.apps.users.apps.UsersConfig",
     "server.apps.catalogue.apps.CatalogueConfig",
-    "server.apps.orders.apps.OrdersConfig",
     "server.apps.checkout.apps.CheckoutConfig",
     "django_seed",
 ]
