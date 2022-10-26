@@ -13,7 +13,6 @@ import axios from "../../utils/axios";
 import CustomizedSnackbars from "../../components/Snackbar";
 
 export default function PaymentForm(props) {
-  console.log(props);
   const dispatch = useDispatch();
   const authObj = useSelector((state) => state.auth);
   const [notification, setNotification] = React.useState({ notify: false });
@@ -57,7 +56,6 @@ export default function PaymentForm(props) {
             message: "Payment added successfully",
             type: "success",
           });
-          console.log(order);
           dispatch(verifyTokenAsync());
           setAuthToken(authObj.token);
           const payload = {
@@ -74,7 +72,6 @@ export default function PaymentForm(props) {
             fundraiser: props.data.fundraiser.id,
           };
           const res = await axios.post(`/api/v1/checkout/payments/`, payload);
-          console.log(res);
           if (res.status >= 200 && res.status < 300) {
             props.handleNext();
           } else {

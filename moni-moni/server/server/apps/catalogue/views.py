@@ -73,7 +73,6 @@ class CategoryAPI(generics.GenericAPIView):
         )
 
     def get(self, request, slug=None, *args, **kwargs):
-        print("hello")
         if not slug:
             return self.get_queryset()
 

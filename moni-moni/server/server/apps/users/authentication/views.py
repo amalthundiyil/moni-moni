@@ -72,7 +72,6 @@ class LogoutAPI(generics.GenericAPIView):
         serializer.save()
         res = Response(status=status.HTTP_204_NO_CONTENT)
         res.delete_cookie("x-refresh-token")
-        print("asdfdsfdsfsdfsdf", request.COOKIES.get("x-refresh-token"))
         return res
 
 

@@ -30,7 +30,6 @@ export default function Pricing(props) {
   React.useEffect(() => {
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
-    console.log(authObj.token);
     async function fetchData() {
       const res = await axios.get(
         `/api/v1/checkout/funding-options/${props.data.fundraiser.slug}/`
