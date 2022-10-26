@@ -15,7 +15,7 @@ Moni Moni - Crowdfunding Platform
 
 ## 📌 Introduction
 
-Moni Moni is a crowdfunding website for individuals and small scale businesses. Users can post their loan or donation requests along with the interest or other rewards they can offer and the story backing the fundraiser. Backers can view the request and decide whether they want to pledge or invest depending upon the rewards and the story. It is meant to be as simple as possible to facilitate the unempowered population of our world.
+A full-stack crowd-funding platform for social, charity, personal and creative causes. Users can post their loan or donation requests along with the interest or other rewards they can offer and the story backing the fundraiser. Backers can view the request and decide whether they want to pledge or invest depending upon the rewards and the story. It is meant to be as simple as possible to facilitate the unempowered population of our world.
 
 ## 🤖 Usage
 
