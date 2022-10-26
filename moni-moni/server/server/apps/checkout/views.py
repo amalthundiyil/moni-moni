@@ -44,8 +44,8 @@ class FundingOptionsView(generics.GenericAPIView):
             status=status.HTTP_201_CREATED,
         )
 
-    def delete(self, request, id, *args, **kwargs):
-        funding_option = get_object_or_404(FundingOptions, id=id)
+    def delete(self, request, slug, *args, **kwargs):
+        funding_option = get_object_or_404(FundingOptions, id=slug)
         serializer = FundingOptionSerializer(
             funding_option,
             data={"fundraiser": funding_option.fundraiser.pk},

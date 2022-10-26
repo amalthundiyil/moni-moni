@@ -6,12 +6,14 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.tokens import RefreshToken
 from django_countries.fields import CountryField
+import uuid
 
 
 from .managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_("email address"), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
     password = models.CharField(max_length=100)
@@ -61,7 +63,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Address(models.Model):
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(
         CustomUser, verbose_name=_("User"), on_delete=models.CASCADE
     )

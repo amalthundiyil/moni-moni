@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from .managers import FundraiserManager
 from django.utils.translation import gettext_lazy as _
 import random
+import uuid
 
 CATEGORY_NAMES = (
     ("help", "Help Needed"),
@@ -51,6 +52,7 @@ class Category(models.Model):
 
 
 class Fundraiser(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     category = models.ForeignKey(
         Category,
         related_name="fundraiser",

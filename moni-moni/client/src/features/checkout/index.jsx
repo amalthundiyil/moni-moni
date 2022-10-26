@@ -16,6 +16,7 @@ import PaymentForm from "./PaymentForm";
 import Pricing from "./Pricing";
 import { createNextState } from "@reduxjs/toolkit";
 import Spinner from "../../components/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const steps = ["Funding Choice", "Shipping address", "Payment details"];
 
@@ -35,6 +36,7 @@ function getStepContent(props) {
 export default function Checkout({ fundraiser }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [data, setData] = React.useState({ fundraiser });
+  const navigate = useNavigate();
 
   const handleData = (new_data) => {
     setData({ ...data, ...new_data });
@@ -84,8 +86,9 @@ export default function Checkout({ fundraiser }) {
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                We have emailed your order confirmation, and will send you an
-                update when your order has shipped.
+                You have contributed ${data.pricing.price} to{" "}
+                {data.fundraiser.title} and made the world a better place {":)"}
+                .<Button onClick={() => navigate("/")}>Go to Home</Button>
               </Typography>
             </React.Fragment>
           ) : (

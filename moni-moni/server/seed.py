@@ -9,9 +9,6 @@ dotenv.read_dotenv(".env")
 
 from django_seed import Seed
 from server.apps.catalogue.models import Category, Fundraiser
-from server.apps.checkout.models import FundingOptions, PaymentSelections
-from server.apps.orders.models import Order, OrderItem
-from server.apps.users.models import CustomUser, Address
 
 
 def init_seeders(seeders_list):

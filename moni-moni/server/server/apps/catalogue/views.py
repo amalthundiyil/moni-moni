@@ -44,7 +44,6 @@ class FundraiserAPI(generics.GenericAPIView):
                 data={"detail": "Can't create a fundraiser"},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-        import pdb; pdb.set_trace()
         request.data["slug"] = unique_slug_generator(Fundraiser, request.data)
         request.data["author"] = request.user.id
         request.data["remaining_amount"] = request.data["total_amount"]
@@ -58,11 +57,7 @@ class FundraiserAPI(generics.GenericAPIView):
 
     @permission_classes([permissions.IsAuthenticated])
     def delete(self, request, slug=None, *args, **kwargs):
-        f = Fundraiser.objects.filter(slug=slug)
-        if f is not None:
-            return Response(
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        f = get_object_or_404(Fundraiser, slug=slug)
         f.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -70,18 +65,19 @@ class FundraiserAPI(generics.GenericAPIView):
 class CategoryAPI(generics.GenericAPIView):
     serializer_class = CategorySerializer
 
-    def get_queryset(self):
+    def get_queryset(self, request=None, slug=None, *args, **kwargs):
         serializer = self.get_serializer(Category.objects.all(), many=True)
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
         )
 
-    def get(self, request, category_slug=None):
-        if not category_slug:
+    def get(self, request, slug=None, *args, **kwargs):
+        print("hello")
+        if not slug:
             return self.get_queryset()
 
-        category = get_object_or_404(Category, slug=category_slug)
+        category = get_object_or_404(Category, slug=slug)
         serializer = FundraiserSerializer(
             Fundraiser.objects.filter(category=category), many=True
         )

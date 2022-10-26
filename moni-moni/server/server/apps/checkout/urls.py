@@ -8,12 +8,7 @@ app_name = "checkout"
 
 urlpatterns = [
     path(
-        "funding-options/<int:id>/",
-        FundingOptionsView.as_view(),
-        name="fundingchoices_id",
-    ),
-    path(
-        "funding-options/<slug:slug>/",
+        "funding-options/<str:slug>/",
         FundingOptionsView.as_view(),
         name="fundingchoices_slug",
     ),
