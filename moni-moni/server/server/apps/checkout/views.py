@@ -75,7 +75,6 @@ class PaymentView(generics.GenericAPIView):
             for p in all_payments:
                 if p.fundraiser.author.id == request.user.id:
                     payment.append(p)
-                    print(type(p))
             payment = payment[: int(request.GET.get("limit", 0))]
         else:
             payment = Payment.objects.filter(user=request.user.id)
