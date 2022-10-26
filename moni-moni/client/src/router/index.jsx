@@ -163,7 +163,7 @@ const Router = () => {
               path="/discover"
               element={<Discover data={allFundraisers} />}
             />
-            <Route exact path="/start-a-fundraiser" element={<Create />} />
+            <Route exact path="/start-fundraiser" element={<Create />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
