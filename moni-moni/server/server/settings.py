@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "server.apps.catalogue.apps.CatalogueConfig",
     "server.apps.checkout.apps.CheckoutConfig",
     "django_seed",
+    "drf_yasg"
 ]
 
 MIDDLEWARE = [

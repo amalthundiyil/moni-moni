@@ -16,3 +16,4 @@ gunicorn
 six
 paypal-checkout-serversdk
 black
+drf_yasg
