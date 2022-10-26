@@ -13,9 +13,9 @@ def render_react(request):
 
 schema_view = swagger_get_schema_view(
     openapi.Info(
-        title="Posts API",
+        title="Moni Moni",
         default_version="1.0.0",
-        description="API documentation of App",
+        description="API documentation of Moni Moni",
     ),
     public=True,
 )
