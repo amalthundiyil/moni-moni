@@ -3,7 +3,6 @@ Django
 django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
-django-dotenv
 django-seed
 dj-database-url
 django-cockroachdb
@@ -11,6 +10,8 @@ django-on-heroku
 Pillow
 psycopg2
 psycopg2-binary
+python-dotenv
+whitenoise
 pytest-django
 gunicorn
 six
