@@ -25,9 +25,10 @@ import { verifyTokenAsync } from "../../features/auth/asyncActions";
 import Logout from "@mui/icons-material/Logout";
 import Divider from "@mui/material/Divider";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const pages = ["Discover", "Causes", "About", "Blogs"];
-const settings = ["Dashboard"];
+const pages = ["Discover", "Start Fundraiser"];
+const settings = ["Account", "Dashboard"];
 
 const Header = () => {
   const authObj = useSelector((state) => state.auth);
@@ -134,12 +135,10 @@ const Header = () => {
             {authObj.isAuthenticated && (
               <React.Fragment>
                 <Tooltip title="User Profile">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
-                  </IconButton>
+                  <AccountCircleIcon
+                    onClick={handleOpenUserMenu}
+                    fontSize="large"
+                  />
                 </Tooltip>
                 <Menu
                   sx={{ mt: "45px" }}
