@@ -54,11 +54,6 @@ input[type="radio"]:after {
   top: 39.5px;
   right: 24.5px;
 }
-label {
-  position: absolute;
-  margin: 20px;
-  cursor: pointer;
-}
 h5 {
   font-weight: 600;
   font-size: 18px;

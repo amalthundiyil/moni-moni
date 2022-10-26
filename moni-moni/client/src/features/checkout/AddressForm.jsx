@@ -57,7 +57,14 @@ export default function AddressForm(props) {
                   id={address.id}
                   defaultChecked={key === 0}
                 />
-                <label htmlFor="card1">
+                <label
+                  htmlFor="card1"
+                  style={{
+                    position: "absolute",
+                    margin: "20px",
+                    cursor: "pointer",
+                  }}
+                >
                   <h5>
                     {address.full_name} - {address.town_city}, {address.country}
                   </h5>
