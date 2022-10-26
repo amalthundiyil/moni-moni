@@ -18,7 +18,7 @@ services:
     restart: always
     image: amalthundiyil/moni-moni-backend:latest
     container_name: moni-moni-backend
-    command: gunicorn server.wsgi --bind 0.0.0.0:8000
+    command: sh -c "python manage.py collectstatic --noinput && gunicorn server.wsgi --bind 0.0.0.0:8000"
     build:
       context: './moni-moni/server'
     env_file: .env

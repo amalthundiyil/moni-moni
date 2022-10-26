@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = str(os.getenv("DEBUG", 1)) == "1"  # 1 is True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "moni-moni.herokuapp.com"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -28,12 +28,13 @@ INSTALLED_APPS = [
     "server.apps.catalogue.apps.CatalogueConfig",
     "server.apps.checkout.apps.CheckoutConfig",
     "django_seed",
-    "drf_yasg"
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -150,6 +151,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost",
     "http://127.0.0.1",
+    "http://moni-moni.herokuapp",
+    "https://moni-moni.herokuapp",
 ]
 CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS", 1)) == "1"  # 1 is True
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"

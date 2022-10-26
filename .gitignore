@@ -56,6 +56,7 @@ coverage.xml
 *.pot
 
 # Django stuff:
+moni-moni/server/static/
 *.log
 local_settings.py
 
