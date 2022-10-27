@@ -33,12 +33,15 @@ const User = (props) => {
     fetchData();
   }, []);
 
+  console.log(data);
+
   const handleSubmit = async (e) => {
     console.log(e);
     e.preventDefault();
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
-    const res = await axios.post("/api/v1/users/user/", data);
+    console.log(data);
+    const res = await axios.put("/api/v1/users/user/", data);
     window.location.reload();
   };
 
@@ -68,9 +71,7 @@ const User = (props) => {
                     label="First name"
                     autoComplete="on"
                     variant="standard"
-                    defaultValue={
-                      data && data.first_name ? data.first_name : ""
-                    }
+                    value={data && data.first_name ? data.first_name : ""}
                     onChange={(e) =>
                       setData({ ...data, first_name: e.target.value })
                     }
@@ -83,9 +84,9 @@ const User = (props) => {
                     label="Last name"
                     autoComplete="on"
                     variant="standard"
-                    defaultValue={data && data.last_name ? data.last_name : ""}
+                    value={data && data.last_name ? data.last_name : ""}
                     onChange={(e) =>
-                      setData({ ...data, full_name: e.target.value })
+                      setData({ ...data, last_name: e.target.value })
                     }
                   />
                 </Grid>
@@ -96,9 +97,9 @@ const User = (props) => {
                     label="User name"
                     autoComplete="on"
                     variant="standard"
-                    defaultValue={data && data.user_name ? data.user_name : ""}
+                    value={data && data.user_name ? data.user_name : ""}
                     onChange={(e) =>
-                      setData({ ...data, first_name: e.target.value })
+                      setData({ ...data, user_name: e.target.value })
                     }
                   />
                 </Grid>
@@ -109,9 +110,9 @@ const User = (props) => {
                     label="About"
                     autoComplete="on"
                     variant="standard"
-                    defaultValue={data && data.about ? data.about : ""}
+                    value={data && data.about ? data.about : ""}
                     onChange={(e) =>
-                      setData({ ...data, first_name: e.target.value })
+                      setData({ ...data, about: e.target.value })
                     }
                   />
                 </Grid>
@@ -122,11 +123,9 @@ const User = (props) => {
                     label="Phone Number"
                     autoComplete="on"
                     variant="standard"
-                    defaultValue={
-                      data && data.phone_number ? data.phone_number : ""
-                    }
+                    value={data && data.phone_number ? data.phone_number : ""}
                     onChange={(e) =>
-                      setData({ ...data, first_name: e.target.value })
+                      setData({ ...data, phone_number: e.target.value })
                     }
                   />
                 </Grid>
@@ -135,10 +134,11 @@ const User = (props) => {
                     <DatePicker
                       label="Date of Birth"
                       value={data ? data.date_of_birth : null}
+                      inputFormat={"YYYYY-MM-DD"}
                       onChange={(newValue) =>
                         setData({
                           ...data,
-                          date_of_birth: new Date(newValue).toUTCString(),
+                          date_of_birth: newValue,
                         })
                       }
                       renderInput={(params) => <TextField {...params} />}
