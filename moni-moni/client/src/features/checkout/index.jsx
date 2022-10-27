@@ -29,6 +29,7 @@ function getStepContent(props) {
 }
 
 export default function Checkout({ fundraiser }) {
+  console.log("hello");
   const [activeStep, setActiveStep] = React.useState(0);
   const [data, setData] = React.useState({ fundraiser });
   const navigate = useNavigate();

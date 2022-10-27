@@ -10,11 +10,18 @@ class FundraiserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate(self, attrs):
-        attrs["author"] = CustomUser.objects.get(id=self.context["request"].user.id)
-        attrs["slug"] = unique_slug_generator(Fundraiser, self.context["request"].data)
         return super().validate(attrs)
 
     def create(self, validated_data):
+        validated_data["author"] = CustomUser.objects.get(
+            id=self.context["request"].user.id
+        )
+        validated_data["is_active"] = True
+        validated_data["slug"] = unique_slug_generator(
+            Fundraiser,
+            self.context["request"].data,
+            self.context["request"].data["title"].lower().replace(" ", "-"),
+        )
         fundraiser = Fundraiser.objects.create(**validated_data)
         return fundraiser
 

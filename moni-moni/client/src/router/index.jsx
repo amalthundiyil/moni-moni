@@ -156,7 +156,8 @@ const Router = () => {
                     <Route />
                     <Route
                       exact
-                      path={`checkout/${fundraiser.slug}/`}
+                      // changed the path and fixed blank funding options
+                      path=""
                       element={<PrivateRoute auth={isAuthenticated} />}
                     >
                       <Route

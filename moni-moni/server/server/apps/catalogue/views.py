@@ -13,8 +13,9 @@ class FundraiserAPI(generics.GenericAPIView):
     serializer_class = FundraiserSerializer
     parser_classes = [MultiPartParser, FormParser]
 
-    def get_queryset(self):
-        serializer = self.get_serializer(Fundraiser.objects.all(), many=True)
+    def get_queryset(self, request):
+        serializer = self.get_serializer(Fundraiser.objects.filter(is_active=True), many=True, context={"request": request})
+            
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
@@ -22,9 +23,9 @@ class FundraiserAPI(generics.GenericAPIView):
 
     def get(self, request, slug=None, *args, **kwargs):
         if not slug:
-            return self.get_queryset()
+            return self.get_queryset(request)
         fundraiser = get_object_or_404(Fundraiser, slug=slug, is_active=True)
-        serializer = self.get_serializer(fundraiser)
+        serializer = self.get_serializer(fundraiser, context={"request": request})
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @permission_classes([permissions.IsAuthenticated])
@@ -61,6 +62,7 @@ class FundraiserAPI(generics.GenericAPIView):
             f,
             data={"is_active": False},
             partial=True,
+            context={"request": request},
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
