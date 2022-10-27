@@ -68,14 +68,14 @@ class PaymentView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         if request.GET.get("type") == "deposits":
             payment = Payment.objects.filter(user=request.user.id)
-            payment = payment[: int(request.GET.get("limit", 0))]
+            payment = payment[: int(request.GET.get("limit", len(payment)))]
         elif request.GET.get("type") == "credits":
             all_payments = Payment.objects.select_related("fundraiser").all()
             payment = []
             for p in all_payments:
                 if p.fundraiser.author.id == request.user.id:
                     payment.append(p)
-            payment = payment[: int(request.GET.get("limit", 0))]
+            payment = payment[: int(request.GET.get("limit", len(payment)))]
         else:
             payment = Payment.objects.filter(user=request.user.id)
         serializer = self.get_serializer(

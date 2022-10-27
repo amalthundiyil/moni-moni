@@ -16,6 +16,7 @@ import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import Address from "./Address";
+import Orders from "./Orders";
 import User from "./User";
 
 const Drawer = styled(MuiDrawer, {
@@ -51,7 +52,7 @@ function getElementContent(props) {
     case "Address":
       return <Address {...props} />;
     case "Orders":
-      return <Address {...props} />;
+      return <Orders {...props} />;
     case "Fundraisers":
       return <Address {...props} />;
     default:
