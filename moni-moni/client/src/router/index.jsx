@@ -10,6 +10,7 @@ import Home from "../features/home/Home";
 import Register from "../features/auth/Register";
 import Login from "../features/auth/Login";
 import AboutUs from "../features/aboutUs";
+import Account from "../features/account";
 import ContactUs from "../features/contactUs";
 import Checkout from "../features/checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
@@ -132,6 +133,7 @@ const Router = () => {
             <Route path="/signup" element={<Register />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/account" element={<Account />} />
             {allFundraisers.map((fundraiser) => {
               return (
                 <React.Fragment key={uuidv4()}>
@@ -166,7 +168,20 @@ const Router = () => {
               path="/discover"
               element={<Discover data={allFundraisers} />}
             />
-            <Route exact path="/start-fundraiser" element={<Create />} />
+            <Route
+              exact
+              path=""
+              element={<PrivateRoute auth={isAuthenticated} />}
+            >
+              <Route exact path="/account" element={<Account />} />
+            </Route>
+            <Route
+              exact
+              path=""
+              element={<PrivateRoute auth={isAuthenticated} />}
+            >
+              <Route exact path="/start-fundraiser" element={<Account />} />
+            </Route>
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>

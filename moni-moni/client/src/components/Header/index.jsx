@@ -62,7 +62,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="sticky" sx={{ bgcolor: "black", mb: 6 }}>
+    <AppBar position="sticky" sx={{ bgcolor: "black" }}>
       <Container maxWidth="xl">
         {notification.notify === true && (
           <CustomizedSnackbars {...notification} />

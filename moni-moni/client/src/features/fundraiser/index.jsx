@@ -14,7 +14,7 @@ export default function Fundraiser({ fundraiser }) {
 
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ mt: 5, mb: 5 }}>
         <main>
           <Header key={uuidv4()} fundraiser={fundraiser} />
           <Grid container spacing={5} sx={{ mt: 3 }}>
