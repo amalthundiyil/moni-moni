@@ -22,10 +22,8 @@ export default function Orders() {
   React.useEffect(() => {
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
-    console.log(orders);
     const fetchData = async () => {
       const res = await axios.get(`/api/v1/checkout/payments/?type=${type}`);
-      console.log(res);
       setOrders(res.data);
     };
     fetchData();

@@ -5,12 +5,13 @@ from .serializers import FundraiserSerializer, CategorySerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import permission_classes
-from server.utils import unique_slug_generator
 from server.apps.users.models import CustomUser
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class FundraiserAPI(generics.GenericAPIView):
     serializer_class = FundraiserSerializer
+    parser_classes = [MultiPartParser, FormParser]
 
     def get_queryset(self):
         serializer = self.get_serializer(Fundraiser.objects.all(), many=True)
@@ -27,27 +28,10 @@ class FundraiserAPI(generics.GenericAPIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @permission_classes([permissions.IsAuthenticated])
-    def delete(self, request):
-        fd = Fundraiser.objects.filter(title=request.data["title"])
-        if not fd.exists():
-            return Response(
-                data={"detail": "Fundraiser does not exist"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        fd.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    @permission_classes([permissions.IsAuthenticated])
     def post(self, request, slug=None, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return Response(
-                data={"detail": "Can't create a fundraiser"},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-        request.data["slug"] = unique_slug_generator(Fundraiser, request.data)
-        request.data["author"] = request.user.id
-        request.data["remaining_amount"] = request.data["total_amount"]
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.get_serializer(
+            data=request.data, context={"request": request}
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(
@@ -56,9 +40,30 @@ class FundraiserAPI(generics.GenericAPIView):
         )
 
     @permission_classes([permissions.IsAuthenticated])
+    def put(self, request, slug=None, *args, **kwargs):
+        fr = get_object_or_404(Fundraiser, id=request.data["id"])
+        serializer = FundraiserSerializer(
+            fr,
+            data=request.data,
+            context={"request": request},
+            partial=True,
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"message": "Fundraiser updated sucessfully"}, status=status.HTTP_200_OK
+        )
+
+    @permission_classes([permissions.IsAuthenticated])
     def delete(self, request, slug=None, *args, **kwargs):
         f = get_object_or_404(Fundraiser, slug=slug)
-        f.delete()
+        serializer = FundraiserSerializer(
+            f,
+            data={"is_active": False},
+            partial=True,
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

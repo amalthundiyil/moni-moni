@@ -33,14 +33,11 @@ const User = (props) => {
     fetchData();
   }, []);
 
-  console.log(data);
 
   const handleSubmit = async (e) => {
-    console.log(e);
     e.preventDefault();
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
-    console.log(data);
     const res = await axios.put("/api/v1/users/user/", data);
     window.location.reload();
   };
@@ -134,7 +131,7 @@ const User = (props) => {
                     <DatePicker
                       label="Date of Birth"
                       value={data ? data.date_of_birth : null}
-                      inputFormat={"YYYYY-MM-DD"}
+                      inputFormat={"YYYY-MM-DD"}
                       onChange={(newValue) =>
                         setData({
                           ...data,

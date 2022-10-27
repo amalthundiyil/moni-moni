@@ -13,23 +13,41 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "../../utils/axios";
+import CustomizedSnackbars from "../../components/Snackbar";
 
 const theme = createTheme();
 
 export default function Register() {
+  const [notification, setNotification] = React.useState({ notify: false });
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const res = await axios.post("/api/v1/auth/register/", {
-      user_name: data.get("firstName"),
-      // lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    try {
+      const res = await axios.post("/api/v1/auth/register/", {
+        user_name: data.get("userName"),
+        email: data.get("email"),
+        password: data.get("password"),
+      });
+      setNotification({
+        notify: true,
+        message: "Registration successful",
+        type: "success",
+      });
+    } catch (err) {
+      setNotification({
+        notify: true,
+        message: JSON.stringify(err.response.data) || err.message,
+        type: "error",
+      });
+    }
   };
 
   return (
     <ThemeProvider theme={theme}>
+      {notification.notify === true && (
+        <CustomizedSnackbars {...notification} />
+      )}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -53,25 +71,15 @@ export default function Register() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  autoComplete="on"
+                  name="userName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="userName"
+                  label="User Name"
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>

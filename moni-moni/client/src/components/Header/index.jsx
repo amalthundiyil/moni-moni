@@ -53,7 +53,6 @@ const Header = () => {
     setAnchorElUser(null);
   };
   const handleLogout = async () => {
-    console.log("helldsfdf");
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
     const res = await dispatch(userLogoutAsync());

@@ -18,6 +18,7 @@ import * as React from "react";
 import Address from "./Address";
 import Orders from "./Orders";
 import User from "./User";
+import Fundraiser from "./Fundraiser";
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -54,7 +55,7 @@ function getElementContent(props) {
     case "Orders":
       return <Orders {...props} />;
     case "Fundraisers":
-      return <Address {...props} />;
+      return <Fundraiser {...props} />;
     default:
       throw new Error("Unknown step");
   }

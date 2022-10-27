@@ -16,6 +16,7 @@ function MainFeaturedPost({ fundraiser }) {
         position: "relative",
         backgroundColor: "grey.800",
         color: "#fff",
+        mt: 4,
         mb: 4,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

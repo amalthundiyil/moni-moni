@@ -15,7 +15,6 @@ const AddressForm = (props) => {
   const countries = React.useMemo(() => countryList().getData(), []);
   const dispatch = useDispatch();
 
-  console.log(props);
   const handleCreate = async (e) => {
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
@@ -32,7 +31,6 @@ const AddressForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(e);
     e.preventDefault();
     if (props.operation == "add") {
       handleCreate(e);
