@@ -21,7 +21,7 @@ const FundraiserForm = (props) => {
     async function fetchData() {
       const cres = await axios.get("/api/v1/catalogue/category/");
       setCategories(cres.data);
-      props.handleData({ category: "others" });
+      props.handleData({ ...props.data, category: "others" });
     }
     fetchData();
   }, []);
@@ -74,7 +74,9 @@ const FundraiserForm = (props) => {
           autoComplete="on"
           variant="standard"
           defaultValue={props.data && props.data.title ? props.data.title : ""}
-          onChange={(e) => props.handleData({ title: e.target.value })}
+          onChange={(e) =>
+            props.handleData({ ...props.data, title: e.target.value })
+          }
         />
       </Grid>
       <Grid item xs={12}>
@@ -91,6 +93,7 @@ const FundraiserForm = (props) => {
           }
           onChange={(e) =>
             props.handleData({
+              ...props.data,
               description: e.target.value,
             })
           }
@@ -109,6 +112,7 @@ const FundraiserForm = (props) => {
           }
           onChange={(e) =>
             props.handleData({
+              ...props.data,
               total_amount: e.target.value,
             })
           }
@@ -124,7 +128,9 @@ const FundraiserForm = (props) => {
           value={
             props.data && props.data.category ? props.data.category : "others"
           }
-          onChange={(e) => props.handleData({ category: e.target.value })}
+          onChange={(e) =>
+            props.handleData({ ...props.data, category: e.target.value })
+          }
         >
           {categories.map((category, key) => {
             return (
@@ -142,7 +148,10 @@ const FundraiserForm = (props) => {
             type="file"
             accept="image/*"
             hidden
-            onChange={(e) => setImage(e.target.value)}
+            onChange={(e) => {
+              props.handleData({ ...props.data, image: e.target.files[0] });
+              setImage(e.target.value);
+            }}
           />
         </Button>
         <Typography>{image && `${image.substring(0, 10)}...`}</Typography>

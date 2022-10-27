@@ -11,6 +11,7 @@ import CustomizedSnackbars from "../../components/Snackbar";
 import axios from "../../utils/axios";
 import { verifyTokenAsync } from "../auth/asyncActions";
 import { setAuthToken } from "../auth/services";
+import Button from "@mui/material/Button";
 import FundraiserForm from "./FundraiserForm";
 import "./styles.css";
 
@@ -44,6 +45,9 @@ export default function Fundraiser(props) {
 
   const handleClick = (e, type) => {
     setOperation(type);
+    if (type == "add") {
+      setData({});
+    }
     setOpen(true);
   };
 
@@ -51,8 +55,10 @@ export default function Fundraiser(props) {
     setOpen(o);
   };
 
+  const handleFundraiserOption = (e) => {};
+
   const handleData = (newData) => {
-    setData({ ...data, ...newData });
+    setData({ ...newData });
   };
 
   const handleDelete = async (e) => {
@@ -96,6 +102,12 @@ export default function Fundraiser(props) {
             </Typography>
           </Grid>
           <Grid item>
+            <Button
+              variant="outlined"
+              onClick={(e) => handleFundraiserOption(e)}
+            >
+              Edit funding option
+            </Button>
             <IconButton size="large" onClick={(e) => handleClick(e, "add")}>
               <AddIcon fontSize="large" />
             </IconButton>
