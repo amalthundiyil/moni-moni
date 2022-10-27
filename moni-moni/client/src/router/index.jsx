@@ -155,10 +155,16 @@ const Router = () => {
                     <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route />
                     <Route
-                      key={uuidv4()}
+                      exact
                       path={`checkout/${fundraiser.slug}/`}
-                      element={<Checkout fundraiser={fundraiser} />}
-                    />
+                      element={<PrivateRoute auth={isAuthenticated} />}
+                    >
+                      <Route
+                        key={uuidv4()}
+                        path={`checkout/${fundraiser.slug}/`}
+                        element={<Checkout fundraiser={fundraiser} />}
+                      />
+                    </Route>
                   </Route>
                 </React.Fragment>
               );
@@ -170,14 +176,14 @@ const Router = () => {
             />
             <Route
               exact
-              path=""
+              path="/account"
               element={<PrivateRoute auth={isAuthenticated} />}
             >
               <Route exact path="/account" element={<Account />} />
             </Route>
             <Route
               exact
-              path=""
+              path="/start-fundraiser"
               element={<PrivateRoute auth={isAuthenticated} />}
             >
               <Route exact path="/start-fundraiser" element={<Account />} />

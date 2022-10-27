@@ -1,26 +1,19 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
+import StarIcon from "@mui/icons-material/StarBorder";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import StarIcon from "@mui/icons-material/StarBorder";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
-import Spinner from "../../components/Spinner";
-import Checkout from ".";
-import { useNavigate } from "react-router-dom";
-import axios from "../../utils/axios";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthToken } from "../auth/services";
+import axios from "../../utils/axios";
 import { verifyTokenAsync } from "../auth/asyncActions";
+import { setAuthToken } from "../auth/services";
 
 export default function Pricing(props) {
   const [fundingOptions, setFundingOptions] = React.useState([]);

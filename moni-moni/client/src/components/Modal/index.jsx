@@ -18,9 +18,8 @@ const style = {
   p: 4,
 };
 
-export default function TransitionsModal({ open, setOpen, Component }) {
-  console.log("adsfdf");
-  const handleClose = () => setOpen(false);
+export default function TransitionsModal({ open, handleOpen, Component }) {
+  const handleClose = () => handleOpen(false);
 
   return (
     <div>
