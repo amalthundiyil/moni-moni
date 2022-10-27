@@ -6,7 +6,7 @@ import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
-import Home from "../features/home/Home";
+import Home from "../features/home";
 import Register from "../features/auth/Register";
 import Login from "../features/auth/Login";
 import AboutUs from "../features/aboutUs";

@@ -16,6 +16,7 @@ import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import Address from "./Address";
+import User from "./User";
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -46,7 +47,7 @@ const Drawer = styled(MuiDrawer, {
 function getElementContent(props) {
   switch (props.element) {
     case "User":
-      return <Address {...props} />;
+      return <User {...props} />;
     case "Address":
       return <Address {...props} />;
     case "Orders":

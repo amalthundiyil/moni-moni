@@ -31,14 +31,6 @@ const AddressForm = (props) => {
     window.location.reload();
   };
 
-  const handleDelete = async (e) => {
-    dispatch(verifyTokenAsync());
-    setAuthToken(authObj.token);
-    const res = await axios.delete(`/api/v1/users/address/${props.data.id}/`);
-    props.handleOpen(false);
-    window.location.reload();
-  };
-
   const handleSubmit = async (e) => {
     console.log(e);
     e.preventDefault();
@@ -48,10 +40,6 @@ const AddressForm = (props) => {
       handleEdit(e);
     }
   };
-
-  if (props.operation == "delete") {
-    handleDelete();
-  }
 
   return (
     <Grid container spacing={3}>
@@ -64,7 +52,9 @@ const AddressForm = (props) => {
           fullWidth
           autoComplete="on"
           variant="standard"
-          defaultValue={props.data.full_name ? props.data.full_name : ""}
+          defaultValue={
+            props.data && props.data.full_name ? props.data.full_name : ""
+          }
           onChange={(e) => props.handleData({ full_name: e.target.value })}
         />
       </Grid>
@@ -77,7 +67,11 @@ const AddressForm = (props) => {
           fullWidth
           autoComplete="shipping address-line1"
           variant="standard"
-          defaultValue={props.data.address_line_1 ? props.data.address_line_1 : ""}
+          defaultValue={
+            props.data && props.data.address_line_1
+              ? props.data.address_line_1
+              : ""
+          }
           onChange={(e) =>
             props.handleData({
               address_line_1: e.target.value,
@@ -93,7 +87,11 @@ const AddressForm = (props) => {
           fullWidth
           autoComplete="shipping address-line2"
           variant="standard"
-          defaultValue={props.data.address_line_2 ? props.data.address_line_2 : ""}
+          defaultValue={
+            props.data && props.data.address_line_2
+              ? props.data.address_line_2
+              : ""
+          }
           onChange={(e) =>
             props.handleData({
               address_line_2: e.target.value,
@@ -110,7 +108,9 @@ const AddressForm = (props) => {
           fullWidth
           autoComplete="shipping address-level2"
           variant="standard"
-          defaultValue={props.data.town_city ? props.data.town_city : ""}
+          defaultValue={
+            props.data && props.data.town_city ? props.data.town_city : ""
+          }
           onChange={(e) => props.handleData({ town_city: e.target.value })}
         />
       </Grid>
@@ -123,7 +123,9 @@ const AddressForm = (props) => {
           fullWidth
           autoComplete="shipping postal-code"
           variant="standard"
-          defaultValue={props.data.postcode ? props.data.postcode : ""}
+          defaultValue={
+            props.data && props.data.postcode ? props.data.postcode : ""
+          }
           onChange={(e) => props.handleData({ postcode: e.target.value })}
         />
       </Grid>
@@ -134,7 +136,7 @@ const AddressForm = (props) => {
           name="country"
           label="Country"
           fullWidth
-          value={props.data.country ? props.data.country : "IN"}
+          value={props.data && props.data.country ? props.data.country : "IN"}
           onChange={(e) => props.handleData({ country: e.target.value })}
         >
           {countries.map((country, key) => {

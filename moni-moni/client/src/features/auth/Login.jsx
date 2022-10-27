@@ -1,22 +1,21 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "../../utils/axios";
-import { useSelector, useDispatch } from "react-redux";
-import { userLoginAsync } from "./asyncActions";
-import CustomizedSnackbars from "../../components/Snackbar";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import CustomizedSnackbars from "../../components/Snackbar";
+import { userLoginAsync } from "./asyncActions";
 
 const theme = createTheme();
 
@@ -37,9 +36,11 @@ export default function Login() {
     setNotify(true);
   };
 
-  if (authObj.isAuthenticated === true) {
-    navigate("/home");
-  }
+  React.useEffect(() => {
+    if (authObj.isAuthenticated === true) {
+      navigate("/home");
+    }
+  }, [authObj.isAuthenticated]);
 
   return (
     <ThemeProvider theme={theme}>

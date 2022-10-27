@@ -55,6 +55,14 @@ export default function Address(props) {
     setData({ ...data, ...newData });
   };
 
+  const handleDelete = async (e) => {
+    dispatch(verifyTokenAsync());
+    setAuthToken(authObj.token);
+    const res = await axios.delete(`/api/v1/users/address/${data.id}/`);
+    handleOpen(false);
+    window.location.reload();
+  };
+
   return (
     <React.Fragment>
       {notification.notify === true && (
@@ -90,7 +98,7 @@ export default function Address(props) {
             <IconButton size="large" onClick={(e) => handleClick(e, "edit")}>
               <EditIcon fontSize="large" />
             </IconButton>
-            <IconButton size="large" onClick={(e) => handleClick(e, "delete")}>
+            <IconButton size="large" onClick={(e) => handleDelete(e)}>
               <DeleteIcon fontSize="large" />
             </IconButton>
           </Grid>
