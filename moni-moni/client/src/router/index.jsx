@@ -24,33 +24,8 @@ import Error from "../features/error";
 import Discover from "../features/discover";
 import Dashboard from "../features/dashboard";
 import Create from "../features/create";
-import Image1 from "../assets/pexels-zachariah-schrueder-5056573.jpg";
-import Image2 from "../assets/pexels-mentatdgt-1185433.jpg";
-import Image3 from "../assets/pexels-mathias-reding-11421247.jpg";
-import Image4 from "../assets/pexels-rebecca-zaal-764681.jpg";
-import Image5 from "../assets/pexels-pixabay-50709.jpg";
-import Image6 from "../assets/pexels-markus-spiske-2990650.jpg";
-import Image7 from "../assets/default.png";
-import Image8 from "../assets/pexels-thibault-trillet-167590.jpg";
-import Image9 from "../assets/pexels-camille-12457506.jpg";
-import Image10 from "../assets/pexels-roxanne-shewchuk-2405944.jpg";
-import Image11 from "../assets/pexels-someimage.jpg";
 import { Container, Grid } from "@mui/material";
 import { setAuthToken } from "../features/auth/services";
-
-const images = [
-  Image1,
-  Image2,
-  Image3,
-  Image4,
-  Image5,
-  Image6,
-  Image7,
-  Image8,
-  Image9,
-  Image10,
-  Image11,
-];
 
 const Router = () => {
   const { isAuthenticated, verifyStatus, token } = useSelector(
@@ -78,9 +53,6 @@ const Router = () => {
       setLoading(true);
       let res = await axios.get("/api/v1/catalogue/fundraisers/");
       let data = await res.data;
-      for (let i = 0; i < data.length; i++) {
-        data[i].image = images[i];
-      }
       setAllFundraisers(data);
       setMainFundraiser(data[0]);
       setFeaturedFundraisers(data.slice(1, 3));
