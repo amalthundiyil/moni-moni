@@ -16,7 +16,7 @@ class UserAPI(generics.GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         serializer = self.get_serializer(CustomUser.objects.get(id=request.user.id))
-        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, *args, **kwargs):
         user = CustomUser.objects.get(id=request.user.id)
@@ -25,13 +25,16 @@ class UserAPI(generics.GenericAPIView):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def post(self, request):
-        user_form = UserEditForm(instance=request.user, data=request.data)
-        if user_form.is_valid():
-            user_form.save()
-            return Response(status=status.HTTP_200_OK)
-
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request, *args, **kwargs):
+        address = get_object_or_404(CustomUser, id=request.user.id)
+        serializer = UserSerializer(
+            address, data=request.data, partial=True, context={"user": request.user.id}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"message": "User updated sucessfully"}, status=status.HTTP_200_OK
+        )
 
 
 class AddressAPI(generics.GenericAPIView):

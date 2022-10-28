@@ -6,10 +6,11 @@ import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
-import Home from "../features/home/Home";
+import Home from "../features/home";
 import Register from "../features/auth/Register";
 import Login from "../features/auth/Login";
 import AboutUs from "../features/aboutUs";
+import Account from "../features/account";
 import ContactUs from "../features/contactUs";
 import Checkout from "../features/checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
@@ -23,33 +24,8 @@ import Error from "../features/error";
 import Discover from "../features/discover";
 import Dashboard from "../features/dashboard";
 import Create from "../features/create";
-import Image1 from "../assets/pexels-zachariah-schrueder-5056573.jpg";
-import Image2 from "../assets/pexels-mentatdgt-1185433.jpg";
-import Image3 from "../assets/pexels-mathias-reding-11421247.jpg";
-import Image4 from "../assets/pexels-rebecca-zaal-764681.jpg";
-import Image5 from "../assets/pexels-pixabay-50709.jpg";
-import Image6 from "../assets/pexels-markus-spiske-2990650.jpg";
-import Image7 from "../assets/default.png";
-import Image8 from "../assets/pexels-thibault-trillet-167590.jpg";
-import Image9 from "../assets/pexels-camille-12457506.jpg";
-import Image10 from "../assets/pexels-roxanne-shewchuk-2405944.jpg";
-import Image11 from "../assets/pexels-someimage.jpg";
 import { Container, Grid } from "@mui/material";
 import { setAuthToken } from "../features/auth/services";
-
-const images = [
-  Image1,
-  Image2,
-  Image3,
-  Image4,
-  Image5,
-  Image6,
-  Image7,
-  Image8,
-  Image9,
-  Image10,
-  Image11,
-];
 
 const Router = () => {
   const { isAuthenticated, verifyStatus, token } = useSelector(
@@ -77,9 +53,6 @@ const Router = () => {
       setLoading(true);
       let res = await axios.get("/api/v1/catalogue/fundraisers/");
       let data = await res.data;
-      for (let i = 0; i < data.length; i++) {
-        data[i].image = images[i];
-      }
       setAllFundraisers(data);
       setMainFundraiser(data[0]);
       setFeaturedFundraisers(data.slice(1, 3));
@@ -132,6 +105,7 @@ const Router = () => {
             <Route path="/signup" element={<Register />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/account" element={<Account />} />
             {allFundraisers.map((fundraiser) => {
               return (
                 <React.Fragment key={uuidv4()}>
@@ -153,10 +127,17 @@ const Router = () => {
                     <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route />
                     <Route
-                      key={uuidv4()}
-                      path={`checkout/${fundraiser.slug}/`}
-                      element={<Checkout fundraiser={fundraiser} />}
-                    />
+                      exact
+                      // changed the path and fixed blank funding options
+                      path=""
+                      element={<PrivateRoute auth={isAuthenticated} />}
+                    >
+                      <Route
+                        key={uuidv4()}
+                        path={`checkout/${fundraiser.slug}/`}
+                        element={<Checkout fundraiser={fundraiser} />}
+                      />
+                    </Route>
                   </Route>
                 </React.Fragment>
               );
@@ -166,7 +147,20 @@ const Router = () => {
               path="/discover"
               element={<Discover data={allFundraisers} />}
             />
-            <Route exact path="/start-fundraiser" element={<Create />} />
+            <Route
+              exact
+              path="/account"
+              element={<PrivateRoute auth={isAuthenticated} />}
+            >
+              <Route exact path="/account" element={<Account />} />
+            </Route>
+            <Route
+              exact
+              path="/start-fundraiser"
+              element={<PrivateRoute auth={isAuthenticated} />}
+            >
+              <Route exact path="/start-fundraiser" element={<Account />} />
+            </Route>
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>

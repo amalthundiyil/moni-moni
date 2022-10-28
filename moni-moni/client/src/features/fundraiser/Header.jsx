@@ -32,11 +32,10 @@ function Header({ fundraiser }) {
           />
           <br />
           <Typography variant="h4" color="text.primary">
-            USD{" "}
-            {Math.round(fundraiser.total_amount - fundraiser.remaining_amount)}
+            ${Math.round(fundraiser.total_amount - fundraiser.remaining_amount)}
           </Typography>
           <Typography variant="h5" color="text.secondary">
-            USD {Math.round(fundraiser.remaining_amount)} remaining
+            ${Math.round(fundraiser.remaining_amount)} remaining
           </Typography>
           <br />
           <Grid

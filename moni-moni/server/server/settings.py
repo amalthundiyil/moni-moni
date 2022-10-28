@@ -143,8 +143,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.CustomUser"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
@@ -160,6 +158,8 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 EMAIL_USE_TLS = str(os.getenv("EMAIL_USE_TLS", 1)) == "1"
 EMAIL_PORT = os.getenv("EMAIL_PORT", 587)

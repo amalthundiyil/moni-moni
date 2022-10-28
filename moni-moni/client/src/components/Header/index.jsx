@@ -53,7 +53,6 @@ const Header = () => {
     setAnchorElUser(null);
   };
   const handleLogout = async () => {
-    console.log("helldsfdf");
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
     const res = await dispatch(userLogoutAsync());
@@ -62,7 +61,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="sticky" sx={{ bgcolor: "black", mb: 6 }}>
+    <AppBar position="sticky" sx={{ bgcolor: "black" }}>
       <Container maxWidth="xl">
         {notification.notify === true && (
           <CustomizedSnackbars {...notification} />

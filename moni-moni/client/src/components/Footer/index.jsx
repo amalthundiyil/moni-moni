@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 const quickLink = [
   "Home",
-  "About Us",
-  "Contact Us",
+  // "About Us",
+  // "Contact Us",
   "Discover",
   "Start Fundraiser",
 ];
@@ -22,7 +22,7 @@ function Footer() {
   const navigate = useNavigate();
 
   return (
-    <Box component="footer" sx={{ bgcolor: "black", py: 6, mt: 10 }}>
+    <Box component="footer" sx={{ bgcolor: "black", py: 6 }}>
       <Grid
         container
         justifyContent="center"
@@ -42,6 +42,7 @@ function Footer() {
             return (
               <Button
                 type="text"
+                key={key}
                 onClick={() =>
                   navigate(`/${page.toLowerCase().replaceAll(" ", "-")}`)
                 }

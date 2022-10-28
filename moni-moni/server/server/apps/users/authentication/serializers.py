@@ -119,10 +119,8 @@ class RefreshTokenSerializer(TokenRefreshSerializer):
                     "verify_signature": False,
                 },
             )
-        except Exception as e:
-            raise ValidationError(e)
-        try:
             user = User.objects.get(id=valid_data["user_id"])
+            res = super().validate(attrs)
         except Exception as e:
             raise ValidationError(e)
-        return super().validate(attrs)
+        return res

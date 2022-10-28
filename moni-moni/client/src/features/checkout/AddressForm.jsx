@@ -27,6 +27,9 @@ export default function AddressForm(props) {
         setNewAddress(true);
       }
       setAddresses(res.data);
+      props.handleData({
+        address: res.data[0],
+      });
     }
     fetchData();
   }, []);
@@ -48,7 +51,7 @@ export default function AddressForm(props) {
       <Grid container spacing={3}>
         <div className="card-div" onChange={(e) => handleChange(e)}>
           {addresses.map((address, key) => {
-            const address_str = address.address_line_1.substring(0, 10);
+            const address_str = `${address.address_line_1.substring(0, 20)}...`;
             return (
               <div className="card" key={key}>
                 <input

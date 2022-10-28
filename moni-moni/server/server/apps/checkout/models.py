@@ -46,12 +46,13 @@ class FundingOptions(models.Model):
 class Payment(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
     user = models.ForeignKey(
-        CustomUser,
-        on_delete=models.DO_NOTHING,
-        related_name="payer",
+        CustomUser, on_delete=models.SET_NULL, related_name="payer", null=True
     )
     fundraiser = models.ForeignKey(
-        Fundraiser, related_name="fundraiser_payments", on_delete=models.DO_NOTHING
+        Fundraiser,
+        related_name="fundraiser_payments",
+        on_delete=models.SET_NULL,
+        null=True,
     )
     status = models.CharField(max_length=20)
     payer_email = models.EmailField()

@@ -50,6 +50,8 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "categories"
 
+def upload_to(instance, filename):
+    return f"images/{filename}"
 
 class Fundraiser(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -67,21 +69,18 @@ class Fundraiser(models.Model):
     )
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to="../../media/", default="default.png")
-    slug = models.SlugField(max_length=255, unique=True)
+    image = models.ImageField(upload_to=upload_to, default="images/default.png")
+    slug = models.SlugField(max_length=255, unique=True, null=True)
     tags = models.CharField(max_length=30, default="newest")
     total_amount = models.DecimalField(
         max_digits=1000,
         decimal_places=2,
-        default=random.randint(100000, 100000000),
     )
     remaining_amount = models.DecimalField(
         max_digits=1000,
         decimal_places=2,
-        default=random.randint(100, 10000),
     )
     total_backers = models.IntegerField(default=0)
-    expiry = models.DateTimeField()
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

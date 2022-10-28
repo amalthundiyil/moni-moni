@@ -1,16 +1,11 @@
-import * as React from "react";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthToken } from "../auth/services";
-import { verifyTokenAsync } from "../auth/asyncActions";
-import axios from "../../utils/axios";
 import CustomizedSnackbars from "../../components/Snackbar";
+import axios from "../../utils/axios";
+import { verifyTokenAsync } from "../auth/asyncActions";
+import { setAuthToken } from "../auth/services";
 
 export default function PaymentForm(props) {
   const dispatch = useDispatch();

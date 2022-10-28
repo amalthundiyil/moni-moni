@@ -27,6 +27,10 @@ const authSlice = createSlice({
     userLoginFailure: (state, action) => {
       const { error } = action.payload;
       state.error = error;
+      state.isAuthenticated = false;
+      state.token = null;
+      state.user = null;
+      state.expiredAt = null;
       state.loginStatus = "rejected";
     },
     verifyUserSuccess: (state, action) => {
