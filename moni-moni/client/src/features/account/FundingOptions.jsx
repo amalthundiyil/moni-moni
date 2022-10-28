@@ -15,7 +15,6 @@ import FundingOptionsForm from "./FundingOptionsForm";
 import "./styles.css";
 
 export default function FundingOptions(props) {
-  console.log(props);
   const authObj = useSelector((state) => state.auth);
   const [open, setOpen] = React.useState(false);
   const [operation, setOperation] = React.useState();

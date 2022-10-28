@@ -50,7 +50,6 @@ export default function Fundraiser(props) {
       setData({});
     }
     if (type == "fundingOption") {
-      console.log("ahdfd", data);
       setData({ slug: data.slug, fundraiser: data.id });
     } else {
       setOpen(true);
@@ -76,7 +75,6 @@ export default function Fundraiser(props) {
   };
 
   if (operation == "fundingOption") {
-    console.log(data);
     return <FundingOptions {...{ data, handleData }} />;
   }
 
