@@ -75,12 +75,10 @@ class Fundraiser(models.Model):
     total_amount = models.DecimalField(
         max_digits=1000,
         decimal_places=2,
-        default=random.randint(100000, 100000000),
     )
     remaining_amount = models.DecimalField(
         max_digits=1000,
         decimal_places=2,
-        default=random.randint(100, 10000),
     )
     total_backers = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)

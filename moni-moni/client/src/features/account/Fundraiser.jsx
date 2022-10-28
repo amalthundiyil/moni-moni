@@ -14,6 +14,7 @@ import { setAuthToken } from "../auth/services";
 import Button from "@mui/material/Button";
 import FundraiserForm from "./FundraiserForm";
 import "./styles.css";
+import FundingOptions from "./FundingOptions";
 
 export default function Fundraiser(props) {
   const authObj = useSelector((state) => state.auth);
@@ -48,14 +49,17 @@ export default function Fundraiser(props) {
     if (type == "add") {
       setData({});
     }
-    setOpen(true);
+    if (type == "fundingOption") {
+      console.log("ahdfd", data);
+      setData({ slug: data.slug, fundraiser: data.id });
+    } else {
+      setOpen(true);
+    }
   };
 
   const handleOpen = (o) => {
     setOpen(o);
   };
-
-  const handleFundraiserOption = (e) => {};
 
   const handleData = (newData) => {
     setData({ ...newData });
@@ -70,6 +74,11 @@ export default function Fundraiser(props) {
     handleOpen(false);
     window.location.reload();
   };
+
+  if (operation == "fundingOption") {
+    console.log(data);
+    return <FundingOptions {...{ data, handleData }} />;
+  }
 
   return (
     <React.Fragment>
@@ -104,7 +113,7 @@ export default function Fundraiser(props) {
           <Grid item>
             <Button
               variant="outlined"
-              onClick={(e) => handleFundraiserOption(e)}
+              onClick={(e) => handleClick(e, "fundingOption")}
             >
               Edit funding option
             </Button>

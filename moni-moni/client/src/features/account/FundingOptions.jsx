@@ -15,11 +15,11 @@ import FundingOptionsForm from "./FundingOptionsForm";
 import "./styles.css";
 
 export default function FundingOptions(props) {
+  console.log(props);
   const authObj = useSelector((state) => state.auth);
   const [open, setOpen] = React.useState(false);
   const [operation, setOperation] = React.useState();
   const [fundingOptions, setFundingOptions] = React.useState([]);
-  const [data, setData] = React.useState({});
   const [notification, setNotification] = React.useState({ notify: false });
   const dispatch = useDispatch();
 
@@ -28,10 +28,11 @@ export default function FundingOptions(props) {
     setAuthToken(authObj.token);
     async function fetchData() {
       const res = await axios.get(
-        `/api/v1/checkout/funding-options/${props.data.slug}`
+        `/api/v1/checkout/funding-options/${props.data.slug}/`
       );
-      setFundingOptions(res.data || []);
-      setData({
+      setFundingOptions(res.data);
+      props.handleData({
+        ...props.data,
         ...res.data[0],
       });
     }
@@ -39,8 +40,8 @@ export default function FundingOptions(props) {
   }, []);
 
   const handleChange = (e) => {
-    setData({
-      ...fundingOptions.filter((fundraiser) => fundraiser.id == e.target.id)[0],
+    props.handleData({
+      ...fundingOptions.filter((fo) => fo.id == e.target.id)[0],
     });
   };
 
@@ -53,10 +54,6 @@ export default function FundingOptions(props) {
     setOpen(o);
   };
 
-  const handleData = (newData) => {
-    setData({ ...data, ...newData });
-  };
-
   const handleDelete = async (e) => {
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
@@ -65,6 +62,10 @@ export default function FundingOptions(props) {
     );
     handleOpen(false);
     window.location.reload();
+  };
+
+  const handleNotification = (data) => {
+    setNotification({ ...data });
   };
 
   return (
@@ -79,7 +80,12 @@ export default function FundingOptions(props) {
             handleOpen,
             Component: (
               <FundingOptionsForm
-                {...{ operation, data, handleData, handleOpen }}
+                {...{
+                  operation,
+                  ...props,
+                  handleOpen,
+                  handleNotification,
+                }}
               />
             ),
           }}
