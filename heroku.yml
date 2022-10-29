@@ -1,0 +1,4 @@
+run:
+  web:
+    command:
+      - gunicorn server.wsgi --bind 0.0.0.0:$PORT
