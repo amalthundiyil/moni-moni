@@ -6,6 +6,14 @@ services:
     container_name: moni-moni-frontend
     command: sh -c "npm run start"
     env_file: .env
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      FRONTEND_URL: ${FRONTEND_URL}
+      DATABASE_URL: ${DATABASE_URL}
+      REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+      REACT_APP_PAYPAL_CLIENT_ID: ${REACT_APP_PAYPAL_CLIENT_ID}
+      REACT_APP_PAYPAL_CLIENT_SECRET: ${REACT_APP_PAYPAL_CLIENT_SECRET}
     build:
       context: './moni-moni/client'
       args:
@@ -23,6 +31,14 @@ services:
     build:
       context: './moni-moni/server'
     env_file: .env
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      FRONTEND_URL: ${FRONTEND_URL}
+      DATABASE_URL: ${DATABASE_URL}
+      REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+      REACT_APP_PAYPAL_CLIENT_ID: ${REACT_APP_PAYPAL_CLIENT_ID}
+      REACT_APP_PAYPAL_CLIENT_SECRET: ${REACT_APP_PAYPAL_CLIENT_SECRET}
     ports:
       - "8000:8000"
 

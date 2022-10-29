@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = str(os.getenv("DEBUG", 1)) == "1"  # 1 is True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "moni-moni.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "moni-moni.herokuapp.com", "frontend-amal-thundiyil.cloud.okteto.net", "backend-amal-thundiyil.cloud.okteto.net"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -152,10 +152,10 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATICFILES_DIRS = [
-    # Tell Django where to look for React's static files (css, js)
-    os.path.join(BASE_DIR, "build/static"),
-]
+# STATICFILES_DIRS = [
+#     # Tell Django where to look for React's static files (css, js)
+#     os.path.join(BASE_DIR, "build/static"),
+# ]
 
 
 MEDIA_URL = "/media/"
