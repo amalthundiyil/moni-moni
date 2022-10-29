@@ -16,7 +16,6 @@ __pycache__/
 /node
 .Python
 env/
-build/
 develop-eggs/
 dist/
 downloads/
@@ -56,7 +55,6 @@ coverage.xml
 *.pot
 
 # Django stuff:
-moni-moni/server/static/
 *.log
 local_settings.py
 
@@ -208,7 +206,4 @@ __pycache__
 .env
 .history
 .hypothesis/
-build/
 reports/
-
-moni-moni/server/staticfiles/
