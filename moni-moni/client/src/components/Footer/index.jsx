@@ -55,7 +55,10 @@ function Footer() {
           <Grid item>
             <Typography variant="body2" color="white" align="center">
               {"Copyright © "}
-              <Link color="inherit" href="https://moni-moni.herokuapp.com">
+              <Link
+                color="inherit"
+                href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"
+              >
                 Moni Moni
               </Link>{" "}
               {new Date().getFullYear()}
