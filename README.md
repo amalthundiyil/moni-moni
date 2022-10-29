@@ -10,7 +10,7 @@ Moni Moni - Crowdfunding Platform
 
 <p align='center'>
 <img src="https://github.com/amal-thundiyil/moni-moni/actions/workflows/actions.yml/badge.svg">
-<a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg">
+<a href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" > </a>
 <img src="https://visitor-badge.laobi.icu/badge?page_id=amal-thundiyil.moni-moni">
 
 ## 📌 Introduction
@@ -46,12 +46,36 @@ make backend-start
 
 ### ️Diagrams
 
+<p align='center'>
+Use Case Diagram
+</p>
+<p align='center'>
+<img width="80%" src='./docs/uml/UseCaseDiagram.png'>
+</p>
 
+<p align='center'>
+Class Diagram
+</p>
+<p align='center'>
+<img width="80%" src='./docs/uml/ClassDiagram.png'>
+</p>
 
+<p align='center'>
+Sequence Diagram - User Auth
+</p>
+<p align='center'>
+<img width="80%" src='./docs/uml/SDUserAuth.png'>
+</p>
 
-### Product Functionality
+<p align='center'>
+Sequence Diagram - Make Payment
+</p>
+<p align='center'>
+<img width="80%" src='./docs/uml/SDPayment.png'>
+</p>
 
-#### Users and Characteristics
+### Users and Characteristics
+
 The system consists of two types of main users i.e Donors and fundraiser creators. Other users include the spectators. The system is also designed to be user-friendly. It uses a Graphical
 User Interface (GUI). Types of users:
 
@@ -59,13 +83,13 @@ User Interface (GUI). Types of users:
 - Fundraiser Creator: The fundraiser creator is responsible for creating the fundraiser and outlining the details required for a meaningful fundraiser.
 - Spectators: These are the people who can choose to contribute to any fundraiser they come across.
 
-#### Design and Implementation Constraints
+### Design and Implementation Constraints
+
 - Verification of fundraisers: The software doesn’t provide any ability for the fundraiser to be payment to be verified. There might even be fundraisers which were not expired by the user or fake users creating multiple fundraisers with the same account. There security risks are not mitigated in this platform. User discretion is advised.
 - Tracking of fundraisers: The software doesn’t provide any ability for the fundraiser to be payment to be tracked. The crowdfunding platform is merely a platform to connect the fundraiser creator to the potential donors/contributors.
 - Legally compliant payment system: To make the payment legally compliant, no real payments are executed. All payments will be made using a dummy account.
 
-
-## 📝 Further Changes to be Done
+### 📝 Future Scope
 
 - [ ] Add credit score to every individual or business using Machine Learning.
 - [ ] Add options to accept funding made with NFTs and digital currency.

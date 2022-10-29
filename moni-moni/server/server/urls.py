@@ -7,8 +7,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view as swagger_get_schema_view
 
 
-# def render_react(request):
-#     return render(request, "index.html")
+def render_react(request):
+    return render(request, "index.html")
 
 
 schema_view = swagger_get_schema_view(
@@ -36,8 +36,7 @@ urlpatterns = [
     path(
         "api/v1/checkout/", include("server.apps.checkout.urls", namespace="checkout")
     ),
-    # re_path(r"^$", render_react),
-    # re_path(r"^(?:.*)/?$", render_react),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [re_path(r"^$", render_react), re_path(r"^(?:.*)/?$", render_react)]

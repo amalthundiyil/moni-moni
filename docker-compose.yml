@@ -4,6 +4,7 @@ services:
   frontend:
     image: amalthundiyil/moni-moni-frontend:latest
     container_name: moni-moni-frontend
+    command: sh -c "npm run start"
     env_file: .env
     build:
       context: './moni-moni/client'
