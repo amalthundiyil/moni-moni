@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import ProgressBar from "../../components/ProgressBar";
 
 function Header({ fundraiser }) {
+  console.log(fundraiser);
   return (
     <Grid item xs={12} md={12}>
       <Card sx={{ display: "flex" }}>

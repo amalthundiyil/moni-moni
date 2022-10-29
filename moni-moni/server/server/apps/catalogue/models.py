@@ -78,7 +78,7 @@ class Fundraiser(models.Model):
         max_digits=1000,
         decimal_places=2,
     )
-    remaining_amount = models.DecimalField(max_digits=1000, decimal_places=2, default=0)
+    remaining_amount = models.DecimalField(max_digits=1000, decimal_places=2)
     total_backers = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
