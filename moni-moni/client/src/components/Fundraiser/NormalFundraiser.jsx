@@ -16,7 +16,7 @@ export default function NormalFundraiser({ fundraiser }) {
     >
       <CardMedia
         component="img"
-        height="140"
+        height={140}
         image={fundraiser.image}
         alt={fundraiser.title}
       />
@@ -28,10 +28,6 @@ export default function NormalFundraiser({ fundraiser }) {
           {fundraiser.description.substring(0, 100)}...
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 }

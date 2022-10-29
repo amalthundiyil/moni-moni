@@ -4,7 +4,15 @@ services:
   frontend:
     image: amalthundiyil/moni-moni-frontend:latest
     container_name: moni-moni-frontend
-    env_file: .env
+    command: sh -c "npm run start"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      FRONTEND_URL: ${FRONTEND_URL}
+      DATABASE_URL: ${DATABASE_URL}
+      REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+      REACT_APP_PAYPAL_CLIENT_ID: ${REACT_APP_PAYPAL_CLIENT_ID}
+      REACT_APP_PAYPAL_CLIENT_SECRET: ${REACT_APP_PAYPAL_CLIENT_SECRET}
     build:
       context: './moni-moni/client'
       args:
@@ -21,6 +29,16 @@ services:
     command: sh -c "python manage.py collectstatic --noinput && gunicorn server.wsgi --bind 0.0.0.0:8000"
     build:
       context: './moni-moni/server'
-    env_file: .env
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      FRONTEND_URL: ${FRONTEND_URL}
+      DATABASE_URL: ${DATABASE_URL}
+      REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+      REACT_APP_PAYPAL_CLIENT_ID: ${REACT_APP_PAYPAL_CLIENT_ID}
+      REACT_APP_PAYPAL_CLIENT_SECRET: ${REACT_APP_PAYPAL_CLIENT_SECRET}
     ports:
       - "8000:8000"
+
+volumes:
+  data:

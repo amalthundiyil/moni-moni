@@ -40,12 +40,7 @@ const authSlice = createSlice({
       state.verifyStatus = "end";
       state.loginStatus = "fulfilled";
     },
-    userLogout: (state) => {
-      state.isAuthenticated = false;
-      state.token = null;
-      state.user = null;
-      state.expiredAt = null;
-    },
+    userLogout: (state) => {},
   },
 });
 

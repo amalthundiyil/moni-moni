@@ -74,6 +74,10 @@ export default function Fundraiser(props) {
     window.location.reload();
   };
 
+  const handleNotification = (data) => {
+    setNotification({ ...notification, ...data });
+  };
+
   if (operation == "fundingOption") {
     return <FundingOptions {...{ data, handleData }} />;
   }
@@ -90,7 +94,13 @@ export default function Fundraiser(props) {
             handleOpen,
             Component: (
               <FundraiserForm
-                {...{ operation, data, handleData, handleOpen }}
+                {...{
+                  operation,
+                  data,
+                  handleData,
+                  handleOpen,
+                  handleNotification,
+                }}
               />
             ),
           }}

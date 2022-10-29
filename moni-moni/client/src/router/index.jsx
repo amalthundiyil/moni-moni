@@ -1,31 +1,28 @@
-import { Suspense } from "react";
-import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import React from "react";
-import Header from "../components/Header";
+import { Grid } from "@mui/material";
+import { groupBy } from "lodash";
+import React, { Suspense, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 import Spinner from "../components/Spinner";
-import Home from "../features/home";
-import Register from "../features/auth/Register";
-import Login from "../features/auth/Login";
+import { useGlobalContext } from "../context";
 import AboutUs from "../features/aboutUs";
 import Account from "../features/account";
-import ContactUs from "../features/contactUs";
-import Checkout from "../features/checkout";
 import { verifyTokenAsync } from "../features/auth/asyncActions";
-import PrivateRoute from "./PrivateRoute";
-import Fundraiser from "../features/fundraiser";
-import { useGlobalContext } from "../context";
-import { groupBy } from "lodash";
-import axios from "../utils/axios";
-import { v4 as uuidv4 } from "uuid";
-import Error from "../features/error";
-import Discover from "../features/discover";
-import Dashboard from "../features/dashboard";
-import Create from "../features/create";
-import { Container, Grid } from "@mui/material";
+import Login from "../features/auth/Login";
+import Register from "../features/auth/Register";
 import { setAuthToken } from "../features/auth/services";
+import Checkout from "../features/checkout";
+import ContactUs from "../features/contactUs";
+import Dashboard from "../features/dashboard";
+import Discover from "../features/discover";
+import Error from "../features/error";
+import Fundraiser from "../features/fundraiser";
+import Home from "../features/home";
+import axios from "../utils/axios";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
   const { isAuthenticated, verifyStatus, token } = useSelector(
@@ -81,6 +78,7 @@ const Router = () => {
         <Grid item md={12}>
           <Routes>
             <Route
+              exact
               path="/"
               element={
                 <Home
@@ -101,43 +99,26 @@ const Router = () => {
                 />
               }
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Register />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/account" element={<Account />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Register />} />
+            <Route exact path="/about-us" element={<AboutUs />} />
+            <Route exact path="/contact-us" element={<ContactUs />} />
             {allFundraisers.map((fundraiser) => {
               return (
                 <React.Fragment key={uuidv4()}>
                   <Route
                     key={uuidv4()}
+                    exact
                     path={`/fundraisers/${fundraiser.slug}`}
                     element={<Fundraiser fundraiser={fundraiser} />}
                   />
-                  {/* <Route
-                    key={uuidv4()}
-                    path={`/fundraisers/${fundraiser.slug}/pricing`}
-                    element={<Pricing fundraiser={fundraiser} />}
-                  /> */}
-                  <Route
-                    exact
-                    path=""
-                    element={<PrivateRoute auth={isAuthenticated} />}
-                  >
-                    <Route exact path="/dashboard" element={<Dashboard />} />
-                    <Route />
+                  <Route element={<PrivateRoute auth={isAuthenticated} />}>
                     <Route
+                      key={uuidv4()}
                       exact
-                      // changed the path and fixed blank funding options
-                      path=""
-                      element={<PrivateRoute auth={isAuthenticated} />}
-                    >
-                      <Route
-                        key={uuidv4()}
-                        path={`checkout/${fundraiser.slug}/`}
-                        element={<Checkout fundraiser={fundraiser} />}
-                      />
-                    </Route>
+                      path={`checkout/${fundraiser.slug}/`}
+                      element={<Checkout fundraiser={fundraiser} />}
+                    />
                   </Route>
                 </React.Fragment>
               );
@@ -147,21 +128,15 @@ const Router = () => {
               path="/discover"
               element={<Discover data={allFundraisers} />}
             />
-            <Route
-              exact
-              path="/account"
-              element={<PrivateRoute auth={isAuthenticated} />}
-            >
+            <Route element={<PrivateRoute auth={isAuthenticated} />}>
+              <Route exact path="/dashboard" element={<Dashboard />} />
+            </Route>
+            <Route element={<PrivateRoute auth={isAuthenticated} />}>
               <Route exact path="/account" element={<Account />} />
             </Route>
-            <Route
-              exact
-              path="/start-fundraiser"
-              element={<PrivateRoute auth={isAuthenticated} />}
-            >
+            <Route element={<PrivateRoute auth={isAuthenticated} />}>
               <Route exact path="/start-fundraiser" element={<Account />} />
             </Route>
-            <Route exact path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </Grid>

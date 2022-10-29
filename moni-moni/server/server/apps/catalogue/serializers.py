@@ -17,6 +17,9 @@ class FundraiserSerializer(serializers.ModelSerializer):
             id=self.context["request"].user.id
         )
         validated_data["is_active"] = True
+        validated_data["remaining_amount"] = validated_data.get(
+            "remaining_amount", validated_data["total_amount"]
+        )
         validated_data["slug"] = unique_slug_generator(
             Fundraiser,
             self.context["request"].data,

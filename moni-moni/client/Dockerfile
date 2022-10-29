@@ -5,16 +5,18 @@ COPY . .
 ARG REACT_APP_BACKEND_URL
 ENV REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
 
-RUN npm install && npm run build
+RUN npm install 
 
-FROM nginx:1.22.0-alpine
+# RUN npm install && npm run build
 
-ARG FRONTEND_PORT=3000
-ENV PORT=${FRONTEND_PORT}
+# FROM nginx:1.22.0-alpine
 
-RUN apk add --no-cache bash
+# ARG FRONTEND_PORT=3000
+# ENV PORT=${FRONTEND_PORT}
 
-COPY --from=client /client/build/ /var/www/frontend
-COPY --from=client /client/nginx.conf /etc/nginx/conf.d/default.conf
+# RUN apk add --no-cache bash
 
-CMD ["nginx", "-g", "daemon off;"]
+# COPY --from=client /client/build/ /var/www/frontend
+# COPY --from=client /client/nginx.conf /etc/nginx/conf.d/default.conf
+
+# CMD ["nginx", "-g", "daemon off;"]

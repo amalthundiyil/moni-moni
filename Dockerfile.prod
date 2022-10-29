@@ -1,9 +1,9 @@
 # Use image with both python and node installed
 FROM nikolaik/python-nodejs:python3.8-nodejs18
 
-ENV CODE_ENV PROD
-ENV REACT_APP_HOST moni-moni.herokuapp.com
-ENV REACT_APP_SCHEME https
+ENV REACT_APP_PAYPAL_CLIENT_ID $REACT_APP_PAYPAL_CLIENT_ID
+ENV REACT_APP_PAYPAL_CLIENT_SECRET $REACT_APP_PAYPAL_CLIENT_SECRET
+ENV REACT_APP_BACKEND_URL $REACT_APP_BACKEND_URL
 ENV REACT_APP_PORT $PORT
 
 WORKDIR /app/server/
@@ -25,7 +25,7 @@ COPY ./moni-moni /app/
 RUN npm run relocate
 
 # Collect static files
-RUN mkdir /app/server/staticfiles
+RUN mkdir /app/server/static
 
 WORKDIR /app
 

@@ -4,13 +4,8 @@ build:
   docker:
     web: Dockerfile.prod
 
-release:
-  command:
-    - chmod +x ./server/scripts/entrypoint-prod.sh && ./server/scripts/entrypoint-prod.sh
-  image: web
-
 run:
   web:
     command:
-      - cd server && gunicorn server.wsgi --bind 0.0.0.0:$PORT
+      - gunicorn moni-moni.server.server.wsgi --bind 0.0.0.0:$PORT
     image: web

@@ -33,24 +33,45 @@ const FundraiserForm = (props) => {
     for (var key in props.data) {
       formData.append(key, props.data[key]);
     }
-    let res = await axios.post("/api/v1/catalogue/fundraisers/", formData, {
-      headers: { "content-type": "multipart/form-data" },
-    });
-    props.handleOpen(false);
-    window.location.reload();
+    try {
+      let res = await axios.post("/api/v1/catalogue/fundraisers/", formData, {
+        headers: { "content-type": "multipart/form-data" },
+      });
+      props.handleOpen(false);
+      window.location.reload();
+    } catch (err) {
+      props.handleNotification({
+        notify: true,
+        message: JSON.stringify(err.response),
+        type: "error",
+      });
+    }
   };
   const handleEdit = async (e) => {
     dispatch(verifyTokenAsync());
     setAuthToken(authObj.token);
+    const temp = props.data;
+    if (!image) {
+      delete temp.image;
+      props.handleData(temp);
+    }
     var formData = new FormData();
-    for (var key in props.data) {
+    for (var key in temp) {
       formData.append(key, props.data[key]);
     }
-    let res = await axios.put("/api/v1/catalogue/fundraisers/", formData, {
-      headers: { "content-type": "multipart/form-data" },
-    });
-    props.handleOpen(false);
-    window.location.reload();
+    try {
+      let res = await axios.put("/api/v1/catalogue/fundraisers/", formData, {
+        headers: { "content-type": "multipart/form-data" },
+      });
+      props.handleOpen(false);
+      window.location.reload();
+    } catch (err) {
+      props.handleNotification({
+        notify: true,
+        message: JSON.stringify(err.response.data),
+        type: "error",
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
