@@ -5,7 +5,6 @@ services:
     image: amalthundiyil/moni-moni-frontend:latest
     container_name: moni-moni-frontend
     command: sh -c "npm run start"
-    env_file: .env
     environment:
       SECRET_KEY: ${SECRET_KEY}
       EMAIL_HOST_USER: ${EMAIL_HOST_USER}
@@ -30,7 +29,6 @@ services:
     command: sh -c "python manage.py collectstatic --noinput && gunicorn server.wsgi --bind 0.0.0.0:8000"
     build:
       context: './moni-moni/server'
-    env_file: .env
     environment:
       SECRET_KEY: ${SECRET_KEY}
       EMAIL_HOST_USER: ${EMAIL_HOST_USER}
