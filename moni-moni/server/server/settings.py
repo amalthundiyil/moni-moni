@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "server.apps.checkout.apps.CheckoutConfig",
     "django_seed",
     "drf_yasg",
+    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
@@ -157,6 +158,7 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

@@ -4,11 +4,6 @@ build:
   docker:
     web: Dockerfile.prod
 
-release:
-  command:
-    - chmod +x ./server/scripts/entrypoint-prod.sh && ./server/scripts/entrypoint-prod.sh
-  image: web
-
 run:
   web:
     command:

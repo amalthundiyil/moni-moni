@@ -1,9 +1,6 @@
 # Use image with both python and node installed
 FROM nikolaik/python-nodejs:python3.8-nodejs18
 
-ENV CODE_ENV PROD
-ENV REACT_APP_HOST moni-moni.herokuapp.com
-ENV REACT_APP_SCHEME https
 ENV REACT_APP_PORT $PORT
 
 WORKDIR /app/server/
@@ -25,7 +22,7 @@ COPY ./moni-moni /app/
 RUN npm run relocate
 
 # Collect static files
-RUN mkdir /app/server/staticfiles
+RUN mkdir /app/server/static
 
 WORKDIR /app
 
