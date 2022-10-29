@@ -111,15 +111,15 @@ class RefreshTokenSerializer(TokenRefreshSerializer):
     def validate(self, attrs):
         attrs["refresh"] = self.context["refresh"]
         try:
-            #     valid_data = jwt.decode(
-            #         attrs["refresh"],
-            #         algorithms=[settings.SIMPLE_JWT["ALGORITHM"]],
-            #         options={
-            #             "verify_aud": False,
-            #             "verify_signature": False,
-            #         },
-            #     )
-            #     user = User.objects.get(id=valid_data["user_id"])
+            valid_data = jwt.decode(
+                attrs["refresh"],
+                algorithms=[settings.SIMPLE_JWT["ALGORITHM"]],
+                options={
+                    "verify_aud": False,
+                    "verify_signature": False,
+                },
+            )
+            user = User.objects.get(id=valid_data["user_id"])
             res = super().validate(attrs)
         except Exception as e:
             raise ValidationError(e)
