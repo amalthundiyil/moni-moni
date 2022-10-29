@@ -1,7 +1,9 @@
 # Use image with both python and node installed
 FROM nikolaik/python-nodejs:python3.8-nodejs18
 
-ENV REACT_APP_HOST https://moni-moni.herokuapp.com
+ENV REACT_APP_PAYPAL_CLIENT_ID $REACT_APP_PAYPAL_CLIENT_ID
+ENV REACT_APP_PAYPAL_CLIENT_SECRET $REACT_APP_PAYPAL_CLIENT_SECRET
+ENV REACT_APP_BACKEND_URL $REACT_APP_BACKEND_URL
 ENV REACT_APP_PORT $PORT
 
 WORKDIR /app/server/
