@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean
+.PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean deploy
 
 install-dev:
 	@echo "Setting environment variables\n"
@@ -18,6 +18,9 @@ frontend-start:
 backend-start:
 	@cp .env moni-moni/server/.env
 	@python moni-moni/server/manage.py runserver
+
+deploy:
+	@bash scripts/deploy_heroku.sh
 
 migrate:
 	@python moni-moni/server/manage.py makemigrations
