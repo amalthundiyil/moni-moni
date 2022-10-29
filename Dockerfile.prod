@@ -1,6 +1,7 @@
 # Use image with both python and node installed
 FROM nikolaik/python-nodejs:python3.8-nodejs18
 
+ENV REACT_APP_HOST https://moni-moni.herokuapp.com
 ENV REACT_APP_PORT $PORT
 
 WORKDIR /app/server/
