@@ -15,7 +15,6 @@ export default function CustomizedSnackbars({ message, type, ...rest }) {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 
