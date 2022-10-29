@@ -59,7 +59,7 @@ export default function Login() {
           type={"error"}
         />
       )}
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{ mb: 5 }}>
         <CssBaseline />
         <Box
           sx={{
@@ -101,10 +101,10 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth

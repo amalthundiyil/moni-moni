@@ -81,6 +81,7 @@ const Router = () => {
         <Grid item md={12}>
           <Routes>
             <Route
+              exact
               path="/"
               element={
                 <Home
@@ -101,43 +102,29 @@ const Router = () => {
                 />
               }
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Register />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/account" element={<Account />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Register />} />
+            <Route exact path="/about-us" element={<AboutUs />} />
+            <Route exact path="/contact-us" element={<ContactUs />} />
+            <Route exact path="/account" element={<Account />} />
             {allFundraisers.map((fundraiser) => {
               return (
                 <React.Fragment key={uuidv4()}>
                   <Route
                     key={uuidv4()}
+                    exact
                     path={`/fundraisers/${fundraiser.slug}`}
                     element={<Fundraiser fundraiser={fundraiser} />}
                   />
-                  {/* <Route
-                    key={uuidv4()}
-                    path={`/fundraisers/${fundraiser.slug}/pricing`}
-                    element={<Pricing fundraiser={fundraiser} />}
-                  /> */}
                   <Route
                     exact
-                    path=""
+                    path={`checkout/${fundraiser.slug}/`}
                     element={<PrivateRoute auth={isAuthenticated} />}
                   >
-                    <Route exact path="/dashboard" element={<Dashboard />} />
-                    <Route />
                     <Route
-                      exact
-                      // changed the path and fixed blank funding options
-                      path=""
-                      element={<PrivateRoute auth={isAuthenticated} />}
-                    >
-                      <Route
-                        key={uuidv4()}
-                        path={`checkout/${fundraiser.slug}/`}
-                        element={<Checkout fundraiser={fundraiser} />}
-                      />
-                    </Route>
+                      key={uuidv4()}
+                      element={<Checkout fundraiser={fundraiser} />}
+                    />
                   </Route>
                 </React.Fragment>
               );
@@ -149,19 +136,25 @@ const Router = () => {
             />
             <Route
               exact
+              path="/dashboard"
+              element={<PrivateRoute auth={isAuthenticated} />}
+            >
+              <Route element={<Dashboard />} />
+            </Route>
+            <Route
+              exact
               path="/account"
               element={<PrivateRoute auth={isAuthenticated} />}
             >
-              <Route exact path="/account" element={<Account />} />
+              <Route element={<Account />} />
             </Route>
             <Route
               exact
               path="/start-fundraiser"
               element={<PrivateRoute auth={isAuthenticated} />}
             >
-              <Route exact path="/start-fundraiser" element={<Account />} />
+              <Route element={<Account />} />
             </Route>
-            <Route exact path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </Grid>
