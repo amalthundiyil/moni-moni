@@ -22,7 +22,8 @@ export default function NormalFundraiser({ fundraiser }) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {fundraiser.title}
+          {fundraiser.title.substring(0, 40)}
+          {"..."}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {fundraiser.description.substring(0, 100)}...

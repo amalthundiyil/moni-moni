@@ -9,13 +9,16 @@ from server.apps.users.models import CustomUser
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
-class FundraiserAPI(generics.GenericAPIView):
+class FundraiserCatalogueView(generics.GenericAPIView):
     serializer_class = FundraiserSerializer
-    parser_classes = [MultiPartParser, FormParser]
 
     def get_queryset(self, request):
-        serializer = self.get_serializer(Fundraiser.objects.filter(is_active=True), many=True, context={"request": request})
-            
+        serializer = self.get_serializer(
+            Fundraiser.objects.filter(is_active=True),
+            many=True,
+            context={"request": request},
+        )
+
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
@@ -28,7 +31,31 @@ class FundraiserAPI(generics.GenericAPIView):
         serializer = self.get_serializer(fundraiser, context={"request": request})
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    @permission_classes([permissions.IsAuthenticated])
+
+class FundraiserAPI(generics.GenericAPIView):
+    serializer_class = FundraiserSerializer
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, slug=None, *args, **kwargs):
+        if slug:
+            fundraiser = get_object_or_404(
+                Fundraiser, author=request.user.id, slug=slug, is_active=True
+            )
+            serializer = self.get_serializer(fundraiser, context={"request": request})
+        else:
+            fundraiser = Fundraiser.objects.filter(
+                author=request.user.id, is_active=True
+            )
+            if not fundraiser.exists:
+                return Response(
+                    {"message": "Not found"}, status=status.HTTP_404_NOT_FOUND
+                )
+            serializer = self.get_serializer(
+                fundraiser, many=True, context={"request": request}
+            )
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request, slug=None, *args, **kwargs):
         serializer = self.get_serializer(
             data=request.data, context={"request": request}
@@ -40,7 +67,6 @@ class FundraiserAPI(generics.GenericAPIView):
             status=status.HTTP_201_CREATED,
         )
 
-    @permission_classes([permissions.IsAuthenticated])
     def put(self, request, slug=None, *args, **kwargs):
         fr = get_object_or_404(Fundraiser, id=request.data["id"])
         serializer = FundraiserSerializer(
@@ -55,7 +81,6 @@ class FundraiserAPI(generics.GenericAPIView):
             {"message": "Fundraiser updated sucessfully"}, status=status.HTTP_200_OK
         )
 
-    @permission_classes([permissions.IsAuthenticated])
     def delete(self, request, slug=None, *args, **kwargs):
         f = get_object_or_404(Fundraiser, slug=slug)
         serializer = FundraiserSerializer(

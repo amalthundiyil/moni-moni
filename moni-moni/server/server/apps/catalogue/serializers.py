@@ -23,7 +23,6 @@ class FundraiserSerializer(serializers.ModelSerializer):
         validated_data["slug"] = unique_slug_generator(
             Fundraiser,
             self.context["request"].data,
-            self.context["request"].data["title"].lower().replace(" ", "-"),
         )
         fundraiser = Fundraiser.objects.create(**validated_data)
         return fundraiser

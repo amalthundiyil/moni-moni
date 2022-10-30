@@ -48,7 +48,7 @@ const Router = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      let res = await axios.get("/api/v1/catalogue/fundraisers/");
+      let res = await axios.get("/api/v1/catalogue/fundraisers/all/");
       let data = await res.data;
       setAllFundraisers(data);
       setMainFundraiser(data[0]);
