@@ -20,6 +20,7 @@ import Typography from "@mui/material/Typography";
 import Chart from "./Chart";
 import Credits from "./Credits";
 import Deposits from "./Deposits";
+import Stats from "./Stats";
 
 const drawerWidth = 240;
 
@@ -30,6 +31,18 @@ export default function Dashboard() {
         <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
           <Grid container spacing={3}>
             {/* Chart */}
+            <Grid item xs={12}>
+              <Paper
+                sx={{
+                  p: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: 100,
+                }}
+              >
+                <Stats />
+              </Paper>
+            </Grid>
             <Grid item xs={12} md={12} lg={9}>
               <Paper
                 sx={{
