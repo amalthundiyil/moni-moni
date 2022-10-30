@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 
 function Main({ fundraiser }) {
   return (
-    <Grid item xs={12} md={8}>
+    <Grid item xs={12} md={12}>
       <Typography variant="h6" gutterBottom>
         Story
       </Typography>
