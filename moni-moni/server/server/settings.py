@@ -19,6 +19,9 @@ ALLOWED_HOSTS = [
     "backend-amal-thundiyil.cloud.okteto.net",
 ]
 
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

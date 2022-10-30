@@ -14,6 +14,11 @@ class FundingOptionsView(generics.GenericAPIView):
     ]
 
     def get(self, request, slug, *args, **kwargs):
+        if request.GET.get("type") == "funding-option":
+            fo = FundingOptions.objects.get(id=slug)
+            serializer = self.get_serializer(fo, context={"id": request.user.id})
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+
         fd = get_object_or_404(Fundraiser, slug=slug, is_active=True)
         fo = FundingOptions.objects.filter(fundraiser=fd.pk)
         serializer = self.get_serializer(fo, many=True, context={"id": request.user.id})
@@ -81,7 +86,7 @@ class PaymentView(generics.GenericAPIView):
         serializer = self.get_serializer(
             payment, many=True, context={"id": request.user.id}
         )
-        # serializer.data["fundraiser_title"] = 
+        # serializer.data["fundraiser_title"] =
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
