@@ -90,7 +90,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\" : \"amal\",\n    \"email\": \"amal.s.thundiyil@gmail.com\",\n    \"password\": \"12345\"\n}",
+							"raw": "{\n    \"user_name\" : \"amal\",\n    \"email\": \"amal.s.thundiyil@gmail.com\",\n    \"password\": \"12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -274,6 +274,20 @@
 					"item": [
 						{
 							"name": "Get Fundraisers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.collectionVariables.set(\"fundraiserId\", data[0].id);",
+											"pm.collectionVariables.set(\"fundraiserSlug\", data[0].slug);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "GET",
 								"header": [
@@ -364,14 +378,13 @@
 									]
 								},
 								"url": {
-									"raw": "{{baseUrl}}/catalogue/fundraisers/{{fundraiserSlug}}/",
+									"raw": "{{baseUrl}}/catalogue/fundraisers/",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"catalogue",
 										"fundraisers",
-										"{{fundraiserSlug}}",
 										""
 									]
 								}
@@ -891,6 +904,112 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get Payments - Credits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.collectionVariables.set(\"paymentId\", data[0].id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/checkout/payments/?type=credits",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"checkout",
+										"payments",
+										""
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "credits"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Payments - Deposits",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.collectionVariables.set(\"paymentId\", data[0].id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/checkout/payments/?type=deposits",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"checkout",
+										"payments",
+										""
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "deposits"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -1233,12 +1352,21 @@
 	],
 	"variable": [
 		{
+			"key": "devBaseUrl",
+			"value": "http://localhost:8000/api/v1"
+		},
+		{
+			"key": "prodBaseUrl",
+			"value": "https://backend-amal-thundiyil.cloud.okteto.net/api/v1"
+		},
+		{
 			"key": "baseUrl",
 			"value": "http://localhost:8000/api/v1"
 		},
 		{
 			"key": "access",
-			"value": ""
+			"value": "",
+			"disabled": true
 		},
 		{
 			"key": "refresh",
@@ -1266,6 +1394,10 @@
 		},
 		{
 			"key": "addressId",
+			"value": ""
+		},
+		{
+			"key": "access",
 			"value": ""
 		}
 	]
