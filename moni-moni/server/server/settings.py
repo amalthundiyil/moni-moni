@@ -157,6 +157,9 @@ AUTH_USER_MODEL = "users.CustomUser"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS", 1)) == "1"  # 1 is True
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+CSRF_TRUSTED_ORIGINS = ['http://*', "https://*"]
+
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"

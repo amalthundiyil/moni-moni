@@ -273,7 +273,7 @@
 					"name": "Fundraisers",
 					"item": [
 						{
-							"name": "Get Fundraisers",
+							"name": "Get Fundraisers - Public",
 							"event": [
 								{
 									"listen": "test",
@@ -297,13 +297,63 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/catalogue/fundraisers/",
+									"raw": "{{baseUrl}}/catalogue/fundraisers/all/",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"catalogue",
 										"fundraisers",
+										"all",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Fundraiser - Public",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.collectionVariables.set(\"fundraiserId\", data.id);",
+											"pm.collectionVariables.set(\"fundraiserSlug\", data.slug);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/catalogue/fundraisers/all/{{fundraiserSlug}}/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"catalogue",
+										"fundraisers",
+										"all",
+										"{{fundraiserSlug}}",
 										""
 									]
 								}
@@ -352,7 +402,7 @@
 									"formdata": [
 										{
 											"key": "title",
-											"value": "Superbase V First Plug-and-Play Home Energy Storage System",
+											"value": "April's Light The Night Fundraiser",
 											"type": "text"
 										},
 										{
@@ -495,15 +545,16 @@
 							"response": []
 						},
 						{
-							"name": "Get Fundraiser",
+							"name": "Get Fundraisers",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
 											"var data = pm.response.json()",
-											"pm.collectionVariables.set(\"fundraiserId\", data.id);",
-											"pm.collectionVariables.set(\"fundraiserSlug\", data.slug);"
+											"pm.collectionVariables.set(\"fundraiserId\", data[0].id);",
+											"pm.collectionVariables.set(\"fundraiserSlug\", data[0].slug);",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -528,14 +579,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/catalogue/fundraisers/{{fundraiserSlug}}/",
+									"raw": "{{baseUrl}}/catalogue/fundraisers/",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"catalogue",
 										"fundraisers",
-										"{{fundraiserSlug}}",
 										""
 									]
 								}
@@ -626,7 +676,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"title\": \"Pledge\",\n  \"price\": \"1000\",\n  \"fundraiser\": \"{{fundraiserId}}\",\n  \"subheader\": \"Choose me\",\n  \"description\": \"asdf\"\n}",
+									"raw": "{\n  \"title\": \"Pledge w/ Rewards\",\n  \"price\": \"1000\",\n  \"fundraiser\": \"{{fundraiserId}}\",\n  \"subheader\": \"Choose me\",\n  \"description\": \"asdf\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1361,7 +1411,7 @@
 		},
 		{
 			"key": "baseUrl",
-			"value": "https://backend-amal-thundiyil.cloud.okteto.net/api/v1"
+			"value": "http://localhost:8000/api/v1"
 		},
 		{
 			"key": "access",

@@ -1,10 +1,20 @@
 from django.urls import path
 
-from .views import CategoryAPI, FundraiserAPI
+from .views import CategoryAPI, FundraiserAPI, FundraiserCatalogueView
 
 app_name = "catalogue"
 
 urlpatterns = [
+    path(
+        "fundraisers/all/<slug:slug>/",
+        FundraiserCatalogueView.as_view(),
+        name="fundraiser_catalogue_slug",
+    ),
+    path(
+        "fundraisers/all/",
+        FundraiserCatalogueView.as_view(),
+        name="fundraiser_catalogue",
+    ),
     path("fundraisers/<slug:slug>/", FundraiserAPI.as_view(), name="fundraiser_detail"),
     path("fundraisers/", FundraiserAPI.as_view(), name="fundraiser_all"),
     path("category/<slug:slug>/", CategoryAPI.as_view(), name="category_detail"),
