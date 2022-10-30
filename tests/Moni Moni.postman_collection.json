@@ -1361,12 +1361,11 @@
 		},
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:8000/api/v1"
+			"value": "https://backend-amal-thundiyil.cloud.okteto.net/api/v1"
 		},
 		{
 			"key": "access",
-			"value": "",
-			"disabled": true
+			"value": ""
 		},
 		{
 			"key": "refresh",
