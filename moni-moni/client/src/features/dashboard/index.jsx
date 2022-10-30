@@ -15,8 +15,8 @@ export default function Dashboard() {
     <Container sx={{ display: "flex" }}>
       <Box component="main">
         <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
-          <Grid container spacing={2} justifyContent="space-around">
-            <Grid container xs={12}>
+          <Grid container spacing={3}>
+            <Grid container spacing={2} justifyContent="space-around">
               <Stats />
             </Grid>
             <Grid item xs={12} md={12} lg={9}>
