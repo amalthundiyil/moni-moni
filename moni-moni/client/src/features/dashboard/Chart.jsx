@@ -1,18 +1,14 @@
-import * as React from "react";
 import { useTheme } from "@mui/material/styles";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Label,
-  ResponsiveContainer,
-} from "recharts";
-import Title from "./Title";
+import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthToken } from "../auth/services";
-import { verifyTokenAsync } from "../auth/asyncActions";
+import {
+  Label, Line, LineChart, ResponsiveContainer, XAxis,
+  YAxis
+} from "recharts";
 import axios from "../../utils/axios";
+import { verifyTokenAsync } from "../auth/asyncActions";
+import { setAuthToken } from "../auth/services";
+import Title from "./Title";
 
 // Generate Sales Data
 function createData(time, amount) {
