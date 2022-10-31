@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean deploy
+.PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean deploy verify-all
 
 install-dev:
 	@echo "Setting environment variables\n"
@@ -14,6 +14,10 @@ install-dev:
 frontend-start:
 	@cp .env moni-moni/client/.env
 	@cd moni-moni/client && npm start
+
+verify-all:
+	@echo "Connecting to database -> $(DATABASE_URL)"
+	@psql $(DATABASE_URL) -c "UPDATE users_customuser SET is_verified=True;"
 
 backend-start:
 	@cp .env moni-moni/server/.env
