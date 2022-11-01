@@ -18,10 +18,10 @@ function MainFeaturedPost({ fundraiser }) {
         color: "#fff",
         mt: 4,
         mb: 4,
-        backgroundSize: "cover",
+        backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundImage: `url(${fundraiser.image})`,
+        backgroundImage: `url(${fundraiser.image}/)`,
       }}
       onClick={() => navigate(`/fundraisers/${fundraiser.slug}`)}
     >

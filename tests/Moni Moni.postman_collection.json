@@ -139,15 +139,6 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"refresh\": \"elit aliquip quis cul\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{baseUrl}}/auth/token/refresh/",
 							"host": [
@@ -475,7 +466,7 @@
 										},
 										{
 											"key": "title",
-											"value": "V First Plug-and-Play Home Energy Storage System",
+											"value": "First Plug-and-Play Home Energy Storage System",
 											"type": "text"
 										},
 										{
@@ -490,7 +481,7 @@
 										},
 										{
 											"key": "total_amount",
-											"value": "10000000.00",
+											"value": "100000",
 											"type": "text"
 										},
 										{
@@ -676,7 +667,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"title\": \"Pledge w/ Rewards\",\n  \"price\": \"1000\",\n  \"fundraiser\": \"{{fundraiserId}}\",\n  \"subheader\": \"Choose me\",\n  \"description\": \"asdf\"\n}",
+									"raw": "{\n  \"title\": \"Pledge w/ Rewards\",\n  \"price\": \"1000\",\n  \"fundraiser\": \"{{fundraiserId}}\",\n  \"subheader\": \"Choose me\",\n  \"description\": \"Pledge because you're a good person\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -723,7 +714,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\": \"{{fundingOptionId}}\",\n  \"title\": \"Pledge w/o Rewards\",\n  \"price\": \"1000\",\n  \"fundraiser\": \"{{fundraiserId}}\",\n  \"subheader\": \"Choose me\",\n  \"description\": \"asdf\"\n}",
+									"raw": "{\n  \"id\": \"{{fundingOptionId}}\",\n  \"title\": \"Pledge w/o Rewards\",\n  \"price\": \"1000\",\n  \"fundraiser\": \"{{fundraiserId}}\",\n  \"subheader\": \"Choose me\",\n  \"description\": \"Pledge because you're a good person\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1411,7 +1402,7 @@
 		},
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:8000/api/v1"
+			"value": "https://backend-amal-thundiyil.cloud.okteto.net/api/v1"
 		},
 		{
 			"key": "access",

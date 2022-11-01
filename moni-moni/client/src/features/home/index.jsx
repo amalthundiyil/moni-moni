@@ -31,39 +31,32 @@ export default function Home({
   mainFundraiser,
   featuredFundraisers,
 }) {
-
   if (!fundraisers || !mainFundraiser || !featuredFundraisers) {
     return <Spinner open={true} />;
   }
 
   return (
-    <>
-      <Container maxWidth="xl">
-        <main>
-          <Fundraiser type="main" fundraiser={mainFundraiser} />
-          <Grid container spacing={4} sx={{ mb: 4 }}>
-            {featuredFundraisers.map((fundraiser) => (
-              <Fundraiser
-                type="featured"
-                key={uuidv4()}
-                fundraiser={fundraiser}
-              />
-            ))}
-          </Grid>
-          <Grid container spacing={4} sx={{ mb: 4 }}>
-            {Object.entries(fundraisers).map(([category, fundraiser]) => {
-              return (
-                <React.Fragment key={uuidv4()}>
-                  <Typography key={uuidv4()} variant="h5" sx={{ m: 4 }}>
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </Typography>
-                  <Fundraisers key={uuidv4()} fundraiser={fundraiser} />
-                </React.Fragment>
-              );
-            })}
-          </Grid>
-        </main>
-      </Container>
-    </>
+    <Grid container>
+      <Grid container spacing={4} sx={{ mb: 4, mt: 4 }}>
+        <Fundraiser type="main" fundraiser={mainFundraiser} />
+      </Grid>
+      <Grid container spacing={4} sx={{ mb: 4 }}>
+        {featuredFundraisers.map((fundraiser) => (
+          <Fundraiser type="featured" key={uuidv4()} fundraiser={fundraiser} />
+        ))}
+      </Grid>
+      <Grid container spacing={4} sx={{ mb: 4 }}>
+        {Object.entries(fundraisers).map(([category, fundraiser]) => {
+          return (
+            <React.Fragment key={uuidv4()}>
+              <Typography key={uuidv4()} variant="h5" sx={{ m: 4 }}>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </Typography>
+              <Fundraisers key={uuidv4()} fundraiser={fundraiser} />
+            </React.Fragment>
+          );
+        })}
+      </Grid>
+    </Grid>
   );
 }
