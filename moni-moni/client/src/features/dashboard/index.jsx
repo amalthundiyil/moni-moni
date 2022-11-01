@@ -16,7 +16,7 @@ export default function Dashboard() {
       <Box component="main">
         <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
           <Grid container spacing={3}>
-            <Grid container spacing={2} justifyContent="space-around">
+            <Grid container spacing={2} justifyContent="space-around" sx={{mt: 4}}>
               <Stats />
             </Grid>
             <Grid item xs={12} md={12} lg={9}>
