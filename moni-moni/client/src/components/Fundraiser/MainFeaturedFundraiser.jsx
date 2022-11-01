@@ -29,7 +29,7 @@ function MainFeaturedPost({ fundraiser }) {
         {/* Increase the priority of the hero background image */}
         {
           <img
-            style={{ display: "none" }}
+            style={{ maxWidth: "100vw", display: "none" }}
             src={fundraiser.image}
             alt={fundraiser.imageText}
           />
