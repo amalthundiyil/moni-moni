@@ -75,7 +75,7 @@ const Router = () => {
         <Grid item md={12}>
           <Header />
         </Grid>
-        <Grid item md={12}>
+        <Grid container md={12} sx={{ mb: 10 }}>
           <Routes>
             <Route
               exact

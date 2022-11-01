@@ -34,7 +34,7 @@ export default function Home({
       <Grid
         container
         spacing={4}
-        sx={{ m: 2 }}
+        sx={{ ml: 2, mr: 2 }}
         justifyContent="center"
         alignItems="center"
       >
@@ -48,15 +48,21 @@ export default function Home({
           );
         })}
       </Grid>
-      <Grid container spacing={4} sx={{ mb: 4 }}>
+      <Grid
+        container
+        spacing={4}
+        sx={{ mb: 4 }}
+        xs={12}
+        justifyContent="center"
+      >
         {Object.entries(fundraisers).map(([category, fundraiser]) => {
           return (
-            <React.Fragment key={uuidv4()}>
+            <Grid item key={uuidv4()}>
               <Typography key={uuidv4()} variant="h5" sx={{ m: 4 }}>
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </Typography>
               <Fundraisers key={uuidv4()} fundraiser={fundraiser} />
-            </React.Fragment>
+            </Grid>
           );
         })}
       </Grid>

@@ -49,11 +49,14 @@ export default function Fundraisers({ fundraiser }) {
         },
       }}
     >
-      {fundraiser.map((fundraiser) => (
-        <SwiperSlide key={uuidv4()}>
-          <Fundraiser type="normal" key={uuidv4()} fundraiser={fundraiser} />
-        </SwiperSlide>
-      ))}
+      {fundraiser.map((fr) => {
+        console.log(fr);
+        return (
+          <SwiperSlide key={uuidv4()} >
+            <Fundraiser type="normal" key={uuidv4()} fundraiser={fr} />
+          </SwiperSlide>
+        );
+      })}
     </Swiper>
   );
 }

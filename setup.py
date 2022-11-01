@@ -15,11 +15,11 @@ with open("LICENSE") as f:
 
 
 setup(
-    name="sauron",
+    name="moni-moni",
     version="0.0.1",
-    description="Open Source Software Security Inspector",
+    description="Crowdfunding platform",
     long_description=readme,
-    url="http://github.com/amal-thundiyil/sauron",
+    url="http://github.com/amal-thundiyil/moni-moni",
     author="Amal Thundiyil",
     author_email="amal.s.thundiyil@gmail.com",
     license=license,
