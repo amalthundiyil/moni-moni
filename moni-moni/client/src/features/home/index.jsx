@@ -1,20 +1,11 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "../../utils/axios";
-import { setAuthToken } from "../auth/services";
-import { verifyTokenAsync } from "../auth/asyncActions";
-import { useSelector, useDispatch } from "react-redux";
-import { useGlobalContext } from "../../context";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Spinner from "../../components/Spinner";
-import Fundraisers from "../../components/Fundraisers";
+import * as React from "react";
 import Fundraiser from "../../components/Fundraiser";
+import Fundraisers from "../../components/Fundraisers";
+import Spinner from "../../components/Spinner";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -37,13 +28,25 @@ export default function Home({
 
   return (
     <Grid container>
-      <Grid container spacing={4} sx={{ mb: 4, mt: 4 }}>
+      <Grid container spacing={4} sx={{ m: 2 }}>
         <Fundraiser type="main" fundraiser={mainFundraiser} />
       </Grid>
-      <Grid container spacing={4} sx={{ mb: 4 }}>
-        {featuredFundraisers.map((fundraiser) => (
-          <Fundraiser type="featured" key={uuidv4()} fundraiser={fundraiser} />
-        ))}
+      <Grid
+        container
+        spacing={4}
+        sx={{ m: 2 }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        {featuredFundraisers.map((fundraiser) => {
+          return (
+            <Fundraiser
+              type="featured"
+              key={uuidv4()}
+              fundraiser={fundraiser}
+            />
+          );
+        })}
       </Grid>
       <Grid container spacing={4} sx={{ mb: 4 }}>
         {Object.entries(fundraisers).map(([category, fundraiser]) => {

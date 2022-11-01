@@ -21,42 +21,39 @@ import Fundraiser from "../Fundraiser";
 
 export default function Fundraisers({ fundraiser }) {
   return (
-    <>
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={0}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Pagination, Navigation]}
-        sx={{ m: 10 }}
-        className="swiper"
-        breakpoints={{
-          "@0.00": {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          "@0.75": {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          "@1.00": {
-            slidesPerView: 2,
-            spaceBetween: 40,
-          },
-          "@1.50": {
-            slidesPerView: 3,
-            spaceBetween: 50,
-          },
-        }}
-      >
-        {fundraiser.map((fundraiser) => (
-          <SwiperSlide key={uuidv4()}>
-            <Fundraiser type="normal" key={uuidv4()} fundraiser={fundraiser} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+    <Swiper
+      slidesPerView={3}
+      spaceBetween={0}
+      pagination={{
+        clickable: true,
+      }}
+      navigation={true}
+      modules={[Pagination, Navigation]}
+      className="swiper"
+      breakpoints={{
+        "@0.00": {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        "@0.75": {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        "@1.00": {
+          slidesPerView: 2,
+          spaceBetween: 40,
+        },
+        "@1.50": {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
+      }}
+    >
+      {fundraiser.map((fundraiser) => (
+        <SwiperSlide key={uuidv4()}>
+          <Fundraiser type="normal" key={uuidv4()} fundraiser={fundraiser} />
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }
