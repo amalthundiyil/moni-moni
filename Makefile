@@ -22,6 +22,11 @@ verify-all:
 	@echo "Connecting to database -> $(DATABASE_URL)"
 	@psql $(DATABASE_URL) -c "UPDATE users_customuser SET is_verified=True;"
 
+reset-images:
+	@echo "Connecting to database -> $(DATABASE_URL)"
+	@psql $(DATABASE_URL) -c "UPDATE catalogue_fundraiser SET image='images/default.png';"
+
+
 backend-start:
 	@cp .env moni-moni/server/.env
 	@python moni-moni/server/manage.py runserver
