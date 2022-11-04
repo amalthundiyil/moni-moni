@@ -1,8 +1,10 @@
-BASE_URL = "https://moni-moni.herokuapp.com/"
+BASE_URL = "https://frontend-amal-thundiyil.cloud.okteto.net/"
 
 
 ADDRESS_DETAILS= {}
 ADDRESS_DETAILS['firstName'] = 'Bhuvanesh'
+ADDRESS_DETAILS['email'] = 'bhuvaneshtrivedi59@gmail.com'
+ADDRESS_DETAILS['userName'] = 'bhuvi'
 ADDRESS_DETAILS['lastName'] = 'Trivedi'
 ADDRESS_DETAILS['address1'] = 'TEST1'
 ADDRESS_DETAILS['address2'] = 'TEST2'
