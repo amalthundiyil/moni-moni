@@ -9,6 +9,8 @@ import logo from "../../assets/svg/logo.png";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
+import axios from "axios";
 
 const quickLink = [
   "Home",
@@ -19,6 +21,20 @@ const quickLink = [
 ];
 
 function Footer() {
+  const [quote, setQuote] = React.useState("");
+  React.useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get(
+        "https://api.quotable.io/random?maxLength=50"
+      );
+      console.log(res);
+      setQuote(res.data.content);
+    }
+    console.log(quote);
+    fetchData();
+  }, []);
+
+  console.log(quote);
   const navigate = useNavigate();
 
   return (
@@ -52,6 +68,11 @@ function Footer() {
               </Button>
             );
           })}
+          <Grid item sx={{ mb: 3 }}>
+            <Typography variant="body2" color="white" align="center">
+              {`"${quote}"`}
+            </Typography>
+          </Grid>
           <Grid item>
             <Typography variant="body2" color="white" align="center">
               {"Copyright © "}
