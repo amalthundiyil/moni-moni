@@ -9,6 +9,37 @@ on:
       - main
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v19
+
+      - name: Setup Python env
+        uses: actions/setup-python@v2
+
+      - name: Install black and reorder-python-imports
+        run: pip install black reorder-python-imports
+
+      - name: Black and Sort changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo $file
+            if [[ $file == *.py ]]; then
+              black $file --check
+              reorder-python-imports $file
+            fi
+          done
+
+      - name: Run black on full codebase
+        uses: psf/black@stable
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -45,18 +76,3 @@ jobs:
           url: https://api-staging-${{ github.event.number }}-amal-thundiyil.cloud.okteto.net
           responseCode: 200
           timeout: 4000
-
-  # release:
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/deploy'
-  #   steps:
-  #     - name: Release to Heroku.
-  #       uses: gonuit/heroku-docker-deploy@v1.3.3
-  #       with:
-  #         email: ${{ secrets.HEROKU_EMAIL }}
-  #         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-  #         heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-  #         dockerfile_directory: ./
-  #         dockerfile_name: Dockerfile.prod
-  #         docker_options: "--no-cache"
-  #         process_type: web
