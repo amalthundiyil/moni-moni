@@ -7,6 +7,7 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import pyperclip as pc
+import subprocess
 
 
 class Booking(webdriver.Chrome):
@@ -64,8 +65,13 @@ class Booking(webdriver.Chrome):
         element = self.find_elements(by=By.CLASS_NAME,value='CommunityFundraiserCard_community-campaign__CZjmd')
         length = len(element)
         print(length)
-        for i in range(1,length):
+        for i in range(1,length+1):
             ans = {}
+            image = self.find_element(by=By.XPATH,value=f'//*[@id="main"]/section[6]/div[1]/ul/li[{i}]/a/div[1]')
+            image = image.get_attribute('style')
+            image = image.split('"')
+            print(image[1]) 
+            subprocess.run(["powershell",f'curl {image[1]} -o {i}.jpeg'],shell=True)           
             title = self.find_element(by=By.XPATH,value=f'//*[@id="main"]/section[6]/div[1]/ul/li[{i}]/a/div[2]/h3')
             desc = self.find_element(by=By.XPATH,value=f'//*[@id="main"]/section[6]/div[1]/ul/li[{i}]/a/div[2]/p')
             fundingRaised = ''.join(filter(lambda i:i.isdigit(), self.find_element(by=By.XPATH,value=f'//*[@id="main"]/section[6]/div[1]/ul/li[{i}]/a/div[2]/div/span[1]').get_attribute('innerHTML')))
@@ -87,7 +93,7 @@ class Booking(webdriver.Chrome):
         element = self.find_element(by=By.CLASS_NAME,value="css-nxzcop")
         element.click()
 
-    def start_fundraiser(self,url,title,funding_req,desc):
+    def start_fundraiser(self,url,title,funding_req,desc,i):
         self.get(url+'start-fundraiser')
         fundraiserOption = self.find_element(by=By.XPATH,value='//*[@id="root"]/div/div[2]/div/div/div/nav/div[4]/div[2]/span')
         fundraiserOption.click()
@@ -100,6 +106,8 @@ class Booking(webdriver.Chrome):
         pc.copy(desc)
         description = self.find_element(by=By.ID,value='description')
         description.send_keys(Keys.CONTROL,'v')
+        image = self.find_element(by=By.XPATH,value='/html/body/div[4]/div[3]/div/div[5]/label')
+        image.send_keys(f'C:\JS prac\moni-moni\moni-moni\web scraping\bot\{i}.jpeg')
         element = self.find_element(by=By.XPATH,value='/html/body/div[4]/div[3]/div/div[6]/div/button')
         element.click()
         time.sleep(15)
