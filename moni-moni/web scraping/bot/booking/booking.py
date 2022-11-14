@@ -93,7 +93,7 @@ class Booking(webdriver.Chrome):
         element = self.find_element(by=By.CLASS_NAME,value="css-nxzcop")
         element.click()
 
-    def start_fundraiser(self,url,title,funding_req,desc,i):
+    def start_fundraiser(self,url,title,funding_req,desc,j):
         self.get(url+'start-fundraiser')
         fundraiserOption = self.find_element(by=By.XPATH,value='//*[@id="root"]/div/div[2]/div/div/div/nav/div[4]/div[2]/span')
         fundraiserOption.click()
@@ -106,8 +106,8 @@ class Booking(webdriver.Chrome):
         pc.copy(desc)
         description = self.find_element(by=By.ID,value='description')
         description.send_keys(Keys.CONTROL,'v')
-        image = self.find_element(by=By.XPATH,value='/html/body/div[4]/div[3]/div/div[5]/label')
-        image.send_keys(f'C:\JS prac\moni-moni\moni-moni\web scraping\bot\{i}.jpeg')
+        image = self.find_element(by=By.CSS_SELECTOR,value='input[type="file"]')
+        image.send_keys(rf'C:\JS prac\moni-moni\moni-moni\web scraping\bot\{j}.jpeg')
         element = self.find_element(by=By.XPATH,value='/html/body/div[4]/div[3]/div/div[6]/div/button')
         element.click()
         time.sleep(15)
