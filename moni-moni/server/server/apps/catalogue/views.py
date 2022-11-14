@@ -1,12 +1,17 @@
 from django.shortcuts import get_object_or_404
-from .models import Category, Fundraiser
-from rest_framework import generics, permissions
-from .serializers import FundraiserSerializer, CategorySerializer
-from rest_framework.response import Response
+from rest_framework import generics
+from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import permission_classes
+from rest_framework.parsers import FormParser
+from rest_framework.parsers import MultiPartParser
+from rest_framework.response import Response
 from server.apps.users.models import CustomUser
-from rest_framework.parsers import MultiPartParser, FormParser
+
+from .models import Category
+from .models import Fundraiser
+from .serializers import CategorySerializer
+from .serializers import FundraiserSerializer
 
 
 class FundraiserCatalogueView(generics.GenericAPIView):

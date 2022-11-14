@@ -1,11 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import (
-    AuthenticationForm,
-    PasswordResetForm,
-    SetPasswordForm,
-)
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import SetPasswordForm
 
-from .models import CustomUser, Address
+from .models import Address
+from .models import CustomUser
 
 
 class UserAddressForm(forms.ModelForm):

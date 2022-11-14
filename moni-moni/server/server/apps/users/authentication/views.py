@@ -1,30 +1,26 @@
-from .serializers import (
-    ResetPasswordEmailRequestSerializer,
-    RegisterSerializer,
-    LoginSerializer,
-    LogoutSerializer,
-    RegisterSerializer,
-    SetNewPasswordSerializer,
-    ResetPasswordEmailRequestSerializer,
-    RefreshTokenSerializer,
-)
-from rest_framework import status
-from rest_framework import generics, permissions
-from rest_framework.response import Response
-from rest_framework import generics, status, permissions
-from rest_framework_simplejwt.views import TokenRefreshView
+import os
+
 from django.conf.global_settings import AUTH_USER_MODEL as User
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.http import HttpResponsePermanentRedirect
-from django.utils.encoding import (
-    force_str,
-    DjangoUnicodeDecodeError,
-)
-from .utils import TokenGenerator, Email
+from django.utils.encoding import DjangoUnicodeDecodeError
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+from rest_framework import generics
+from rest_framework import permissions
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenRefreshView
 from server.apps.users.models import CustomUser as User
-import os
+
+from .serializers import LoginSerializer
+from .serializers import LogoutSerializer
+from .serializers import RefreshTokenSerializer
+from .serializers import RegisterSerializer
+from .serializers import ResetPasswordEmailRequestSerializer
+from .serializers import SetNewPasswordSerializer
+from .utils import Email
+from .utils import TokenGenerator
 
 
 class CustomRedirect(HttpResponsePermanentRedirect):

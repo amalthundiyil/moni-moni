@@ -1,8 +1,9 @@
+import uuid
+
 from django.db import models
-from server.apps.users.models import CustomUser
 from django.utils.translation import gettext_lazy as _
 from server.apps.catalogue.models import Fundraiser
-import uuid
+from server.apps.users.models import CustomUser
 
 
 class FundingOptions(models.Model):

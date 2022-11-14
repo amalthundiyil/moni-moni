@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from server.apps.users.models import CustomUser
-from .models import Fundraiser, Category
 from server.utils import unique_slug_generator
+
+from .models import Category
+from .models import Fundraiser
 
 
 class FundraiserSerializer(serializers.ModelSerializer):

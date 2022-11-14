@@ -1,6 +1,8 @@
-from rest_framework import serializers
-from .models import Address, CustomUser as User
 from django_countries.serializers import CountryFieldMixin
+from rest_framework import serializers
+
+from .models import Address
+from .models import CustomUser as User
 
 
 class UserSerializer(serializers.ModelSerializer):

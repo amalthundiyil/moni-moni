@@ -1,14 +1,13 @@
 from django.urls import path
-from .views import (
-    RegisterAPI,
-    LoginAPI,
-    LogoutAPI,
-    ActivateAccountView,
-    SetNewPasswordAPIView,
-    PasswordTokenCheckAPI,
-    RequestPasswordResetEmail,
-    RefreshTokenView,
-)
+
+from .views import ActivateAccountView
+from .views import LoginAPI
+from .views import LogoutAPI
+from .views import PasswordTokenCheckAPI
+from .views import RefreshTokenView
+from .views import RegisterAPI
+from .views import RequestPasswordResetEmail
+from .views import SetNewPasswordAPIView
 
 urlpatterns = [
     path("register/", RegisterAPI.as_view()),
