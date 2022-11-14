@@ -4,9 +4,10 @@ on:
   pull_request:
     branches:
       - main
+      - staging
   push:
     tags:
-      - main
+      - "*"
 
 jobs:
   build:
