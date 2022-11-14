@@ -57,6 +57,12 @@ jobs:
         with:
           node-version: "16.x"
 
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          fail_on_empty: false
+
       - name: Install dependencies
         run: |
           make install-dev
