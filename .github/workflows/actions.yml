@@ -22,6 +22,14 @@ jobs:
         uses: okteto/deploy-preview@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+          EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          REACT_APP_PAYPAL_CLIENT_ID: ${{ secrets.REACT_APP_PAYPAL_CLIENT_ID }}
+          REACT_APP_PAYPAL_CLIENT_SECRET: ${{ secrets.REACT_APP_PAYPAL_CLIENT_SECRET }}
+
         with:
           name: staging-${{ github.event.number }}-amal-thundiyil
           scope: personal
