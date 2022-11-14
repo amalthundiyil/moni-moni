@@ -11,8 +11,7 @@ install-dev:
 
 env:
 	@echo "Setting environment variables\n"
-	@cp .env moni-moni/server/.env
-	@cp .env moni-moni/client/.env
+	@[ -f ".env" ] && cp .env moni-moni/server/.env && cp .env moni-moni/client/.env
 
 frontend-start:
 	@cp .env moni-moni/client/.env
