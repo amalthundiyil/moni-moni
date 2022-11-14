@@ -9,6 +9,30 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - name: Set context to Okteto Cloud
+        uses: okteto/context@latest
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+
+      - name: Deploy your preview environment
+        uses: okteto/deploy-preview@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: staging-${{ github.event.number }}-amal-thundiyil
+          scope: personal
+          timeout: 15m
+
+      - uses: nev7n/wait_for_response@v1
+        with:
+          url: https://api-staging-${{ github.event.number }}-amal-thundiyil.cloud.okteto.net
+          responseCode: 200
+          timeout: 4000
+
   # release:
   #   runs-on: ubuntu-latest
   #   if: github.ref == 'refs/heads/deploy'
