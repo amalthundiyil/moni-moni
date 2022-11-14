@@ -46,6 +46,27 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Install dependencies
+        run: |
+          make install-dev
+      - name: Start server
+        run: |
+          timeout 10 make backend-start || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
+      - name: Start frontend
+        run: |
+          timeout 10 make frontend-start || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
+
   staging:
     runs-on: ubuntu-latest
     steps:
