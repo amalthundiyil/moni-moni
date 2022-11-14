@@ -12,14 +12,22 @@ backports-zoneinfo==0.2.1
     # via django
 black==22.10.0
     # via -r moni-moni/server/requirements.in
+build==0.9.0
+    # via pip-tools
 certifi==2022.9.24
     # via requests
 cffi==1.15.1
     # via cryptography
+cfgv==3.3.1
+    # via pre-commit
 charset-normalizer==2.1.1
     # via requests
+classify-imports==4.2.0
+    # via reorder-python-imports
 click==8.1.3
-    # via black
+    # via
+    #   black
+    #   pip-tools
 coreapi==2.3.3
     # via drf-yasg
 coreschema==0.0.4
@@ -28,6 +36,8 @@ coreschema==0.0.4
     #   drf-yasg
 cryptography==38.0.1
     # via pyopenssl
+distlib==0.3.6
+    # via virtualenv
 dj-database-url==1.0.0
     # via
     #   -r moni-moni/server/requirements.in
@@ -63,8 +73,12 @@ drf-yasg==1.21.4
     # via -r moni-moni/server/requirements.in
 faker==15.0.0
     # via django-seed
+filelock==3.8.0
+    # via virtualenv
 gunicorn==20.1.0
     # via -r moni-moni/server/requirements.in
+identify==2.5.8
+    # via pre-commit
 idna==3.4
     # via requests
 inflection==0.5.1
@@ -79,8 +93,11 @@ markupsafe==2.1.1
     # via jinja2
 mypy-extensions==0.4.3
     # via black
+nodeenv==1.7.0
+    # via pre-commit
 packaging==21.3
     # via
+    #   build
     #   drf-yasg
     #   pytest
 pathspec==0.10.1
@@ -89,12 +106,20 @@ paypal-checkout-serversdk==1.0.1
     # via -r moni-moni/server/requirements.in
 paypalhttp==1.0.1
     # via paypal-checkout-serversdk
+pep517==0.13.0
+    # via build
 pillow==9.2.0
     # via -r moni-moni/server/requirements.in
+pip-tools==6.10.0
+    # via -r moni-moni/server/requirements.in
 platformdirs==2.5.2
-    # via black
+    # via
+    #   black
+    #   virtualenv
 pluggy==1.0.0
     # via pytest
+pre-commit==2.20.0
+    # via -r moni-moni/server/requirements.in
 psycopg2==2.9.4
     # via -r moni-moni/server/requirements.in
 psycopg2-binary==2.9.4
@@ -123,6 +148,10 @@ pytz==2022.4
     # via
     #   djangorestframework
     #   drf-yasg
+pyyaml==6.0
+    # via pre-commit
+reorder-python-imports==3.9.0
+    # via -r moni-moni/server/requirements.in
 requests==2.28.1
     # via
     #   coreapi
@@ -138,9 +167,12 @@ six==1.16.0
     #   python-dateutil
 sqlparse==0.4.3
     # via django
+toml==0.10.2
+    # via pre-commit
 tomli==2.0.1
     # via
-    #   black
+    #   build
+    #   pep517
     #   pytest
 toposort==1.7
     # via django-seed
@@ -154,10 +186,15 @@ uritemplate==4.1.1
     #   drf-yasg
 urllib3==1.26.12
     # via requests
+virtualenv==20.16.7
+    # via pre-commit
+wheel==0.38.4
+    # via pip-tools
 whitenoise==6.2.0
     # via
     #   -r moni-moni/server/requirements.in
     #   django-on-heroku
 
 # The following packages are considered to be unsafe in a requirements file:
+# pip
 # setuptools

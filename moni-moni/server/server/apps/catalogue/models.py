@@ -1,17 +1,17 @@
-from django.conf import settings
-from server.apps.users.models import CustomUser
-from django.db import models
-from django.urls import reverse
-from django.conf import settings
-from django.db.models.signals import post_save
-from .managers import FundraiserManager
-from django.utils.translation import gettext_lazy as _
-from django.db import models
-from io import BytesIO
-from PIL import Image
-from django.core.files import File
 import random
 import uuid
+from io import BytesIO
+
+from django.conf import settings
+from django.core.files import File
+from django.db import models
+from django.db.models.signals import post_save
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from PIL import Image
+from server.apps.users.models import CustomUser
+
+from .managers import FundraiserManager
 
 CATEGORY_NAMES = (
     ("help", "Help Needed"),
