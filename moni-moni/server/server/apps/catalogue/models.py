@@ -103,10 +103,10 @@ class Fundraiser(models.Model):
     def get_absolute_url(self):
         return reverse("catalogue:fundraiser_detail", args=[self.slug])
     
-    def save(self, *args, **kwargs):
-        new_image = compress(self.image)
-        self.image = new_image
-        return super().save(*args, **kwargs)
+#    def save(self, *args, **kwargs):
+#        new_image = compress(self.image)
+#        self.image = new_image
+#        return super().save(*args, **kwargs)
 
 
     def __str__(self):
