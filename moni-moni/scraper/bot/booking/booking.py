@@ -1,19 +1,20 @@
+import os
+import subprocess
+import time
 import types
 import typing
+
+import pyperclip as pc
 import requests
 from selenium import webdriver
-import os
-import time
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import pyperclip as pc
-import subprocess
+from selenium.webdriver.common.keys import Keys
 
 
 class Booking(webdriver.Chrome):
     def __init__(
         self,
-        driver_path=r";C:\Users\bhuva\Downloads\moni-moni\moni-moni\web scraping",
+        driver_path=r";C:\Users\bhuva\Downloads\moni-moni\moni-moni\scraper",
         teardown=False,
     ):
         self.driver_path = driver_path
@@ -140,7 +141,7 @@ class Booking(webdriver.Chrome):
         description = self.find_element(by=By.ID, value="description")
         description.send_keys(Keys.CONTROL, "v")
         image = self.find_element(by=By.CSS_SELECTOR, value='input[type="file"]')
-        image.send_keys(rf"C:\JS prac\moni-moni\moni-moni\web scraping\bot\{j}.jpeg")
+        image.send_keys(rf"C:\JS prac\moni-moni\moni-moni\scraper\bot\{j}.jpeg")
         element = self.find_element(
             by=By.XPATH, value="/html/body/div[4]/div[3]/div/div[6]/div/button"
         )
