@@ -1,13 +1,13 @@
 import os
+import uuid
 from datetime import datetime
 
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from rest_framework_simplejwt.tokens import RefreshToken
 from django_countries.fields import CountryField
-import uuid
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .managers import CustomUserManager
 

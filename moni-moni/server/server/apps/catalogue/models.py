@@ -1,17 +1,17 @@
-from django.conf import settings
-from server.apps.users.models import CustomUser
-from django.db import models
-from django.urls import reverse
-from django.conf import settings
-from django.db.models.signals import post_save
-from .managers import FundraiserManager
-from django.utils.translation import gettext_lazy as _
-from django.db import models
-from io import BytesIO
-from PIL import Image
-from django.core.files import File
 import random
 import uuid
+from io import BytesIO
+
+from django.conf import settings
+from django.core.files import File
+from django.db import models
+from django.db.models.signals import post_save
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from PIL import Image
+from server.apps.users.models import CustomUser
+
+from .managers import FundraiserManager
 
 CATEGORY_NAMES = (
     ("help", "Help Needed"),
@@ -25,12 +25,14 @@ class CategoryEnum(object):
     TRENDING = "trending"
     URGENT = "urgent"
 
+
 def compress(image):
     im = Image.open(image)
-    im_io = BytesIO() 
-    im.save(im_io, 'JPEG', quality=60) 
+    im_io = BytesIO()
+    im.save(im_io, "JPEG", quality=60)
     new_image = File(im_io, name=image.name)
     return new_image
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -102,12 +104,11 @@ class Fundraiser(models.Model):
 
     def get_absolute_url(self):
         return reverse("catalogue:fundraiser_detail", args=[self.slug])
-    
-#    def save(self, *args, **kwargs):
-#        new_image = compress(self.image)
-#        self.image = new_image
-#        return super().save(*args, **kwargs)
 
+    #    def save(self, *args, **kwargs):
+    #        new_image = compress(self.image)
+    #        self.image = new_image
+    #        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

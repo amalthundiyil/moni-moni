@@ -3,7 +3,7 @@ include .env
 .PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean deploy verify-all
 
 install-dev:
-	${MAKE}  env
+	$(MAKE) env
 	@echo "\nInstalling backend dependencies\n"
 	@pip install -e .'[dev]'
 	@echo "\nInstalling frontend dependencies\n"
@@ -11,8 +11,7 @@ install-dev:
 
 env:
 	@echo "Setting environment variables\n"
-	@cp .env moni-moni/server/.env
-	@cp .env moni-moni/client/.env
+	@cp .env moni-moni/server/.env && cp .env moni-moni/client/.env
 
 frontend-start:
 	@cp .env moni-moni/client/.env

@@ -1,25 +1,105 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - main
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v19
+
+      - name: Setup Python env
+        uses: actions/setup-python@v2
+
+      - name: Install black and reorder-python-imports
+        run: pip install black reorder-python-imports
+
+      - name: Black and Sort changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo $file
+            if [[ $file == *.py ]]; then
+              black $file --check
+              reorder-python-imports $file
+            fi
+          done
+
+      - name: Run black on full codebase
+        uses: psf/black@stable
+
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-  # release:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          fail_on_empty: false
+
+      - name: Install dependencies
+        run: |
+          make install-dev
+      - name: Start server
+        run: |
+          timeout 10 make backend-start || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
+      - name: Start frontend
+        run: |
+          timeout 10 make frontend-start || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
+
+  # staging:
   #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/deploy'
   #   steps:
-  #     - name: Release to Heroku.
-  #       uses: gonuit/heroku-docker-deploy@v1.3.3
+  #     - name: Set context to Okteto Cloud
+  #       uses: okteto/context@latest
   #       with:
-  #         email: ${{ secrets.HEROKU_EMAIL }}
-  #         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-  #         heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-  #         dockerfile_directory: ./
-  #         dockerfile_name: Dockerfile.prod
-  #         docker_options: "--no-cache"
-  #         process_type: web
+  #         token: ${{ secrets.OKTETO_TOKEN }}
+  #
+  #     - name: Deploy your preview environment
+  #       uses: okteto/deploy-preview@latest
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  #         EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+  #         EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+  #         FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+  #         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  #         REACT_APP_PAYPAL_CLIENT_ID: ${{ secrets.REACT_APP_PAYPAL_CLIENT_ID }}
+  #         REACT_APP_PAYPAL_CLIENT_SECRET: ${{ secrets.REACT_APP_PAYPAL_CLIENT_SECRET }}
+  #
+  #       with:
+  #         name: staging-${{ github.event.number }}-amal-thundiyil
+  #         scope: personal
+  #         timeout: 15m
+  #
+  #     - uses: nev7n/wait_for_response@v1
+  #       with:
+  #         url: https://api-staging-${{ github.event.number }}-amal-thundiyil.cloud.okteto.net
+  #         responseCode: 200
+  #         timeout: 4000

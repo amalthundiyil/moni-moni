@@ -1,11 +1,16 @@
-from rest_framework import permissions, generics
-from .serializers import AddressSerializer, UserSerializer, UpdateUserSerializer
-from .models import Address, CustomUser
-from rest_framework.views import Response
-from rest_framework import status
-from .forms import UserAddressForm, UserEditForm
-from .models import Address, CustomUser
 from django.shortcuts import get_object_or_404
+from rest_framework import generics
+from rest_framework import permissions
+from rest_framework import status
+from rest_framework.views import Response
+
+from .forms import UserAddressForm
+from .forms import UserEditForm
+from .models import Address
+from .models import CustomUser
+from .serializers import AddressSerializer
+from .serializers import UpdateUserSerializer
+from .serializers import UserSerializer
 
 
 class UserAPI(generics.GenericAPIView):

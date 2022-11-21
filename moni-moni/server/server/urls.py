@@ -1,8 +1,10 @@
-from django.contrib import admin
 from django.conf import settings
-from django.urls import path, include, re_path
 from django.conf.urls.static import static
+from django.contrib import admin
 from django.shortcuts import render
+from django.urls import include
+from django.urls import path
+from django.urls import re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view as swagger_get_schema_view
 

@@ -1,6 +1,8 @@
 from django.urls import path
 
-from .views import CategoryAPI, FundraiserAPI, FundraiserCatalogueView
+from .views import CategoryAPI
+from .views import FundraiserAPI
+from .views import FundraiserCatalogueView
 
 app_name = "catalogue"
 

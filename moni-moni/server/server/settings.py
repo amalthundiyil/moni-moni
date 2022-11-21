@@ -1,8 +1,9 @@
-import os
 import json
-from datetime import timedelta
+import os
 import sys
+from datetime import timedelta
 from pathlib import Path
+
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -157,8 +158,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = str(os.getenv("CORS_ALLOW_CREDENTIALS", 1)) == "1"  # 1 is True
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
-CSRF_TRUSTED_ORIGINS = ['http://*', "https://*"]
-
+CSRF_TRUSTED_ORIGINS = ["http://*", "https://*"]
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")

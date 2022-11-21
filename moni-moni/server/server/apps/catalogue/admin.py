@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Category, Fundraiser
+from .models import Category
+from .models import Fundraiser
 
 
 @admin.register(Category)

@@ -1,20 +1,18 @@
-from server.apps.users.models import CustomUser as User
-from rest_framework import serializers
 import jwt
-from django.contrib.auth import authenticate
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from rest_framework.exceptions import AuthenticationFailed, ValidationError
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.conf import settings
+from django.contrib.auth import authenticate
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
+from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.backends import TokenBackend
-from rest_framework_simplejwt.serializers import (
-    TokenRefreshSerializer,
-    TokenVerifySerializer,
-)
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
+from rest_framework_simplejwt.serializers import TokenVerifySerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import TokenError
+from server.apps.users.models import CustomUser as User
 
 
 class RegisterSerializer(serializers.ModelSerializer):

@@ -1,9 +1,11 @@
-from server.apps.catalogue.models import Fundraiser
 from rest_framework import serializers
-from server.apps.users.models import CustomUser
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from .models import FundingOptions, Payment
+from server.apps.catalogue.models import Fundraiser
+from server.apps.users.models import CustomUser
+
+from .models import FundingOptions
+from .models import Payment
 
 
 class FundingOptionSerializer(serializers.ModelSerializer):

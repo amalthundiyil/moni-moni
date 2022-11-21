@@ -1,12 +1,13 @@
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.core.mail import EmailMessage
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-from django.urls import reverse
-import six
 import os
 import threading
+
+import six
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.urls import reverse
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 
 class TokenGenerator(PasswordResetTokenGenerator):

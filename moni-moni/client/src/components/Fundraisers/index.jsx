@@ -50,9 +50,8 @@ export default function Fundraisers({ fundraiser }) {
       }}
     >
       {fundraiser.map((fr) => {
-        console.log(fr);
         return (
-          <SwiperSlide key={uuidv4()} >
+          <SwiperSlide key={uuidv4()}>
             <Fundraiser type="normal" key={uuidv4()} fundraiser={fr} />
           </SwiperSlide>
         );

@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import (
-    FundingOptionsView,
-    PaymentView,
-)
+
+from .views import FundingOptionsView
+from .views import PaymentView
 
 app_name = "checkout"
 
