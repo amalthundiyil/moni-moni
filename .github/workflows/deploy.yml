@@ -30,13 +30,12 @@ jobs:
           REACT_APP_PAYPAL_CLIENT_SECRET: ${{ secrets.REACT_APP_PAYPAL_CLIENT_SECRET }}
 
         with:
-          name: staging-${{ github.event.number }}-amal-thundiyil
+          name: staging-amal-thundiyil
           scope: personal
           timeout: 15m
-          variables: "SECRET_KEY=${{ secrets.SECRET_KEY }}"
 
       - uses: nev7n/wait_for_response@v1
         with:
-          url: https://api-staging-${{ github.event.number }}-amal-thundiyil.cloud.okteto.net
+          url: https://api-staging-amal-thundiyil.cloud.okteto.net
           responseCode: 200
           timeout: 4000
