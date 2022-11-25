@@ -27,14 +27,11 @@ function Footer() {
       const res = await axios.get(
         "https://api.quotable.io/random?maxLength=50"
       );
-      console.log(res);
       setQuote(res.data.content);
     }
-    console.log(quote);
     fetchData();
   }, []);
 
-  console.log(quote);
   const navigate = useNavigate();
 
   return (
@@ -68,11 +65,11 @@ function Footer() {
               </Button>
             );
           })}
-          <Grid item sx={{ mb: 3 }}>
+          {/* <Grid item sx={{ mb: 3 }}>
             <Typography variant="body2" color="white" align="center">
               {`"${quote}"`}
             </Typography>
-          </Grid>
+          </Grid> */}
           <Grid item>
             <Typography variant="body2" color="white" align="center">
               {"Copyright © "}
