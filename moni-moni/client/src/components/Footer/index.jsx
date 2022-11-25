@@ -65,11 +65,11 @@ function Footer() {
               </Button>
             );
           })}
-          {/* <Grid item sx={{ mb: 3 }}>
+          <Grid item sx={{ mb: 3 }}>
             <Typography variant="body2" color="white" align="center">
               {`"${quote}"`}
             </Typography>
-          </Grid> */}
+          </Grid>
           <Grid item>
             <Typography variant="body2" color="white" align="center">
               {"Copyright © "}
