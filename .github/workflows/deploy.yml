@@ -24,9 +24,3 @@ jobs:
           name: staging-amal-thundiyil
           scope: personal
           timeout: 15m
-
-      - uses: nev7n/wait_for_response@v1
-        with:
-          url: https://frontend-staging-amal-thundiyil.cloud.okteto.net
-          responseCode: 200
-          timeout: 4000

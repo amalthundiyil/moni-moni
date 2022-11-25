@@ -27,14 +27,11 @@ function Footer() {
       const res = await axios.get(
         "https://api.quotable.io/random?maxLength=50"
       );
-      console.log(res);
       setQuote(res.data.content);
     }
-    console.log(quote);
     fetchData();
   }, []);
 
-  console.log(quote);
   const navigate = useNavigate();
 
   return (
