@@ -23,16 +23,15 @@ def test_login(base_url, base_headers):
     assert response.ok
 
 
-def test_token(base_url, base_headers):
-    r = requests.Session()
-    url = base_url + "api/v1/auth/login/"
-    payload = json.dumps({"email": "test@test.com", "password": "test"})
-    response = r.post(url, headers=base_headers, data=payload)
-    assert response.ok
-
+def test_token(base_url, auth_headers, auth_request):
     url = base_url + "api/v1/auth/token/refresh/"
     payload = {}
-    headers = base_headers
-    headers["Authorization"] = f'Basic {response.json()["token"]}'
-    response = r.post(url, headers=headers, data=payload)
+    response = auth_request.post(url, headers=auth_headers, data=payload)
+    assert response.ok
+
+
+def test_logout(base_url, auth_headers, auth_request):
+    url = base_url + "api/v1/auth/logout/"
+    payload = {}
+    response = auth_request.post(url, headers=auth_headers, data=payload)
     assert response.ok
