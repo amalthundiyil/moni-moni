@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean deploy verify-all
+.PHONY: install-dev backend-start frontend-start pip-compile reset-db seed-db delete-db clean deploy verify-all test
 
 install-dev:
 	$(MAKE) env
@@ -53,6 +53,9 @@ delete-db:
 
 seed-db:
 	@bash scripts/seed.sh
+
+test:
+	@pytest
 
 clean:
 	@rm -rf ./venv
