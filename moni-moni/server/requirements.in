@@ -20,5 +20,4 @@ black
 drf_yasg
 pre-commit
 pip-tools
-pytest-dotenv
 reorder-python-imports
