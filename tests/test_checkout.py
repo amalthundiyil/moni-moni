@@ -3,7 +3,6 @@ import json
 
 def test_checkout(base_url, auth_headers, auth_request):
     url = base_url + "api/v1/checkout/payments/"
-
     payload = json.dumps(
         {
             "id": "0000000000000",
@@ -19,4 +18,8 @@ def test_checkout(base_url, auth_headers, auth_request):
         }
     )
     response = auth_request.post(url, headers=auth_headers, data=payload)
+    assert response.ok
+
+    url = base_url + "api/v1/checkout/payments/0000000000000/"
+    response = auth_request.delete(url, headers=auth_headers, data=payload)
     assert response.ok
