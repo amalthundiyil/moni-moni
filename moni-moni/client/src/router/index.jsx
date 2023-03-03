@@ -77,8 +77,28 @@ const Router = () => {
         </Grid>
         <Grid container md={12} sx={{ mb: 10 }}>
           <Routes>
-            <Route exact path="/" element={<Account />} />
-            <Route exact path="/home" element={<Account />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <Home
+                  fundraisers={fundraisers}
+                  mainFundraiser={mainFundraiser}
+                  featuredFundraisers={featuredFundraisers}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/home"
+              element={
+                <Home
+                  fundraisers={fundraisers}
+                  mainFundraiser={mainFundraiser}
+                  featuredFundraisers={featuredFundraisers}
+                />
+              }
+            />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Register />} />
             <Route exact path="/about-us" element={<Account />} />
