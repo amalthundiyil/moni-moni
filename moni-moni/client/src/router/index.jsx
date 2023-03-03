@@ -77,32 +77,12 @@ const Router = () => {
         </Grid>
         <Grid container md={12} sx={{ mb: 10 }}>
           <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                <Home
-                  fundraisers={fundraisers}
-                  mainFundraiser={mainFundraiser}
-                  featuredFundraisers={featuredFundraisers}
-                />
-              }
-            />
-            <Route
-              exact
-              path="/home"
-              element={
-                <Home
-                  fundraisers={fundraisers}
-                  mainFundraiser={mainFundraiser}
-                  featuredFundraisers={featuredFundraisers}
-                />
-              }
-            />
+            <Route exact path="/" element={<Account />} />
+            <Route exact path="/home" element={<Account />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Register />} />
-            {/* <Route exact path="/about-us" element={<AboutUs />} /> */}
-            {/* <Route exact path="/contact-us" element={<ContactUs />} /> */}
+            <Route exact path="/about-us" element={<Account />} />
+            <Route exact path="/contact-us" element={<Account />} />
             {allFundraisers.map((fundraiser) => {
               return (
                 <React.Fragment key={uuidv4()}>
@@ -123,13 +103,9 @@ const Router = () => {
                 </React.Fragment>
               );
             })}
-            {/* <Route
-              exact
-              path="/discover"
-              element={<Discover data={allFundraisers} />}
-            /> */}
+            <Route exact path="/discover" element={<Account />} />
             <Route element={<PrivateRoute auth={isAuthenticated} />}>
-              <Route exact path="/dashboard" element={<Dashboard />} />
+              <Route exact path="/dashboard" element={<Account />} />
             </Route>
             <Route element={<PrivateRoute auth={isAuthenticated} />}>
               <Route exact path="/account" element={<Account />} />
