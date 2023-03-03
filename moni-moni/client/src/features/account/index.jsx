@@ -56,7 +56,7 @@ function getElementContent(props) {
 }
 
 export default function Account() {
-  const [element, setElement] = React.useState("Account");
+  const [element, setElement] = React.useState("Fundraisers");
   const [open, setOpen] = React.useState(true);
 
   const toggleDrawer = () => {
