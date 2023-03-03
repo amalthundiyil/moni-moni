@@ -101,8 +101,8 @@ const Router = () => {
             />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Register />} />
-            <Route exact path="/about-us" element={<AboutUs />} />
-            <Route exact path="/contact-us" element={<ContactUs />} />
+            {/* <Route exact path="/about-us" element={<AboutUs />} /> */}
+            {/* <Route exact path="/contact-us" element={<ContactUs />} /> */}
             {allFundraisers.map((fundraiser) => {
               return (
                 <React.Fragment key={uuidv4()}>
@@ -123,11 +123,11 @@ const Router = () => {
                 </React.Fragment>
               );
             })}
-            <Route
+            {/* <Route
               exact
               path="/discover"
               element={<Discover data={allFundraisers} />}
-            />
+            /> */}
             <Route element={<PrivateRoute auth={isAuthenticated} />}>
               <Route exact path="/dashboard" element={<Dashboard />} />
             </Route>
