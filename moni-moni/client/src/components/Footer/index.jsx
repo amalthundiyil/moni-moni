@@ -16,8 +16,8 @@ const quickLink = [
   "Home",
   // "About Us",
   // "Contact Us",
-  "Discover",
-  "Start Fundraiser",
+  // "Discover",
+  // "Start Fundraiser",
 ];
 
 function Footer() {

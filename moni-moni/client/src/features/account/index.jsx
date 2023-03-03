@@ -48,12 +48,6 @@ const Drawer = styled(MuiDrawer, {
 
 function getElementContent(props) {
   switch (props.element) {
-    case "User":
-      return <User {...props} />;
-    case "Address":
-      return <Address {...props} />;
-    case "Orders":
-      return <Orders {...props} />;
     case "Fundraisers":
       return <Fundraiser {...props} />;
     default:
@@ -62,7 +56,7 @@ function getElementContent(props) {
 }
 
 export default function Account() {
-  const [element, setElement] = React.useState("User");
+  const [element, setElement] = React.useState("Account");
   const [open, setOpen] = React.useState(true);
 
   const toggleDrawer = () => {
@@ -86,12 +80,6 @@ export default function Account() {
         </Toolbar>
         <Divider />
         <List component="nav">
-          <ListItemButton onClick={() => setElement("Orders")}>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Orders" />
-          </ListItemButton>
           <ListItemButton onClick={() => setElement("Fundraisers")}>
             <ListItemIcon>
               <BarChartIcon />
