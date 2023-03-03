@@ -86,18 +86,6 @@ export default function Account() {
         </Toolbar>
         <Divider />
         <List component="nav">
-          <ListItemButton onClick={() => setElement("User")}>
-            <ListItemIcon>
-              <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="User" />
-          </ListItemButton>
-          <ListItemButton onClick={() => setElement("Address")}>
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Addresses" />
-          </ListItemButton>
           <ListItemButton onClick={() => setElement("Orders")}>
             <ListItemIcon>
               <ShoppingCartIcon />
