@@ -140,9 +140,6 @@ const Router = () => {
             <Route path="*" element={<Error />} />
           </Routes>
         </Grid>
-        <Grid item md={12}>
-          <Footer />
-        </Grid>
       </Grid>
     </Suspense>
   );
