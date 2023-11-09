@@ -16,8 +16,8 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "moni-moni.herokuapp.com",
-    "frontend-amal-thundiyil.cloud.okteto.net",
-    "backend-amal-thundiyil.cloud.okteto.net",
+    "frontend-amalthundiyil.cloud.okteto.net",
+    "backend-amalthundiyil.cloud.okteto.net",
 ]
 
 if DEBUG:

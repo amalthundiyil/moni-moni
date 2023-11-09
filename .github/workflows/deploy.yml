@@ -21,6 +21,6 @@ jobs:
         uses: okteto/deploy-preview@latest
 
         with:
-          name: staging-amal-thundiyil
+          name: staging-amalthundiyil
           scope: personal
           timeout: 15m

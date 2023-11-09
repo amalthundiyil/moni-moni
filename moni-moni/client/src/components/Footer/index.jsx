@@ -75,7 +75,7 @@ function Footer() {
               {"Copyright © "}
               <Link
                 color="inherit"
-                href="https://github.com/amal-thundiyil/moni-moni/blob/main/LICENSE"
+                href="https://github.com/amalthundiyil/moni-moni/blob/main/LICENSE"
               >
                 Moni Moni
               </Link>{" "}

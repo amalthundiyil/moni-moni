@@ -19,7 +19,7 @@ setup(
     version="0.0.1",
     description="Crowdfunding platform",
     long_description=readme,
-    url="http://github.com/amal-thundiyil/moni-moni",
+    url="http://github.com/amalthundiyil/moni-moni",
     author="Amal Thundiyil",
     author_email="amal.s.thundiyil@gmail.com",
     license=license,
